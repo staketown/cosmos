@@ -12,7 +12,7 @@ BINARY_NAME="nibid"
 BINARY_VERSION_TAG="v0.19.2"
 CHEAT_SHEET=""
 
-printDelimeter
+printDelimiter
 echo -e "Node moniker:       ${CYAN}$NODE_MONIKER${NC}"
 echo -e "Chain id:           ${CYAN}$CHAIN_ID${NC}"
 echo -e "Chain demon:        ${CYAN}$CHAIN_DENOM${NC}"
