@@ -7,6 +7,8 @@ while getopts v: flag; do
   esac
 done
 
+sudo apt install -y make gcc jq curl git lz4 build-essential chrony unzip
+
 version=${VER:-"1.20"}
 
 curl -L -O "https://golang.org/dl/go$version.linux-amd64.tar.gz"

@@ -26,7 +26,7 @@ echo "Building binaries..." && sleep 1
 cd $HOME || return
 rm -rf nibiru
 git clone https://github.com/NibiruChain/nibiru
-cd nibiru || return
+cd $HOME/nibiru || return
 git checkout v0.19.2
 make install
 nibid version # v0.19.2
