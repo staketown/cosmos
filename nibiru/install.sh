@@ -83,5 +83,5 @@ sudo systemctl start nibid
 
 printDelimiter
 echo -e "Check logs:            sudo journalctl -u $BINARY_NAME -f -o cat"
-echo -e "Check synchronization: status 2>&1 | jq .SyncInfo.catching_up"
+echo -e "Check synchronization: $BINARY_NAME status 2>&1 | jq .SyncInfo.catching_up"
 printDelimiter
