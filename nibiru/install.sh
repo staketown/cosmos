@@ -31,16 +31,17 @@ git checkout v0.19.2
 make install
 nibid version # v0.19.2
 
+nibid init "$NODE_MONIKER" --chain-id $CHAIN_ID
 nibid config keyring-backend os
 nibid config chain-id $CHAIN_ID
-nibid init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -L https://raw.githubusercontent.com/obajay/nodes-Guides/main/Nibiru/genesis.json > genesis.tar.bz2
 tar -xjf genesis.tar.bz2
 rm -rf genesis.tar.bz2
 mv genesis.json ~/.nibid/config/genesis.json
+nibid tendermint unsafe-reset-all --home $HOME/.nibid
 
-curl -s https://share.utsa.tech/nibiru/addrbook.json > $HOME/.nibid/config/addrbook.json
+curl -s https://snapshots2-testnet.nodejumper.io/nibiru-testnet/addrbook.json > $HOME/.nibid/config/addrbook.json
 
 CONFIG_TOML=$HOME/.nibid/config/config.toml
 PEERS=""
