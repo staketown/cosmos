@@ -35,20 +35,20 @@ nibid config keyring-backend os
 nibid config chain-id $CHAIN_ID
 nibid init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -L https://github.com/babylonchain/networks/blob/main/bbn-test1/genesis.tar.bz2?raw=true > genesis.tar.bz2
+curl -L https://raw.githubusercontent.com/obajay/nodes-Guides/main/Nibiru/genesis.json > genesis.tar.bz2
 tar -xjf genesis.tar.bz2
 rm -rf genesis.tar.bz2
-mv genesis.json ~/.babylond/config/genesis.json
+mv genesis.json ~/.nibid/config/genesis.json
 
 curl -s https://share.utsa.tech/nibiru/addrbook.json > $HOME/.nibid/config/addrbook.json
 
-CONFIG_TOML=$HOME/.babylond/config/config.toml
+CONFIG_TOML=$HOME/.nibid/config/config.toml
 PEERS=""
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
 SEEDS=""
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
 
-APP_TOML=$HOME/.babylond/config/app.toml
+APP_TOML=$HOME/.nibid/config/app.toml
 sed -i 's|^pruning *=.*|pruning = "custom"|g' $APP_TOML
 sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "1000"|g' $APP_TOML
 sed -i 's|^pruning-interval *=.*|pruning-interval = "10"|g' $APP_TOML
