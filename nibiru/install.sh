@@ -31,22 +31,17 @@ git checkout v0.19.2
 make install
 nibid version # v0.19.2
 
-nibid init "$NODE_MONIKER" --chain-id $CHAIN_ID
 nibid config keyring-backend os
 nibid config chain-id $CHAIN_ID
+nibid init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -L https://raw.githubusercontent.com/obajay/nodes-Guides/main/Nibiru/genesis.json > genesis.tar.bz2
-tar -xjf genesis.tar.bz2
-rm -rf genesis.tar.bz2
-mv genesis.json ~/.nibid/config/genesis.json
-nibid tendermint unsafe-reset-all --home $HOME/.nibid
-
+curl -s https://rpc.itn-1.nibiru.fi/genesis | jq -r .result.genesis > $HOME/.nibid/config/genesis.json
 curl -s https://snapshots2-testnet.nodejumper.io/nibiru-testnet/addrbook.json > $HOME/.nibid/config/addrbook.json
 
 CONFIG_TOML=$HOME/.nibid/config/config.toml
 PEERS=""
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
-SEEDS=""
+SEEDS="3f472746f46493309650e5a033076689996c8881@nibiru-testnet.rpc.kjnodes.com:39659,a431d3d1b451629a21799963d9eb10d83e261d2c@seed-1.itn-1.nibiru.fi:26656,6a78a2a5f19c93661a493ecbe69afc72b5c54117@seed-2.itn-1.nibiru.fi:26656"
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
 
 APP_TOML=$HOME/.nibid/config/app.toml
@@ -57,6 +52,7 @@ sed -i.bak -e "s/^external_address *=.*/external_address = \"$(wget -qO- eth0.me
 sed -i -e "s/^filter_peers *=.*/filter_peers = \"true\"/" $CONFIG_TOML
 indexer="null"
 sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $CONFIG_TOML
+sed -i 's|^snapshot-interval *=.*|snapshot-interval = 1000|g' $APP_TOML
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.025unibi"|g' $APP_TOML
 
 echo "Starting service and synchronization..." && sleep 1
@@ -75,9 +71,11 @@ LimitNOFILE=10000
 WantedBy=multi-user.target
 EOF
 
-# nibid tendermint unsafe-reset-all --home $HOME/.nibid --keep-addr-book
+nibid tendermint unsafe-reset-all --home $HOME/.nibid --keep-addr-book
 
 # Add snapshot here
+SNAP_NAME=$(curl -s https://snapshots2-testnet.nodejumper.io/nibiru-testnet/info.json | jq -r .fileName)
+curl "https://snapshots2-testnet.nodejumper.io/nibiru-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C $HOME/.nibid
 
 sudo systemctl daemon-reload
 sudo systemctl enable nibid
