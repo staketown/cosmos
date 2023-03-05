@@ -29,7 +29,7 @@ git clone https://github.com/NibiruChain/nibiru
 cd nibiru || return
 git checkout v0.19.2
 make install
-babylond version # v0.19.2
+nibid version # v0.19.2
 
 nibid config keyring-backend os
 nibid config chain-id $CHAIN_ID
@@ -58,7 +58,7 @@ indexer="null"
 sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $CONFIG_TOML
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.025unibi"|g' $APP_TOML
 
-printCyan "Starting service and synchronization..." && sleep 1
+echo "Starting service and synchronization..." && sleep 1
 
 sudo tee /etc/systemd/system/nibid.service > /dev/null << EOF
 [Unit]
