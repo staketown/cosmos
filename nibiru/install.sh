@@ -17,7 +17,7 @@ echo -e "Node moniker:       ${CYAN}$NODE_MONIKER${NC}"
 echo -e "Chain id:           ${CYAN}$CHAIN_ID${NC}"
 echo -e "Chain demon:        ${CYAN}$CHAIN_DENOM${NC}"
 echo -e "Binary version tag: ${CYAN}$BINARY_VERSION_TAG${NC}"
-printDelimeter && sleep 1
+printDelimiter && sleep 1
 
 source <(curl -s https://raw.githubusercontent.com/R1M-NODES/cosmos/master/utils/dependencies.sh)
 
@@ -82,7 +82,7 @@ sudo systemctl daemon-reload
 sudo systemctl enable nibid
 sudo systemctl start nibid
 
-printDelimeter
+printDelimiter
 echo -e "Check logs:            sudo journalctl -u $BINARY_NAME -f -o cat"
 echo -e "Check synchronization: status 2>&1 | jq .SyncInfo.catching_up"
-printDelimeter
+printDelimiter
