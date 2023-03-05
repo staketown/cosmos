@@ -13,10 +13,10 @@ BINARY_VERSION_TAG="v0.19.2"
 CHEAT_SHEET=""
 
 printDelimiter
-echo -e "Node moniker:       ${CYAN}$NODE_MONIKER${NC}"
-echo -e "Chain id:           ${CYAN}$CHAIN_ID${NC}"
-echo -e "Chain demon:        ${CYAN}$CHAIN_DENOM${NC}"
-echo -e "Binary version tag: ${CYAN}$BINARY_VERSION_TAG${NC}"
+echo -e "Node moniker:       $NODE_MONIKER"
+echo -e "Chain id:           $CHAIN_ID"
+echo -e "Chain demon:        $CHAIN_DENOM"
+echo -e "Binary version tag: $BINARY_VERSION_TAG"
 printDelimiter && sleep 1
 
 source <(curl -s https://raw.githubusercontent.com/R1M-NODES/cosmos/master/utils/dependencies.sh)
@@ -74,7 +74,7 @@ LimitNOFILE=10000
 WantedBy=multi-user.target
 EOF
 
-nibid tendermint unsafe-reset-all --home $HOME/.nibid --keep-addr-book
+# nibid tendermint unsafe-reset-all --home $HOME/.nibid --keep-addr-book
 
 # Add snapshot here
 
