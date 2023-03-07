@@ -36,16 +36,16 @@ ojod config chain-id $CHAIN_ID
 ojod init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 # Download genesis and addrbook
-curl -Ls https://snapshots.kjnodes.com/ojo-testnet/genesis.json > $HOME/.ojod/config/genesis.json
-curl -Ls https://snapshots.kjnodes.com/ojo-testnet/addrbook.json > $HOME/.ojod/config/addrbook.json
+curl -Ls https://snapshots.kjnodes.com/ojo-testnet/genesis.json > $HOME/.ojo/config/genesis.json
+curl -Ls https://snapshots.kjnodes.com/ojo-testnet/addrbook.json > $HOME/.ojo/config/addrbook.json
 
-CONFIG_TOML=$HOME/.ojod/config/config.toml
+CONFIG_TOML=$HOME/.ojo/config/config.toml
 PEERS=""
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
 SEEDS="3f472746f46493309650e5a033076689996c8881@ojo-testnet.rpc.kjnodes.com:50659"
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
 
-APP_TOML=$HOME/.ojod/config/app.toml
+APP_TOML=$HOME/.ojo/config/app.toml
 sed -i 's|^pruning *=.*|pruning = "custom"|g' $APP_TOML
 sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "1000"|g' $APP_TOML
 sed -i 's|^pruning-interval *=.*|pruning-interval = "10"|g' $APP_TOML
@@ -59,7 +59,7 @@ sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.000025uojo"|g' $APP_T
 # Custom ports
 sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:36658\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:36657\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:7060\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:36656\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":36660\"%" $CONFIG_TOML && \
 sed -i.bak -e "s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:10090\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:10091\"%; s%^address = \"tcp://0.0.0.0:1317\"%address = \"tcp://0.0.0.0:2317\"%" $APP_TOML && \
-sed -i.bak -e "s%^node = \"tcp://localhost:26657\"%node = \"tcp://localhost:36657\"%" $HOME/.ojod/config/client.toml
+sed -i.bak -e "s%^node = \"tcp://localhost:26657\"%node = \"tcp://localhost:36657\"%" $HOME/.ojo/config/client.toml
 
 echo "Starting service and synchronization..." && sleep 1
 
@@ -77,10 +77,10 @@ LimitNOFILE=10000
 WantedBy=multi-user.target
 EOF
 
-ojod tendermint unsafe-reset-all --home $HOME/.ojod --keep-addr-book
+ojod tendermint unsafe-reset-all --home $HOME/.ojo --keep-addr-book
 
 # Add snapshot here
-curl -L https://snapshots.kjnodes.com/ojo-testnet/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.ojod
+curl -L https://snapshots.kjnodes.com/ojo-testnet/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.ojo
 
 sudo systemctl daemon-reload
 sudo systemctl enable ojod
