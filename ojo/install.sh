@@ -31,7 +31,7 @@ git checkout ${BINARY_VERSION_TAG}
 make install
 ojod version # v0.1.2
 
-ojod config keyring-backend test
+ojod config keyring-backend os
 ojod config chain-id $CHAIN_ID
 ojod init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
