@@ -23,6 +23,8 @@ function persistPorts {
     echo "export PORT_P2P=`expr $PORT_P2P \+ 100 \* $ARG`"  >> $HOME/.bash_profile
     echo "export PORT_PROMETHEUS=`expr $PORT_PROMETHEUS \+ 1000 \* $ARG`"  >> $HOME/.bash_profile
     echo "export PORT_API=`expr $PORT_API \+ 100 \* $ARG`"  >> $HOME/.bash_profile
+
+    echo "The following ports will be used: $PORT_GRPC $PORT_GRPC_WEB $PORT_PROXY_APP $PORT_RPC $PORT_PPROF_LADDR $PORT_P2P $PORT_PROMETHEUS $PORT_API"
 }
 
 function exportPorts {
@@ -68,5 +70,3 @@ case "${flag}" in
   9) persistPorts 9 ;;
   *) echo "WARN: unknown parameter: ${flag}" && exit 1
 esac
-
-source $HOME/.bash_profile
