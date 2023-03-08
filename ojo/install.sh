@@ -5,7 +5,7 @@ source <(curl -s https://raw.githubusercontent.com/R1M-NODES/cosmos/master/utils
 printLogo
 
 bash <(curl -s https://raw.githubusercontent.com/R1M-NODES/cosmos/master/utils/ports.sh) && sleep 1
-source $HOME/.bash_profile
+selectPortSet
 
 read -r -p "Enter node moniker: " NODE_MONIKER
 
@@ -57,7 +57,6 @@ indexer="null"
 sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $CONFIG_TOML
 sed -i 's|^snapshot-interval *=.*|snapshot-interval = 1000|g' $APP_TOML
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.000025uojo"|g' $APP_TOML
-
 
 # Customize ports
 sed -i.bak -e "s/^external_address *=.*/external_address = \"$(wget -qO- eth0.me):$PORT_PPROF_LADDR\"/" $CONFIG_TOML
