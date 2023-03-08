@@ -43,7 +43,7 @@ function exportPorts {
     echo "The following ports will be used: $PORT_GRPC $PORT_GRPC_WEB $PORT_PROXY_APP $PORT_RPC $PORT_PPROF_LADDR $PORT_P2P $PORT_PROMETHEUS $PORT_API"
 }
 
-function selectPortSet {
+function selectPortSet() {
   read -r -p "${1:-Choose ports you would like to use: } " flag
   case "${flag}" in
     1) exportPorts 1 ;;
