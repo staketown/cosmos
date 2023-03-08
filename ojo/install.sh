@@ -4,7 +4,7 @@ source <(curl -s https://raw.githubusercontent.com/R1M-NODES/cosmos/master/utils
 
 printLogo
 
-bash <(curl -s https://raw.githubusercontent.com/R1M-NODES/cosmos/master/utils/ports.sh) && sleep 1
+source <(curl -s https://raw.githubusercontent.com/R1M-NODES/cosmos/master/utils/ports.sh) && sleep 1
 selectPortSet
 
 read -r -p "Enter node moniker: " NODE_MONIKER
