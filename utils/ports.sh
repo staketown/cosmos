@@ -60,7 +60,7 @@ function selectPortSet {
   printDelimiter
   echo ""
 
-  read -r -p "${1:-Choose ports you would like to use: } " flag
+  read -r -p "${1:-Choose port set you would like to use: } " flag
   case "${flag}" in
     1) exportPorts 1 ;;
     2) exportPorts 2 ;;
