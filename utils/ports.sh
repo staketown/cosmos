@@ -10,7 +10,6 @@ PORT_P2P=6060
 PORT_PROMETHEUS=26660
 PORT_API=1317
 
-sleep 1
 source <(curl -s https://raw.githubusercontent.com/R1M-NODES/cosmos/master/utils/common.sh)
 
 function persistPorts {
