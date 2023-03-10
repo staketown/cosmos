@@ -49,7 +49,6 @@ APP_TOML=$HOME/.quasarnode/config/app.toml
 sed -i 's|^pruning *=.*|pruning = "custom"|g' $APP_TOML
 sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "1000"|g' $APP_TOML
 sed -i 's|^pruning-interval *=.*|pruning-interval = "10"|g' $APP_TOML
-sed -i.bak -e "s/^external_address *=.*/external_address = \"$(wget -qO- eth0.me):26656\"/" $CONFIG_TOML
 sed -i -e "s/^filter_peers *=.*/filter_peers = \"true\"/" $CONFIG_TOML
 indexer="null"
 sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $CONFIG_TOML
@@ -80,7 +79,7 @@ EOF
 
 quasard tendermint unsafe-reset-all --home $HOME/.quasarnode --keep-addr-book
 
-# Add snapshot here
+# Add snapshot here, thanks nodejumper.io
 SNAP_NAME=$(curl -s https://snapshots2-testnet.nodejumper.io/quasar-testnet/info.json | jq -r .fileName)
 curl "https://snapshots2-testnet.nodejumper.io/quasar-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C $HOME/.quasarnode
 
