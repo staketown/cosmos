@@ -10,7 +10,7 @@ PORT_P2P=6060
 PORT_PROMETHEUS=26660
 PORT_API=1317
 
-source <(curl -s https://raw.githubusercontent.com/R1M-NODES/cosmos/master/utils/common.sh)
+source <(curl -s https://raw.githubusercontent.com/R1M-NODES/utils/master/common.sh)
 
 function persistPorts {
   ARG=$(($1 - 1))
@@ -25,7 +25,7 @@ function persistPorts {
   echo "export ${PREFIX}_PORT_PROMETHEUS=$(expr $PORT_PROMETHEUS \+ 1000 \* $ARG)" >>$HOME/.bash_profile
   echo "export ${PREFIX}_PORT_API=$(expr $PORT_API \+ 100 \* $ARG)" >>$HOME/.bash_profile
 
-  echo "The following ports will be used: $PORT_GRPC $PORT_GRPC_WEB $PORT_PROXY_APP $PORT_RPC $PORT_PPROF_LADDR $PORT_P2P $PORT_PROMETHEUS $PORT_API"
+  printGreen "The following ports will be used: $PORT_GRPC $PORT_GRPC_WEB $PORT_PROXY_APP $PORT_RPC $PORT_PPROF_LADDR $PORT_P2P $PORT_PROMETHEUS $PORT_API"
 }
 
 function exportPorts {
@@ -40,13 +40,13 @@ function exportPorts {
   export "PORT_PROMETHEUS=$(expr $PORT_PROMETHEUS \+ 1000 \* $ARG)"
   export "PORT_API=$(expr $PORT_API \+ 100 \* $ARG)"
 
-  echo "The following ports will be used: $PORT_GRPC $PORT_GRPC_WEB $PORT_PROXY_APP $PORT_RPC $PORT_PPROF_LADDR $PORT_P2P $PORT_PROMETHEUS $PORT_API"
+  printGreen "The following ports will be used: $PORT_GRPC $PORT_GRPC_WEB $PORT_PROXY_APP $PORT_RPC $PORT_PPROF_LADDR $PORT_P2P $PORT_PROMETHEUS $PORT_API"
 }
 
 function selectPortSet {
   echo ""
   printDelimiter
-  echo "Here available port sets to use:"
+  printGreen "Here available port sets to use:"
   printDelimiter
   echo "1 (default) - 9090, 9091, 26658, 26657, 26656, 6060, 26660, 1317"
   echo "2           - 9190, 9191, 27658, 27657, 27656, 6160, 27660, 1417"
@@ -71,6 +71,6 @@ function selectPortSet {
     7) exportPorts 7 ;;
     8) exportPorts 8 ;;
     9) exportPorts 9 ;;
-    *) echo "WARN: unknown parameter: ${flag}" && exit 1 ;;
+    *) printGreen "WARN: unknown parameter: ${flag}" && exit 1 ;;
   esac
 }
