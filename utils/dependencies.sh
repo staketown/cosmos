@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source <(curl -s https://raw.githubusercontent.com/R1M-NODES/utils/master/common.sh)
+source <(curl -s https://raw.githubusercontent.com/R1M-NODES/utils/master/common.sh) && sleep 1
 
 printGreen "Installing dependencies..." && sleep 1
 sudo apt-get update &&
