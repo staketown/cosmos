@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source <(curl -s https://raw.githubusercontent.com/R1M-NODES/cosmos/master/utils/common.sh)
+source <(curl -s https://raw.githubusercontent.com/R1M-NODES/utils/master/common.sh)
 
 printLogo
 
@@ -24,7 +24,7 @@ printDelimiter && sleep 1
 
 source <(curl -s https://raw.githubusercontent.com/R1M-NODES/cosmos/master/utils/dependencies.sh)
 
-echo "Building binaries..." && sleep 1
+printGreen "Building binaries..." && sleep 1
 
 cd $HOME || return
 rm -rf ojo
@@ -64,7 +64,7 @@ sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.
 sed -i.bak -e "s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:$PORT_GRPC\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:$PORT_GRPC_WEB\"%; s%^address = \"tcp://0.0.0.0:1317\"%address = \"tcp://0.0.0.0:$PORT_API\"%" $APP_TOML && \
 sed -i.bak -e "s%^node = \"tcp://localhost:26657\"%node = \"tcp://localhost:$PORT_RPC\"%" $HOME/.ojo/config/client.toml
 
-echo "Starting service and synchronization..." && sleep 1
+printGreen "Starting service and synchronization..." && sleep 1
 
 sudo tee /etc/systemd/system/ojod.service > /dev/null << EOF
 [Unit]
@@ -90,6 +90,6 @@ sudo systemctl enable ojod
 sudo systemctl start ojod
 
 printDelimiter
-echo -e "Check logs:            sudo journalctl -u $BINARY_NAME -f -o cat"
-echo -e "Check synchronization: $BINARY_NAME status 2>&1 | jq .SyncInfo.catching_up"
+printGreen -e "Check logs:            sudo journalctl -u $BINARY_NAME -f -o cat"
+printGreen -e "Check synchronization: $BINARY_NAME status 2>&1 | jq .SyncInfo.catching_up"
 printDelimiter
