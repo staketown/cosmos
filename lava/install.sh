@@ -24,7 +24,7 @@ printDelimiter && sleep 1
 
 source <(curl -s https://raw.githubusercontent.com/R1M-NODES/cosmos/master/utils/dependencies.sh)
 
-printGreen "Building binaries..." && sleep 1
+echo "" && printGreen "Building binaries..." && sleep 1
 
 cd $HOME || return
 rm -rf lava

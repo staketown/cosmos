@@ -13,7 +13,7 @@ CHAIN_ID="qsr-questnet-04"
 CHAIN_DENOM="uqsr"
 BINARY_NAME="quasard"
 BINARY_VERSION_TAG="0.0.2-alpha-11"
-CHEAT_SHEET=""
+CHEAT_SHEET="https://nodes.r1m-team.com/quasar"
 
 printDelimiter
 echo -e "Node moniker:       $NODE_MONIKER"
@@ -24,7 +24,7 @@ printDelimiter && sleep 1
 
 source <(curl -s https://raw.githubusercontent.com/R1M-NODES/cosmos/master/utils/dependencies.sh)
 
-printGreen "Building binaries..." && sleep 1
+echo "" && printGreen "Building binaries..." && sleep 1
 
 cd || return
 curl -L https://github.com/quasar-finance/binary-release/raw/main/v0.0.2-alpha-11/quasarnoded-linux-amd64 > quasard
@@ -90,4 +90,5 @@ sudo systemctl start $BINARY_NAME
 printDelimiter
 printGreen -e "Check logs:            sudo journalctl -u $BINARY_NAME -f -o cat"
 printGreen -e "Check synchronization: $BINARY_NAME status 2>&1 | jq .SyncInfo.catching_up"
+printGreen -e "Check our cheat sheet: $CHEAT_SHEET"
 printDelimiter

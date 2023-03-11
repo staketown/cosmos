@@ -13,7 +13,7 @@ CHAIN_ID="nibiru-itn-1"
 CHAIN_DENOM="unibi"
 BINARY_NAME="nibid"
 BINARY_VERSION_TAG="v0.19.2"
-CHEAT_SHEET=""
+CHEAT_SHEET="https://nodes.r1m-team.com/nibiru"
 
 printDelimiter
 echo -e "Node moniker:       $NODE_MONIKER"
@@ -24,7 +24,7 @@ printDelimiter && sleep 1
 
 source <(curl -s https://raw.githubusercontent.com/R1M-NODES/cosmos/master/utils/dependencies.sh)
 
-printGreen "Building binaries..." && sleep 1
+echo "" && printGreen "Building binaries..." && sleep 1
 
 cd $HOME || return
 rm -rf nibiru
@@ -92,4 +92,5 @@ sudo systemctl start nibid
 printDelimiter
 printGreen -e "Check logs:            sudo journalctl -u $BINARY_NAME -f -o cat"
 printGreen -e "Check synchronization: $BINARY_NAME status 2>&1 | jq .SyncInfo.catching_up"
+printGreen -e "Check our cheat sheet: $CHEAT_SHEET"
 printDelimiter
