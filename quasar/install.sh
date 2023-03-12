@@ -88,7 +88,7 @@ sudo systemctl enable $BINARY_NAME
 sudo systemctl start $BINARY_NAME
 
 printDelimiter
-printGreen -e "Check logs:            sudo journalctl -u $BINARY_NAME -f -o cat"
-printGreen -e "Check synchronization: $BINARY_NAME status 2>&1 | jq .SyncInfo.catching_up"
-printGreen -e "Check our cheat sheet: $CHEAT_SHEET"
+printGreen "Check logs:            sudo journalctl -u $BINARY_NAME -f -o cat"
+printGreen "Check synchronization: $BINARY_NAME status 2>&1 | jq .SyncInfo.catching_up"
+printGreen "Check our cheat sheet: $CHEAT_SHEET"
 printDelimiter
