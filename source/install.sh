@@ -55,7 +55,7 @@ sed -i -e "s/^filter_peers *=.*/filter_peers = \"true\"/" $CONFIG_TOML
 indexer="null"
 sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $CONFIG_TOML
 sed -i 's|^snapshot-interval *=.*|snapshot-interval = 1000|g' $APP_TOML
-sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.025unibi"|g' $APP_TOML
+sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.025usource"|g' $APP_TOML
 
 # Customize ports
 CLIENT_TOML=$HOME/.source/config/client.toml
