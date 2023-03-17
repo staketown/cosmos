@@ -18,8 +18,9 @@ touch $HOME/.bash_profile
 source $HOME/.bash_profile
 PATH_INCLUDES_GO=$(grep "$HOME/go/bin" $HOME/.bash_profile)
 if [ -z "$PATH_INCLUDES_GO" ]; then
-  echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> $HOME/.bash_profile && \
-  echo "export GOPATH=$HOME/go" >> $HOME/.bash_profile \
-  source $HOME/.bash_profile && \
+  echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> $HOME/.bash_profile
+  echo "export GOPATH=$HOME/go" >> $HOME/.bash_profile
+
+  source $HOME/.bash_profile
   go version
 fi
