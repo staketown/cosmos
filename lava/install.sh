@@ -49,8 +49,9 @@ sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
 
 APP_TOML=$HOME/.lava/config/app.toml
 sed -i 's|^pruning *=.*|pruning = "custom"|g' $APP_TOML
-sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "1000"|g' $APP_TOML
-sed -i 's|^pruning-interval *=.*|pruning-interval = "10"|g' $APP_TOML
+sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|g' $APP_TOML
+sed -i 's|^pruning-keep-every *=.*|pruning-keep-every = "0"|g' $APP_TOML
+sed -i 's|^pruning-interval *=.*|pruning-interval = "19"|g' $APP_TOML
 sed -i -e "s/^filter_peers *=.*/filter_peers = \"true\"/" $CONFIG_TOML
 indexer="null"
 sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $CONFIG_TOML
@@ -58,10 +59,11 @@ sed -i 's|^snapshot-interval *=.*|snapshot-interval = 1000|g' $APP_TOML
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.025ulava"|g' $APP_TOML
 
 # Customize ports
+CLIENT_TOML=$HOME/.lava/config/client.toml
 sed -i.bak -e "s/^external_address *=.*/external_address = \"$(wget -qO- eth0.me):$PORT_PPROF_LADDR\"/" $CONFIG_TOML
 sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:$PORT_PROXY_APP\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:$PORT_RPC\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:$PORT_P2P\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:$PORT_PPROF_LADDR\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":$PORT_PROMETHEUS\"%" $CONFIG_TOML && \
 sed -i.bak -e "s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:$PORT_GRPC\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:$PORT_GRPC_WEB\"%; s%^address = \"tcp://0.0.0.0:1317\"%address = \"tcp://0.0.0.0:$PORT_API\"%" $APP_TOML && \
-sed -i.bak -e "s%^node = \"tcp://localhost:26657\"%node = \"tcp://localhost:$PORT_RPC\"%" $HOME/.lava/config/client.toml
+sed -i.bak -e "s%^node = \"tcp://localhost:26657\"%node = \"tcp://localhost:$PORT_RPC\"%" $CLIENT_TOML
 
 printGreen "Starting service and synchronization..." && sleep 1
 
