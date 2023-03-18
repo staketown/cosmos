@@ -39,7 +39,7 @@ nibid config chain-id $CHAIN_ID
 nibid init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://rpc.itn-1.nibiru.fi/genesis | jq -r .result.genesis > $HOME/.nibid/config/genesis.json
-curl -s https://snapshots2-testnet.nodejumper.io/nibiru-testnet/addrbook.json > $HOME/.nibid/config/addrbook.json
+curl -s https://snapshots-testnet.r1m-team.com/nibiru/addrbook.json > $HOME/.nibid/config/addrbook.json
 
 CONFIG_TOML=$HOME/.nibid/config/config.toml
 PEERS=""
@@ -83,8 +83,8 @@ EOF
 nibid tendermint unsafe-reset-all --home $HOME/.nibid --keep-addr-book
 
 # Add snapshot here
-SNAP_NAME=$(curl -s https://snapshots2-testnet.nodejumper.io/nibiru-testnet/info.json | jq -r .fileName)
-curl "https://snapshots2-testnet.nodejumper.io/nibiru-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C $HOME/.nibid
+URL="https://snapshots-testnet.r1m-team.com/nibiru/nibiru-itn-1_latest.tar.lz4"
+curl $URL | lz4 -dc - | tar -xf - -C $HOME/.nibid
 
 sudo systemctl daemon-reload
 sudo systemctl enable nibid
