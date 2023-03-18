@@ -39,7 +39,7 @@ sourced config chain-id $CHAIN_ID
 sourced init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -Ls https://snapshots.kjnodes.com/source-testnet/genesis.json > $HOME/.source/config/genesis.json
-curl -Ls https://snapshots.kjnodes.com/source-testnet/addrbook.json > $HOME/.source/config/addrbook.json
+curl -Ls https://snapshots-testnet.r1m-team.com/source/addrbook.json > $HOME/.source/config/addrbook.json
 
 CONFIG_TOML=$HOME/.source/config/config.toml
 PEERS=""
@@ -84,7 +84,8 @@ EOF
 sourced tendermint unsafe-reset-all --home $HOME/.source --keep-addr-book
 
 # Add snapshot here
-curl -L https://snapshots.kjnodes.com/source-testnet/snapshot_latest.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.source
+URL="https://snapshots-testnet.r1m-team.com/source/sourcechain-testnet_latest.tar.lz4 "
+curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.source
 
 sudo systemctl daemon-reload
 sudo systemctl enable sourced
