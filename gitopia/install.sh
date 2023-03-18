@@ -44,7 +44,7 @@ curl -s https://server.gitopia.com/raw/gitopia/testnets/master/gitopia-janus-tes
 gunzip -c ~/.gitopia/config/genesis.zip > ~/.gitopia/config/genesis.json
 rm -rf ~/.gitopia/config/genesis.zip
 
-curl -s https://snapshots1-testnet.nodejumper.io/gitopia-testnet/addrbook.json > $HOME/.gitopia/config/addrbook.json
+curl -s https://snapshots-testnet.r1m-team.com/gitopia/addrbook.json > $HOME/.gitopia/config/addrbook.json
 
 CONFIG_TOML=$HOME/.gitopia/config/config.toml
 PEERS=""
@@ -88,8 +88,7 @@ EOF
 gitopiad tendermint unsafe-reset-all --home $HOME/.gitopia --keep-addr-book
 
 # Add snapshot here
-SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/gitopia-testnet/info.json | jq -r .fileName)
-curl "https://snapshots1-testnet.nodejumper.io/gitopia-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.gitopia"
+curl "https://snapshots-testnet.r1m-team.com/gitopia/gitopia-janus-testnet-2_latest.tar.lz4" | lz4 -dc - | tar -xf - -C "$HOME/.gitopia"
 
 sudo systemctl daemon-reload
 sudo systemctl enable gitopiad
