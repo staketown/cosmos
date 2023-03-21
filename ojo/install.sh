@@ -13,7 +13,7 @@ CHAIN_ID="ojo-devnet"
 CHAIN_DENOM="uojo"
 BINARY_NAME="ojod"
 BINARY_VERSION_TAG="v0.1.2"
-CHEAT_SHEET=""
+CHEAT_SHEET="https://nodes.r1m-team.com/ojo"
 
 printDelimiter
 echo -e "Node moniker:       $NODE_MONIKER"
@@ -39,13 +39,13 @@ ojod config chain-id $CHAIN_ID
 ojod init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 # Download genesis and addrbook
-curl -Ls https://snapshots.kjnodes.com/ojo-testnet/genesis.json > $HOME/.ojo/config/genesis.json
-curl -s https://snapshots-testnet.r1m-team.com/ojo/addrbook.json > $HOME/.ojo/config/addrbook.json
+curl -Ls https://snapshots-testnet.r1m-team.com/ojo/genesis.json > $HOME/.ojo/config/genesis.json
+curl -Ls https://snapshots-testnet.r1m-team.com/ojo/addrbook.json > $HOME/.ojo/config/addrbook.json
 
 CONFIG_TOML=$HOME/.ojo/config/config.toml
 PEERS=""
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
-SEEDS="3f472746f46493309650e5a033076689996c8881@ojo-testnet.rpc.kjnodes.com:50659"
+SEEDS=""
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
 
 APP_TOML=$HOME/.ojo/config/app.toml
