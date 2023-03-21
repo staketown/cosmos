@@ -38,7 +38,7 @@ sourced config keyring-backend os
 sourced config chain-id $CHAIN_ID
 sourced init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -Ls https://snapshots.kjnodes.com/source-testnet/genesis.json > $HOME/.source/config/genesis.json
+curl -Ls https://snapshots-testnet.r1m-team.com/source/genesis.json > $HOME/.source/config/genesis.json
 curl -Ls https://snapshots-testnet.r1m-team.com/source/addrbook.json > $HOME/.source/config/addrbook.json
 
 CONFIG_TOML=$HOME/.source/config/config.toml
