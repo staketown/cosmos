@@ -38,7 +38,7 @@ nibid config keyring-backend os
 nibid config chain-id $CHAIN_ID
 nibid init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -s https://rpc.itn-1.nibiru.fi/genesis | jq -r .result.genesis > $HOME/.nibid/config/genesis.json
+curl -s https://snapshots-testnet.r1m-team.com/nibiru/genesis.json > $HOME/.nibid/config/genesis.json
 curl -s https://snapshots-testnet.r1m-team.com/nibiru/addrbook.json > $HOME/.nibid/config/addrbook.json
 
 CONFIG_TOML=$HOME/.nibid/config/config.toml

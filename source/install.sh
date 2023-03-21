@@ -13,7 +13,7 @@ CHAIN_ID="sourcechain-testnet"
 CHAIN_DENOM="usource"
 BINARY_NAME="sourced"
 BINARY_VERSION_TAG="e06b810e842e57ec8f5432c9cdd57883a69b3cee"
-CHEAT_SHEET=""
+CHEAT_SHEET="https://nodes.r1m-team.com/source"
 
 printDelimiter
 echo -e "Node moniker:       $NODE_MONIKER"
