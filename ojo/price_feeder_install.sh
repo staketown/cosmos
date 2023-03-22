@@ -48,11 +48,11 @@ s|^global-labels *=.*|global-labels = [[\"chain_id\", \"$CHAIN_ID\"]]|;\
 s|^service-name *=.*|service-name = \"ojo-price-feeder\"|;" $HOME/.ojo-price-feeder/config.toml
 
 printGreen "Sending 1 OJO from $MAIN_WALLET to price feeder wallet: price_feeder_wallet"
-echo $WALLET_PASS | ojod tx bank send $MAIN_WALLET_ADDRESS $PRICEFEEDER_ADDRESS 1000000uojo --from $MAIN_WALLET_ADDRESS --chain-id ojo-devnet --gas-adjustment 1.4 --gas auto --gas-prices 0uojo -y
+echo $WALLET_PASS | ojod tx bank send $MAIN_WALLET_ADDRESS $PRICEFEEDER_ADDRESS 1000000uojo --from $MAIN_WALLET_ADDRESS --chain-id ojo-devnet --gas-adjustment 1.4 --gas auto -y
 
 printGreen "Waiting 5 seconds..." && sleep 5
 printGreen "Delegate price feeder responsibility"
-echo $WALLET_PASS | ojod tx oracle delegate-feed-consent $MAIN_WALLET_ADDRESS $PRICEFEEDER_ADDRESS --from $MAIN_WALLET_ADDRESS --gas-adjustment 1.4 --gas auto --gas-prices 0uojo -y
+echo $WALLET_PASS | ojod tx oracle delegate-feed-consent $MAIN_WALLET_ADDRESS $PRICEFEEDER_ADDRESS --from $MAIN_WALLET_ADDRESS --gas-adjustment 1.4 --gas auto -y
 
 
 printGreen "Install systemd service for price feeder"
