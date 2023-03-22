@@ -43,7 +43,7 @@ curl -Ls https://snapshots-testnet.r1m-team.com/ojo/genesis.json > $HOME/.ojo/co
 curl -Ls https://snapshots-testnet.r1m-team.com/ojo/addrbook.json > $HOME/.ojo/config/addrbook.json
 
 CONFIG_TOML=$HOME/.ojo/config/config.toml
-PEERS=""
+PEERS="18300f0a5973798c3900fe51ff255bb6bca982f9@ojo-testnet-rpc.r1m-team.com:36656"
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
 SEEDS=""
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML

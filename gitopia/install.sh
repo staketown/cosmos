@@ -40,11 +40,8 @@ gitopiad config keyring-backend os
 gitopiad config chain-id $CHAIN_ID
 gitopiad init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -s https://server.gitopia.com/raw/gitopia/testnets/master/gitopia-janus-testnet-2/genesis.json.gz > ~/.gitopia/config/genesis.zip
-gunzip -c ~/.gitopia/config/genesis.zip > ~/.gitopia/config/genesis.json
-rm -rf ~/.gitopia/config/genesis.zip
-
-curl -s https://snapshots-testnet.r1m-team.com/gitopia/addrbook.json > $HOME/.gitopia/config/addrbook.json
+curl -Ls https://snapshots-testnet.r1m-team.com/gitopia/genesis.json > $HOME/.gitopia/config/genesis.json
+curl -Ls https://snapshots-testnet.r1m-team.com/gitopia/addrbook.json > $HOME/.gitopia/config/addrbook.json
 
 CONFIG_TOML=$HOME/.gitopia/config/config.toml
 PEERS=""
@@ -88,7 +85,8 @@ EOF
 gitopiad tendermint unsafe-reset-all --home $HOME/.gitopia --keep-addr-book
 
 # Add snapshot here
-curl "https://snapshots-testnet.r1m-team.com/gitopia/gitopia-janus-testnet-2_latest.tar.lz4" | lz4 -dc - | tar -xf - -C "$HOME/.gitopia"
+URL="https://snapshots-testnet.r1m-team.com/gitopia/gitopia-janus-testnet-2_latest.tar.lz4"
+curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.gitopia
 
 sudo systemctl daemon-reload
 sudo systemctl enable gitopiad
