@@ -27,6 +27,7 @@ mv price-feeder.example.toml $HOME/.ojo-price-feeder/config.toml
 
 printDelimiter
 printGreen "Configure price feeder"
+CHAIN_ID=ojo-devnet
 KEYRING="os"
 LISTEN_PORT=7172
 RPC_PORT=$(grep -A 3 "\[rpc\]" ~/.ojo/config/config.toml | egrep -o ":[0-9]+" | awk '{print substr($0, 2)}')
@@ -37,13 +38,13 @@ PRICEFEEDER_ADDRESS=$(echo $WALLET_PASS | ojod keys show price_feeder_wallet --k
 
 sed -i "s/^listen_addr *=.*/listen_addr = \"0.0.0.0:${LISTEN_PORT}\"/;\
 s/^address *=.*/address = \"$PRICEFEEDER_ADDRESS\"/;\
-s/^chain_id *=.*/chain_id = \"ojo-devnet\"/;\
+s/^chain_id *=.*/chain_id = \"$CHAIN_ID\"/;\
 s/^validator *=.*/validator = \"$VALIDATOR_ADDRESS\"/;\
 s/^backend *=.*/backend = \"$KEYRING\"/;\
 s|^dir *=.*|dir = \"$HOME/.ojo\"|;\
 s|^grpc_endpoint *=.*|grpc_endpoint = \"localhost:${GRPC_PORT}\"|;\
 s|^tmrpc_endpoint *=.*|tmrpc_endpoint = \"http://localhost:${RPC_PORT}\"|;\
-s|^global-labels *=.*|global-labels = [[\"chain_id\", \"ojo-devnet\"]]|;\
+s|^global-labels *=.*|global-labels = [[\"chain_id\", \"$CHAIN_ID\"]]|;\
 s|^service-name *=.*|service-name = \"ojo-price-feeder\"|;" $HOME/.ojo-price-feeder/config.toml
 
 printGreen "Sending 1 OJO from $MAIN_WALLET to price feeder wallet: price_feeder_wallet"
