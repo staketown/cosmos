@@ -29,8 +29,8 @@ printDelimiter
 printGreen "Configure price feeder"
 KEYRING="os"
 LISTEN_PORT=7172
-RPC_PORT=50657
-GRPC_PORT=50090
+RPC_PORT=$(grep -A 3 "\[rpc\]" ~/.ojo/config/config.toml | egrep -o ":[0-9]+" | awk '{print substr($0, 2)}')
+GRPC_PORT=$(grep -A 6 "\[grpc\]" ~/.ojo/config/app.toml | egrep -o ":[0-9]+" | awk '{print substr($0, 2)}')
 VALIDATOR_ADDRESS=$(echo $WALLET_PASS | ojod keys show $MAIN_WALLET --bech val -a)
 MAIN_WALLET_ADDRESS=$(echo $WALLET_PASS | ojod keys show $MAIN_WALLET -a)
 PRICEFEEDER_ADDRESS=$(echo $WALLET_PASS | ojod keys show price_feeder_wallet --keyring-backend os -a)
