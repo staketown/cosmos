@@ -4,8 +4,8 @@ source <(curl -s https://raw.githubusercontent.com/R1M-NODES/utils/master/common
 
 printLogo
 
-read -r -p "Enter your main wallet: " MAIN_WALLET
-read -r -p "Enter password to you wallet: " WALLET_PASS
+read -r -p "Enter your main wallet address (that is used by validator): " MAIN_WALLET
+read -r -p "Enter password to you main wallet: " WALLET_PASS
 
 printGreen "Creating wallet for price feeder"
 echo $WALLET_PASS | ojod keys add price_feeder_wallet --keyring-backend os
