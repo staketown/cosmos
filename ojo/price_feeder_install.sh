@@ -43,7 +43,7 @@ s/^validator *=.*/validator = \"$VALIDATOR_ADDRESS\"/;\
 s/^backend *=.*/backend = \"$KEYRING\"/;\
 s|^dir *=.*|dir = \"$HOME/.ojo\"|;\
 s|^grpc_endpoint *=.*|grpc_endpoint = \"localhost:${GRPC_PORT}\"|;\
-s|^tmrpc_endpoint *=.*|tmrpc_endpoint = \"http://localhost:${RPC_PORT}\"|;\
+s|^tmrpc_endpoint *=.*|tmrpc_endpoint = \"http://127.0.0.1:${RPC_PORT}\"|;\
 s|^global-labels *=.*|global-labels = [[\"chain_id\", \"$CHAIN_ID\"]]|;\
 s|^service-name *=.*|service-name = \"ojo-price-feeder\"|;" $HOME/.ojo-price-feeder/config.toml
 
