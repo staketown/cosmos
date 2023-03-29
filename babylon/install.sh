@@ -38,13 +38,8 @@ babylond config keyring-backend test
 babylond config chain-id $CHAIN_ID
 babylond init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -L https://github.com/babylonchain/networks/blob/main/bbn-test1/genesis.tar.bz2?raw=true > genesis.tar.bz2
-tar -xjf genesis.tar.bz2
-rm -rf genesis.tar.bz2
-mv genesis.json ~/.babylond/config/genesis.json
-
-#curl -s https://snapshots-testnet.r1m-team.com/nibiru/genesis.json > $HOME/.nibid/config/genesis.json
-#curl -s https://snapshots-testnet.r1m-team.com/nibiru/addrbook.json > $HOME/.nibid/config/addrbook.json
+curl -s https://snapshots-testnet.r1m-team.com/babylon/genesis.json > $HOME/.nibid/config/genesis.json
+curl -s https://snapshots-testnet.r1m-team.com/babylon/addrbook.json > $HOME/.nibid/config/addrbook.json
 
 CONFIG_TOML=$HOME/.babylond/config/config.toml
 PEERS=""
@@ -90,10 +85,8 @@ EOF
 babylond tendermint unsafe-reset-all --home $HOME/.babylond --keep-addr-book
 
 # Add snapshot here
-SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/babylon-testnet/info.json | jq -r .fileName)
-curl "https://snapshots1-testnet.nodejumper.io/babylon-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C $HOME/.babylond
-# URL="https://snapshots-testnet.r1m-team.com/nibiru/nibiru-itn-1_latest.tar.lz4"
-# curl $URL | lz4 -dc - | tar -xf - -C $HOME/.nibid
+URL="https://snapshots-testnet.r1m-team.com/babylon/bbn-test1_latest.tar.lz4"
+curl $URL | lz4 -dc - | tar -xf - -C $HOME/.babylond
 
 sudo systemctl daemon-reload
 sudo systemctl enable babylond
