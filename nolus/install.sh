@@ -11,7 +11,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 
 CHAIN_ID="nolus-rila"
 CHAIN_DENOM="unls"
-BINARY_NAME="nolud"
+BINARY_NAME="nolusd"
 BINARY_VERSION_TAG="v0.2.1-testnet"
 CHEAT_SHEET="https://nodes.r1m-team.com/nolus"
 
@@ -32,11 +32,11 @@ git clone https://github.com/Nolus-Protocol/nolus-core.git
 cd nolus-core
 git checkout $BINARY_VERSION_TAG
 make install
-nolud version
+nolusd version
 
-nolud config keyring-backend os
-nolud config chain-id $CHAIN_ID
-nolud init "$NODE_MONIKER" --chain-id $CHAIN_ID
+nolusd config keyring-backend os
+nolusd config chain-id $CHAIN_ID
+nolusd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -Ls https://snapshots.kjnodes.com/nolus-testnet/genesis.json > $HOME/.nolus/config/genesis.json
 curl -Ls https://snapshots.kjnodes.com/nolus-testnet/addrbook.json > $HOME/.nolus/config/addrbook.json
@@ -75,7 +75,7 @@ Description=Nolus Node
 After=network-online.target
 [Service]
 User=$USER
-ExecStart=$(which nolud) start
+ExecStart=$(which nolusd) start
 Restart=on-failure
 RestartSec=10
 LimitNOFILE=10000
@@ -83,7 +83,7 @@ LimitNOFILE=10000
 WantedBy=multi-user.target
 EOF
 
-nolud tendermint unsafe-reset-all --home $HOME/.nolus --keep-addr-book
+nolusd tendermint unsafe-reset-all --home $HOME/.nolus --keep-addr-book
 
 # Add snapshot here
 curl -L https://snapshots.kjnodes.com/nolus-testnet/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.nolus
