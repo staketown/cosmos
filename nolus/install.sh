@@ -31,6 +31,8 @@ rm -rf nolus-core
 git clone https://github.com/Nolus-Protocol/nolus-core.git
 cd nolus-core
 git checkout $BINARY_VERSION_TAG
+make install
+nolud version
 
 nolud config keyring-backend os
 nolud config chain-id $CHAIN_ID
