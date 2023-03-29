@@ -38,11 +38,8 @@ nolusd config keyring-backend os
 nolusd config chain-id $CHAIN_ID
 nolusd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -Ls https://snapshots.kjnodes.com/nolus-testnet/genesis.json > $HOME/.nolus/config/genesis.json
-curl -Ls https://snapshots.kjnodes.com/nolus-testnet/addrbook.json > $HOME/.nolus/config/addrbook.json
-
-#curl -s https://snapshots-testnet.r1m-team.com/nibiru/genesis.json > $HOME/.nibid/config/genesis.json
-#curl -s https://snapshots-testnet.r1m-team.com/nibiru/addrbook.json > $HOME/.nibid/config/addrbook.json
+curl -s https://snapshots-testnet.r1m-team.com/nolus/genesis.json > $HOME/.nibid/config/genesis.json
+curl -s https://snapshots-testnet.r1m-team.com/nolus/addrbook.json > $HOME/.nibid/config/addrbook.json
 
 CONFIG_TOML=$HOME/.nolus/config/config.toml
 PEERS=""
@@ -83,9 +80,8 @@ EOF
 nolusd tendermint unsafe-reset-all --home $HOME/.nolus --keep-addr-book
 
 # Add snapshot here
-curl -L https://snapshots.kjnodes.com/nolus-testnet/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.nolus
-# URL="https://snapshots-testnet.r1m-team.com/nibiru/nibiru-itn-1_latest.tar.lz4"
-# curl $URL | lz4 -dc - | tar -xf - -C $HOME/.nibid
+URL="https://snapshots-testnet.r1m-team.com/nolus/nolus-rila_latest.tar.lz4  "
+curl $URL | lz4 -dc - | tar -xf - -C $HOME/.nibid
 
 sudo systemctl daemon-reload
 sudo systemctl enable nolusd
