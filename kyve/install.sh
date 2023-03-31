@@ -51,7 +51,7 @@ sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
 APP_TOML=$HOME/.kyve/config/app.toml
 sed -i 's|^pruning *=.*|pruning = "custom"|g' $APP_TOML
 sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|g' $APP_TOML
-sed -i 's|^pruning-interval *=.*|pruning-interval = "10"|g' $APP_TOML
+sed -i 's|^pruning-interval *=.*|pruning-interval = "19"|g' $APP_TOML
 sed -i -e "s/^filter_peers *=.*/filter_peers = \"true\"/" $CONFIG_TOML
 indexer="null"
 sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $CONFIG_TOML
