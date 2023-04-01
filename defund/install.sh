@@ -34,7 +34,7 @@ git checkout $BINARY_VERSION_TAG
 make install
 defundd version # 0.2.6
 
-defundd config keyring-backend test
+defundd config keyring-backend os
 defundd config chain-id $CHAIN_ID
 defundd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
