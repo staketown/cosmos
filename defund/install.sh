@@ -81,7 +81,7 @@ LimitNOFILE=10000
 WantedBy=multi-user.target
 EOF
 
-defundd tendermint unsafe-reset-all --home $HOME/.ojo --keep-addr-book
+defundd tendermint unsafe-reset-all --home $HOME/.defund --keep-addr-book
 
 # Add snapshot here
 URL="https://snapshots-testnet.r1m-team.com/defund/orbit-alpha-1_latest.tar.lz4"
