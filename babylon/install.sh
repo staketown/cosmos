@@ -38,8 +38,8 @@ babylond config keyring-backend test
 babylond config chain-id $CHAIN_ID
 babylond init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -s https://snapshots-testnet.r1m-team.com/babylon/genesis.json > $HOME/.nibid/config/genesis.json
-curl -s https://snapshots-testnet.r1m-team.com/babylon/addrbook.json > $HOME/.nibid/config/addrbook.json
+curl -s https://snapshots-testnet.r1m-team.com/babylon/genesis.json > $HOME/.babylond/config/genesis.json
+curl -s https://snapshots-testnet.r1m-team.com/babylon/addrbook.json > $HOME/.babylond/config/addrbook.json
 
 CONFIG_TOML=$HOME/.babylond/config/config.toml
 PEERS=""
