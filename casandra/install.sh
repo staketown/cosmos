@@ -39,12 +39,8 @@ cascadiad config keyring-backend os
 cascadiad config chain-id $CHAIN_ID
 cascadiad init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -LO https://github.com/CascadiaFoundation/chain-configuration/raw/master/testnet/genesis.json.gz
-gunzip genesis.json.gz
-cp genesis.json ~/.cascadiad/config/
-
-#curl -s https://snapshots-testnet.r1m-team.com/nibiru/genesis.json > $HOME/.cascadiad/config/genesis.json
-#curl -s https://snapshots-testnet.r1m-team.com/nibiru/addrbook.json > $HOME/.cascadiad/config/addrbook.json
+curl -s https://snapshots-testnet.r1m-team.com/cascadia/genesis.json > $HOME/.cascadiad/config/genesis.json
+curl -s https://snapshots-testnet.r1m-team.com/cascadia/addrbook.json > $HOME/.cascadiad/config/addrbook.json
 
 CONFIG_TOML=$HOME/.cascadiad/config/config.toml
 PEERS="b651ea2a0517e82c1a476e25966ab3de3159afe8@34.229.22.39:26656,3b389873f999763d3f937f63f765f0948411e296@44.192.85.92:26656"
@@ -88,10 +84,8 @@ EOF
 cascadiad tendermint unsafe-reset-all --home $HOME/.cascadiad --keep-addr-book
 
 # Add snapshot here
-curl -L https://snapshots.max-node.xyz/cascadia/cascadia_6102-1_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.cascadiad
-
-#URL="https://snapshots-testnet.r1m-team.com/nibiru/nibiru-itn-1_latest.tar.lz4"
-#curl $URL | lz4 -dc - | tar -xf - -C $HOME/.cascadiad
+URL="https://snapshots-testnet.r1m-team.com/cascadia/cascadia_6102-1_latest.tar.lz4"
+curl $URL | lz4 -dc - | tar -xf - -C $HOME/.cascadiad
 
 sudo systemctl daemon-reload
 sudo systemctl enable cascadiad
