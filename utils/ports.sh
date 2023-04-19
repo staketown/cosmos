@@ -57,6 +57,7 @@ function selectPortSet {
   echo "7           - 9690, 9691, 32658, 32657, 32656, 6660, 32660, 1917"
   echo "8           - 9790, 9791, 33658, 33657, 33656, 6760, 33660, 2017"
   echo "9           - 9890, 9891, 34658, 34657, 34656, 6860, 34660, 2117"
+  echo ".........."
   printDelimiter
   echo ""
 
@@ -71,6 +72,9 @@ function selectPortSet {
     7) exportPorts 7 ;;
     8) exportPorts 8 ;;
     9) exportPorts 9 ;;
+    {1,2}[0-9] ) exportPorts ${flag} ;;
     *) printGreen "WARN: unknown parameter: ${flag}" && exit 1 ;;
   esac
 }
+
+selectPortSet 22
