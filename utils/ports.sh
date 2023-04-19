@@ -76,5 +76,3 @@ function selectPortSet {
     *) printGreen "WARN: unknown parameter: ${flag}" && exit 1 ;;
   esac
 }
-
-selectPortSet 22
