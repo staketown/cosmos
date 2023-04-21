@@ -34,12 +34,12 @@ git checkout $BINARY_VERSION_TAG
 make install
 nolusd version
 
-nolusd config keyring-backend os
+nolusd config keyring-backend test
 nolusd config chain-id $CHAIN_ID
 nolusd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -s https://snapshots-testnet.r1m-team.com/nolus/genesis.json > $HOME/.nolus/config/genesis.json
-curl -s https://snapshots-testnet.r1m-team.com/nolus/addrbook.json > $HOME/.nolus/config/addrbook.json
+curl -Ls https://snapshots.kjnodes.com/nolus-testnet/genesis.json > $HOME/.nolus/config/genesis.json
+curl -Ls https://snapshots.kjnodes.com/nolus-testnet/addrbook.json > $HOME/.nolus/config/addrbook.json
 
 CONFIG_TOML=$HOME/.nolus/config/config.toml
 PEERS=""
@@ -80,8 +80,10 @@ EOF
 nolusd tendermint unsafe-reset-all --home $HOME/.nolus --keep-addr-book
 
 # Add snapshot here
-URL="https://snapshots-testnet.r1m-team.com/nolus/nolus-rila_latest.tar.lz4  "
-curl $URL | lz4 -dc - | tar -xf - -C $HOME/.nolus
+curl -L https://snapshots.kjnodes.com/nolus-testnet/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.nolus
+
+#URL="https://snapshots-testnet.r1m-team.com/nolus/nolus-rila_latest.tar.lz4"
+#curl $URL | lz4 -dc - | tar -xf - -C $HOME/.nolus
 
 sudo systemctl daemon-reload
 sudo systemctl enable nolusd
