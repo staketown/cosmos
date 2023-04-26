@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="nolus-rila"
 CHAIN_DENOM="unls"
 BINARY_NAME="nolusd"
-BINARY_VERSION_TAG="v0.2.2-store-fix"
+BINARY_VERSION_TAG="v0.2.2-equalize-store-heights"
 CHEAT_SHEET="https://nodes.r1m-team.com/nolus"
 
 printDelimiter
