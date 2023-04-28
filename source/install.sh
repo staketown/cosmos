@@ -1,10 +1,10 @@
 #!/bin/bash
 
-source <(curl -s https://raw.githubusercontent.com/R1M-NODES/utils/master/common.sh)
+source <(curl -s https://raw.githubusercontent.com/staketown/utils/master/common.sh)
 
 printLogo
 
-source <(curl -s https://raw.githubusercontent.com/R1M-NODES/cosmos/master/utils/ports.sh) && sleep 1
+source <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/utils/ports.sh) && sleep 1
 export -f selectPortSet && selectPortSet
 
 read -r -p "Enter node moniker: " NODE_MONIKER
@@ -13,7 +13,7 @@ CHAIN_ID="sourcechain-testnet"
 CHAIN_DENOM="usource"
 BINARY_NAME="sourced"
 BINARY_VERSION_TAG="e06b810e842e57ec8f5432c9cdd57883a69b3cee"
-CHEAT_SHEET="https://nodes.r1m-team.com/source"
+CHEAT_SHEET="https://nodes.stake-town.com/source"
 
 printDelimiter
 echo -e "Node moniker:       $NODE_MONIKER"
@@ -22,7 +22,7 @@ echo -e "Chain demon:        $CHAIN_DENOM"
 echo -e "Binary version tag: $BINARY_VERSION_TAG"
 printDelimiter && sleep 1
 
-source <(curl -s https://raw.githubusercontent.com/R1M-NODES/cosmos/master/utils/dependencies.sh)
+source <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/utils/dependencies.sh)
 
 echo "" && printGreen "Building binaries..." && sleep 1
 
@@ -38,8 +38,8 @@ sourced config keyring-backend os
 sourced config chain-id $CHAIN_ID
 sourced init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -Ls https://snapshots-testnet.r1m-team.com/source/genesis.json > $HOME/.source/config/genesis.json
-curl -Ls https://snapshots-testnet.r1m-team.com/source/addrbook.json > $HOME/.source/config/addrbook.json
+curl -Ls https://snapshots-testnet.stake-town.com/source/genesis.json > $HOME/.source/config/genesis.json
+curl -Ls https://snapshots-testnet.stake-town.com/source/addrbook.json > $HOME/.source/config/addrbook.json
 
 CONFIG_TOML=$HOME/.source/config/config.toml
 PEERS=""
@@ -84,7 +84,7 @@ EOF
 sourced tendermint unsafe-reset-all --home $HOME/.source --keep-addr-book
 
 # Add snapshot here
-URL="https://snapshots-testnet.r1m-team.com/source/sourcechain-testnet_latest.tar.lz4 "
+URL="https://snapshots-testnet.stake-town.com/source/sourcechain-testnet_latest.tar.lz4 "
 curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.source
 
 sudo systemctl daemon-reload

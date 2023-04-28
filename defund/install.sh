@@ -1,10 +1,10 @@
 #!/bin/bash
 
-source <(curl -s https://raw.githubusercontent.com/R1M-NODES/utils/master/common.sh)
+source <(curl -s https://raw.githubusercontent.com/staketown/utils/master/common.sh)
 
 printLogo
 
-source <(curl -s https://raw.githubusercontent.com/R1M-NODES/cosmos/master/utils/ports.sh) && sleep 1
+source <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/utils/ports.sh) && sleep 1
 export -f selectPortSet && selectPortSet
 
 read -r -p "Enter node moniker: " NODE_MONIKER
@@ -13,7 +13,7 @@ CHAIN_ID="orbit-alpha-1"
 CHAIN_DENOM="ufetf"
 BINARY_NAME="defundd"
 BINARY_VERSION_TAG="v0.2.6"
-CHEAT_SHEET="https://nodes.r1m-team.com/defund"
+CHEAT_SHEET="https://nodes.stake-town.com/defund"
 
 printDelimiter
 echo -e "Node moniker:       $NODE_MONIKER"
@@ -22,7 +22,7 @@ echo -e "Chain demon:        $CHAIN_DENOM"
 echo -e "Binary version tag: $BINARY_VERSION_TAG"
 printDelimiter && sleep 1
 
-source <(curl -s https://raw.githubusercontent.com/R1M-NODES/cosmos/master/utils/dependencies.sh)
+source <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/utils/dependencies.sh)
 
 echo "" && printGreen "Building binaries..." && sleep 1
 
@@ -39,8 +39,8 @@ defundd config chain-id $CHAIN_ID
 defundd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 # Download genesis and addrbook
-curl -Ls https://snapshots-testnet.r1m-team.com/defund/genesis.json > $HOME/.defund/config/genesis.json
-curl -Ls https://snapshots-testnet.r1m-team.com/defund/addrbook.json > $HOME/.defund/config/addrbook.json
+curl -Ls https://snapshots-testnet.stake-town.com/defund/genesis.json > $HOME/.defund/config/genesis.json
+curl -Ls https://snapshots-testnet.stake-town.com/defund/addrbook.json > $HOME/.defund/config/addrbook.json
 
 CONFIG_TOML=$HOME/.defund/config/config.toml
 PEERS=""
@@ -84,7 +84,7 @@ EOF
 defundd tendermint unsafe-reset-all --home $HOME/.defund --keep-addr-book
 
 # Add snapshot here
-URL="https://snapshots-testnet.r1m-team.com/defund/orbit-alpha-1_latest.tar.lz4"
+URL="https://snapshots-testnet.stake-town.com/defund/orbit-alpha-1_latest.tar.lz4"
 curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.defund
 
 sudo systemctl daemon-reload

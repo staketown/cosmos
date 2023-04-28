@@ -1,10 +1,10 @@
 #!/bin/bash
 
-source <(curl -s https://raw.githubusercontent.com/R1M-NODES/utils/master/common.sh)
+source <(curl -s https://raw.githubusercontent.com/staketown/utils/master/common.sh)
 
 printLogo
 
-source <(curl -s https://raw.githubusercontent.com/R1M-NODES/cosmos/master/utils/ports.sh) && sleep 1
+source <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/utils/ports.sh) && sleep 1
 export -f selectPortSet && selectPortSet
 
 read -r -p "Enter node moniker: " NODE_MONIKER
@@ -13,7 +13,7 @@ CHAIN_ID="ojo-devnet"
 CHAIN_DENOM="uojo"
 BINARY_NAME="ojod"
 BINARY_VERSION_TAG="v0.1.2"
-CHEAT_SHEET="https://nodes.r1m-team.com/ojo"
+CHEAT_SHEET="https://nodes.stake-town.com/ojo"
 
 printDelimiter
 echo -e "Node moniker:       $NODE_MONIKER"
@@ -22,7 +22,7 @@ echo -e "Chain demon:        $CHAIN_DENOM"
 echo -e "Binary version tag: $BINARY_VERSION_TAG"
 printDelimiter && sleep 1
 
-source <(curl -s https://raw.githubusercontent.com/R1M-NODES/cosmos/master/utils/dependencies.sh)
+source <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/utils/dependencies.sh)
 
 echo "" && printGreen "Building binaries..." && sleep 1
 
@@ -39,11 +39,11 @@ ojod config chain-id $CHAIN_ID
 ojod init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 # Download genesis and addrbook
-curl -Ls https://snapshots-testnet.r1m-team.com/ojo/genesis.json > $HOME/.ojo/config/genesis.json
-curl -Ls https://snapshots-testnet.r1m-team.com/ojo/addrbook.json > $HOME/.ojo/config/addrbook.json
+curl -Ls https://snapshots-testnet.stake-town.com/ojo/genesis.json > $HOME/.ojo/config/genesis.json
+curl -Ls https://snapshots-testnet.stake-town.com/ojo/addrbook.json > $HOME/.ojo/config/addrbook.json
 
 CONFIG_TOML=$HOME/.ojo/config/config.toml
-PEERS="18300f0a5973798c3900fe51ff255bb6bca982f9@ojo-testnet-rpc.r1m-team.com:36656"
+PEERS="18300f0a5973798c3900fe51ff255bb6bca982f9@ojo-testnet-rpc.stake-town.com:36656"
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
 SEEDS=""
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
@@ -84,7 +84,7 @@ EOF
 ojod tendermint unsafe-reset-all --home $HOME/.ojo --keep-addr-book
 
 # Add snapshot here
-URL="https://snapshots-testnet.r1m-team.com/ojo/ojo-devnet_latest.tar.lz4"
+URL="https://snapshots-testnet.stake-town.com/ojo/ojo-devnet_latest.tar.lz4"
 curl -L $URL | tar -Ilz4 -xf - -C $HOME/.ojo
 
 sudo systemctl daemon-reload

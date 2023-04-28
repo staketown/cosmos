@@ -1,10 +1,10 @@
 #!/bin/bash
 
-source <(curl -s https://raw.githubusercontent.com/R1M-NODES/utils/master/common.sh)
+source <(curl -s https://raw.githubusercontent.com/staketown/utils/master/common.sh)
 
 printLogo
 
-source <(curl -s https://raw.githubusercontent.com/R1M-NODES/cosmos/master/utils/ports.sh) && sleep 1
+source <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/utils/ports.sh) && sleep 1
 export -f selectPortSet && selectPortSet
 
 read -r -p "Enter node moniker: " NODE_MONIKER
@@ -13,7 +13,7 @@ CHAIN_ID="nolus-rila"
 CHAIN_DENOM="unls"
 BINARY_NAME="nolusd"
 BINARY_VERSION_TAG="v0.2.2-equalize-store-heights"
-CHEAT_SHEET="https://nodes.r1m-team.com/nolus"
+CHEAT_SHEET="https://nodes.stake-town.com/nolus"
 
 printDelimiter
 echo -e "Node moniker:       $NODE_MONIKER"
@@ -22,7 +22,7 @@ echo -e "Chain demon:        $CHAIN_DENOM"
 echo -e "Binary version tag: $BINARY_VERSION_TAG"
 printDelimiter && sleep 1
 
-source <(curl -s https://raw.githubusercontent.com/R1M-NODES/cosmos/master/utils/dependencies.sh)
+source <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/utils/dependencies.sh)
 
 echo "" && printGreen "Building binaries..." && sleep 1
 
@@ -38,8 +38,8 @@ nolusd config keyring-backend os
 nolusd config chain-id $CHAIN_ID
 nolusd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -s https://snapshots-testnet.r1m-team.com/nolus/genesis.json > $HOME/.nolus/config/genesis.json
-curl -s https://snapshots-testnet.r1m-team.com/nolus/addrbook.json > $HOME/.nolus/config/addrbook.json
+curl -s https://snapshots-testnet.stake-town.com/nolus/genesis.json > $HOME/.nolus/config/genesis.json
+curl -s https://snapshots-testnet.stake-town.com/nolus/addrbook.json > $HOME/.nolus/config/addrbook.json
 
 CONFIG_TOML=$HOME/.nolus/config/config.toml
 PEERS=""
@@ -80,7 +80,7 @@ EOF
 nolusd tendermint unsafe-reset-all --home $HOME/.nolus --keep-addr-book
 
 # Add snapshot here
-URL="https://snapshots-testnet.r1m-team.com/nolus/nolus-rila_latest.tar.lz4"
+URL="https://snapshots-testnet.stake-town.com/nolus/nolus-rila_latest.tar.lz4"
 curl $URL | lz4 -dc - | tar -xf - -C $HOME/.nolus
 
 sudo systemctl daemon-reload

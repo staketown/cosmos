@@ -1,10 +1,10 @@
 #!/bin/bash
 
-source <(curl -s https://raw.githubusercontent.com/R1M-NODES/utils/master/common.sh)
+source <(curl -s https://raw.githubusercontent.com/staketown/utils/master/common.sh)
 
 printLogo
 
-source <(curl -s https://raw.githubusercontent.com/R1M-NODES/cosmos/master/utils/ports.sh) && sleep 1
+source <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/utils/ports.sh) && sleep 1
 export -f selectPortSet && selectPortSet
 
 read -r -p "Enter node moniker: " NODE_MONIKER
@@ -13,7 +13,7 @@ CHAIN_ID="qsr-questnet-04"
 CHAIN_DENOM="uqsr"
 BINARY_NAME="quasard"
 BINARY_VERSION_TAG="0.0.2-alpha-11"
-CHEAT_SHEET="https://nodes.r1m-team.com/quasar"
+CHEAT_SHEET="https://nodes.stake-town.com/quasar"
 
 printDelimiter
 echo -e "Node moniker:       $NODE_MONIKER"
@@ -22,7 +22,7 @@ echo -e "Chain demon:        $CHAIN_DENOM"
 echo -e "Binary version tag: $BINARY_VERSION_TAG"
 printDelimiter && sleep 1
 
-source <(curl -s https://raw.githubusercontent.com/R1M-NODES/cosmos/master/utils/dependencies.sh)
+source <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/utils/dependencies.sh)
 
 echo "" && printGreen "Building binaries..." && sleep 1
 

@@ -1,10 +1,10 @@
 #!/bin/bash
 
-source <(curl -s https://raw.githubusercontent.com/R1M-NODES/utils/master/common.sh)
+source <(curl -s https://raw.githubusercontent.com/staketown/utils/master/common.sh)
 
 printLogo
 
-source <(curl -s https://raw.githubusercontent.com/R1M-NODES/cosmos/master/utils/ports.sh) && sleep 1
+source <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/utils/ports.sh) && sleep 1
 export -f selectPortSet && selectPortSet
 
 read -r -p "Enter node moniker: " NODE_MONIKER
@@ -13,7 +13,7 @@ CHAIN_ID="bbn-test1"
 CHAIN_DENOM="ubbn"
 BINARY_NAME="babylond"
 BINARY_VERSION_TAG="v0.5.0"
-CHEAT_SHEET="https://nodes.r1m-team.com/babylon"
+CHEAT_SHEET="https://nodes.stake-town.com/babylon"
 
 printDelimiter
 echo -e "Node moniker:       $NODE_MONIKER"
@@ -22,7 +22,7 @@ echo -e "Chain demon:        $CHAIN_DENOM"
 echo -e "Binary version tag: $BINARY_VERSION_TAG"
 printDelimiter && sleep 1
 
-source <(curl -s https://raw.githubusercontent.com/R1M-NODES/cosmos/master/utils/dependencies.sh)
+source <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/utils/dependencies.sh)
 
 echo "" && printGreen "Building binaries..." && sleep 1
 
@@ -38,8 +38,8 @@ babylond config keyring-backend test
 babylond config chain-id $CHAIN_ID
 babylond init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -s https://snapshots-testnet.r1m-team.com/babylon/genesis.json > $HOME/.babylond/config/genesis.json
-curl -s https://snapshots-testnet.r1m-team.com/babylon/addrbook.json > $HOME/.babylond/config/addrbook.json
+curl -s https://snapshots-testnet.stake-town.com/babylon/genesis.json > $HOME/.babylond/config/genesis.json
+curl -s https://snapshots-testnet.stake-town.com/babylon/addrbook.json > $HOME/.babylond/config/addrbook.json
 
 CONFIG_TOML=$HOME/.babylond/config/config.toml
 PEERS=""
@@ -85,7 +85,7 @@ EOF
 babylond tendermint unsafe-reset-all --home $HOME/.babylond --keep-addr-book
 
 # Add snapshot here
-URL="https://snapshots-testnet.r1m-team.com/babylon/bbn-test1_latest.tar.lz4"
+URL="https://snapshots-testnet.stake-town.com/babylon/bbn-test1_latest.tar.lz4"
 curl $URL | lz4 -dc - | tar -xf - -C $HOME/.babylond
 
 sudo systemctl daemon-reload

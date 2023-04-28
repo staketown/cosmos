@@ -1,10 +1,10 @@
 #!/bin/bash
 
-source <(curl -s https://raw.githubusercontent.com/R1M-NODES/utils/master/common.sh)
+source <(curl -s https://raw.githubusercontent.com/staketown/utils/master/common.sh)
 
 printLogo
 
-source <(curl -s https://raw.githubusercontent.com/R1M-NODES/cosmos/master/utils/ports.sh) && sleep 1
+source <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/utils/ports.sh) && sleep 1
 export -f selectPortSet && selectPortSet
 
 read -r -p "Enter node moniker: " NODE_MONIKER
@@ -22,7 +22,7 @@ echo -e "Chain demon:        $CHAIN_DENOM"
 echo -e "Binary version tag: $BINARY_VERSION_TAG"
 printDelimiter && sleep 1
 
-source <(curl -s https://raw.githubusercontent.com/R1M-NODES/cosmos/master/utils/dependencies.sh)
+source <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/utils/dependencies.sh)
 
 echo "" && printGreen "Building binaries..." && sleep 1
 
@@ -38,8 +38,8 @@ lavad config keyring-backend os
 lavad config chain-id $CHAIN_ID
 lavad init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -Ls https://snapshots-testnet.r1m-team.com/lava/genesis.json > $HOME/.lava/config/genesis.json
-curl -Ls https://snapshots-testnet.r1m-team.com/lava/addrbook.json > $HOME/.lava/config/addrbook.json
+curl -Ls https://snapshots-testnet.stake-town.com/lava/genesis.json > $HOME/.lava/config/genesis.json
+curl -Ls https://snapshots-testnet.stake-town.com/lava/addrbook.json > $HOME/.lava/config/addrbook.json
 
 CONFIG_TOML=$HOME/.lava/config/config.toml
 PEERS=""
@@ -84,7 +84,7 @@ EOF
 lavad tendermint unsafe-reset-all --home $HOME/.lava --keep-addr-book
 
 # Add snapshot here
-URL="https://snapshots-testnet.r1m-team.com/lava/lava-testnet-1_latest.tar.lz4"
+URL="https://snapshots-testnet.stake-town.com/lava/lava-testnet-1_latest.tar.lz4"
 curl -L $URL | tar -Ilz4 -xf - -C $HOME/.lava
 
 sudo systemctl daemon-reload

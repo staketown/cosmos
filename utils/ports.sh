@@ -10,7 +10,7 @@ PORT_P2P=6060
 PORT_PROMETHEUS=26660
 PORT_API=1317
 
-source <(curl -s https://raw.githubusercontent.com/R1M-NODES/utils/master/common.sh)
+source <(curl -s https://raw.githubusercontent.com/staketown/utils/master/common.sh)
 
 function persistPorts {
   ARG=$(($1 - 1))
