@@ -10,5 +10,5 @@
 | Nolus    |   6   |
 | Babylon  |   7   |
 | Defund   |   8   |
-| Casandra |   9   |
+| Cascadia |   9   |
 | Ojo      |  11   |
