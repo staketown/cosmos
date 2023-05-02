@@ -72,7 +72,7 @@ function selectPortSet {
     7) exportPorts 7 ;;
     8) exportPorts 8 ;;
     9) exportPorts 9 ;;
-    {1,2}[0-9]) exportPorts $((${flag} + 0)) ;;
+    -?[0-9]+) exportPorts ${flag} ;;
     *) printGreen "WARN: unknown parameter: ${flag}" && exit 1 ;;
   esac
 }
