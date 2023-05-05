@@ -13,4 +13,3 @@
 | Cascadia  |   9   |
 | C4E       |  10   |
 | Ojo       |  11   |
-| CardChain | 12 |
