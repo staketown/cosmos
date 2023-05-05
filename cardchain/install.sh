@@ -10,10 +10,9 @@ export -f selectPortSet && selectPortSet
 read -r -p "Enter node moniker: " NODE_MONIKER
 
 CHAIN_ID="testnet3"
-CHAIN_DENOM="aCC"
-BINARY_NAME="cascadiad"
-BINARY_VERSION_TAG="v0.1.1"
-CHEAT_SHEET="https://nodes.stake-town.com/casandra"
+CHAIN_DENOM="ubpf"
+BINARY_NAME="Cardchaind"
+BINARY_VERSION_TAG="v0.81"
 
 printDelimiter
 echo -e "Node moniker:       $NODE_MONIKER"
@@ -40,7 +39,7 @@ Cardchaind init "$NODE_MONIKER" --chain-id $CHAIN_ID
 curl -s https://raw.githubusercontent.com/DecentralCardGame/Testnet/main/genesis.json > $HOME/.Cardchain/config/genesis.json
 
 CONFIG_TOML=$HOME/.Cardchain/config/config.toml
-PEERS="b651ea2a0517e82c1a476e25966ab3de3159afe8@34.229.22.39:26656,3b389873f999763d3f937f63f765f0948411e296@44.192.85.92:26656"
+PEERS="56d11635447fa77163f31119945e731c55e256a4@45.136.28.158:26658"
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
 SEEDS=""
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
@@ -53,7 +52,7 @@ sed -i 's|^pruning-interval *=.*|pruning-interval = "19"|g' $APP_TOML
 sed -i -e "s/^filter_peers *=.*/filter_peers = \"true\"/" $CONFIG_TOML
 indexer="null"
 sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $CONFIG_TOML
-sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0025aCC"|g' $APP_TOML
+sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0025ubpf"|g' $APP_TOML
 
 # Customize ports
 CLIENT_TOML=$HOME/.Cardchain/config/client.toml
