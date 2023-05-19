@@ -84,6 +84,8 @@ LimitNOFILE=10000
 WantedBy=multi-user.target
 EOF
 
+banksyd tendermint unsafe-reset-all --home $HOME/.banksy --keep-addr-book
+
 # Add snapshot here
 curl -L https://snapshots.kjnodes.com/composable-testnet/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.banksy
 
