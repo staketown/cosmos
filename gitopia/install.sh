@@ -9,10 +9,10 @@ export -f selectPortSet && selectPortSet
 
 read -r -p "Enter node moniker: " NODE_MONIKER
 
-CHAIN_ID="gitopia-janus-testnet-2"
-CHAIN_DENOM="utlore"
+CHAIN_ID="gitopia"
+CHAIN_DENOM="ulore"
 BINARY_NAME="gitopiad"
-BINARY_VERSION_TAG="v1.2.0"
+BINARY_VERSION_TAG="v2.0.0"
 
 printDelimiter
 echo -e "Node moniker:       $NODE_MONIKER"
@@ -25,16 +25,14 @@ source <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/utils
 
 echo "" && printGreen "Building binaries..." && sleep 1
 
-curl https://get.gitopia.com | bash
-sudo mv /tmp/tmpinstalldir/git-remote-gitopia /usr/local/bin/
-
-cd || return
+cd $HOME || return
 rm -rf gitopia
-git clone gitopia://Gitopia/gitopia
+git clone https://github.com/gitopia/gitopia
 cd gitopia || return
-git checkout v1.2.0
+git checkout $BINARY_VERSION_TAG
 make install
-gitopiad version # v1.2.0
+
+gitopiad version # v2.0.0
 
 gitopiad config keyring-backend os
 gitopiad config chain-id $CHAIN_ID
@@ -46,7 +44,7 @@ curl -Ls https://snapshots-testnet.stake-town.com/gitopia/addrbook.json > $HOME/
 CONFIG_TOML=$HOME/.gitopia/config/config.toml
 PEERS=""
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
-SEEDS="399d4e19186577b04c23296c4f7ecc53e61080cb@seed.gitopia.com:26656"
+SEEDS="400f3d9e30b69e78a7fb891f60d76fa3c73f0ecc@gitopia.rpc.kjnodes.com:14159"
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
 
 APP_TOML=$HOME/.gitopia/config/app.toml
@@ -57,7 +55,7 @@ sed -i 's|^pruning-interval *=.*|pruning-interval = "19"|g' $APP_TOML
 sed -i -e "s/^filter_peers *=.*/filter_peers = \"true\"/" $CONFIG_TOML
 indexer="null"
 sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $CONFIG_TOML
-sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.025utlore"|g' $APP_TOML
+sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.025ulore"|g' $APP_TOML
 
 # Customize ports
 CLIENT_TOML=$HOME/.gitopia/config/client.toml
