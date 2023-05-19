@@ -39,14 +39,15 @@ banksyd config keyring-backend os
 banksyd config chain-id $CHAIN_ID
 banksyd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-wget -O ~/.banksy/config/genesis.json https://raw.githubusercontent.com/notional-labs/composable-networks/main/testnet-2/genesis.json
+curl -Ls https://snapshots.kjnodes.com/composable-testnet/genesis.json > $HOME/.banksy/config/genesis.json
+curl -Ls https://snapshots.kjnodes.com/composable-testnet/addrbook.json > $HOME/.banksy/config/addrbook.json
 #curl -s https://snapshots-testnet.stake-town.com/cascadia/genesis.json > $HOME/.cascadiad/config/genesis.json
 #curl -s https://snapshots-testnet.stake-town.com/cascadia/addrbook.json > $HOME/.cascadiad/config/addrbook.json
 
 CONFIG_TOML=$HOME/.banksy/config/config.toml
 PEERS=""
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
-SEEDS="872c8a78a17a24d6f44e1126c46ef52069c7bb18@65.109.80.150:2630,5c2a752c9b1952dbed075c56c600c3a79b58c395@composable-testnet-seed.autostake.com:26976,20e1000e88125698264454a884812746c2eb4807@seeds.lavenderfive.com:22256,3f472746f46493309650e5a033076689996c8881@composable-testnet.rpc.kjnodes.com:15959,ade4d8bc8cbe014af6ebdf3cb7b1e9ad36f412c0@testnet-seeds.polkachu.com:22256,945e8384ea51c5c6f7b9a90df8d8da120516d897@rpc.composable-t.indonode.net:47656"
+SEEDS="3f472746f46493309650e5a033076689996c8881@composable-testnet.rpc.kjnodes.com:15959"
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
 
 APP_TOML=$HOME/.banksy/config/app.toml
@@ -85,6 +86,8 @@ EOF
 banksyd tendermint unsafe-reset-all --home $HOME/.banksy --keep-addr-book
 
 # Add snapshot here
+curl -L https://snapshots.kjnodes.com/composable-testnet/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.banksy
+
 #URL="https://snapshots-testnet.stake-town.com/cascadia/cascadia_6102-1_latest.tar.lz4"
 #curl $URL | lz4 -dc - | tar -xf - -C $HOME/.banksy
 
