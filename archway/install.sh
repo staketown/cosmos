@@ -40,11 +40,8 @@ archwayd config keyring-backend os
 archwayd config chain-id $CHAIN_ID
 archwayd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -Ls https://snapshots.kjnodes.com/archway-testnet/genesis.json > $HOME/.archway/config/genesis.json
-curl -Ls https://snapshots.kjnodes.com/archway-testnet/addrbook.json > $HOME/.archway/config/addrbook.json
-
-#curl -s https://snapshots-testnet.stake-town.com/cascadia/genesis.json > $HOME/.cascadiad/config/genesis.json
-#curl -s https://snapshots-testnet.stake-town.com/cascadia/addrbook.json > $HOME/.cascadiad/config/addrbook.json
+curl -s https://snapshots-testnet.stake-town.com/archway/genesis.json > $HOME/.archway/config/genesis.json
+curl -s https://snapshots-testnet.stake-town.com/archway/addrbook.json > $HOME/.archway/config/addrbook.json
 
 CONFIG_TOML=$HOME/.archway/config/config.toml
 PEERS=""
@@ -88,10 +85,8 @@ EOF
 archwayd tendermint unsafe-reset-all --home $HOME/.archway --keep-addr-book
 
 # Add snapshot here
-curl -L https://snapshots.kjnodes.com/archway-testnet/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.archway
-
-#URL="https://snapshots-testnet.stake-town.com/cascadia/cascadia_6102-1_latest.tar.lz4"
-#curl $URL | lz4 -dc - | tar -xf - -C $HOME/.archway
+URL="https://snapshots-testnet.stake-town.com/archway/constantine-3_latest.tar"
+curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.archway
 
 sudo systemctl daemon-reload
 sudo systemctl enable archwayd
