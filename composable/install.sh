@@ -35,7 +35,7 @@ git checkout $BINARY_VERSION_TAG
 make install
 banksyd version # v2.3.2
 
-banksyd config keyring-backend os
+banksyd config keyring-backend test
 banksyd config chain-id $CHAIN_ID
 banksyd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
