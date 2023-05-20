@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="banksy-testnet-2"
 CHAIN_DENOM="upica"
 BINARY_NAME="banksyd"
-BINARY_VERSION_TAG="v2.3.2"
+BINARY_VERSION_TAG="v2.3.1"
 CHEAT_SHEET="https://nodes.stake-town.com/composable"
 
 printDelimiter
@@ -33,7 +33,7 @@ git clone https://github.com/notional-labs/composable-testnet.git
 cd $HOME/composable-testnet || return
 git checkout $BINARY_VERSION_TAG
 make install
-banksyd version # v2.3.2
+banksyd version # v2.3.1
 
 banksyd config keyring-backend test
 banksyd config chain-id $CHAIN_ID
