@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="banksy-testnet-2"
 CHAIN_DENOM="upica"
 BINARY_NAME="banksyd"
-BINARY_VERSION_TAG="v2.3.1"
+BINARY_VERSION_TAG="v2.3.2"
 CHEAT_SHEET="https://nodes.stake-town.com/composable"
 
 printDelimiter
@@ -86,7 +86,7 @@ EOF
 banksyd tendermint unsafe-reset-all --home $HOME/.banksy --keep-addr-book
 
 # Add snapshot here
-curl -L https://snapshots.kjnodes.com/composable-testnet/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.banksy
+# curl -L https://snapshots.kjnodes.com/composable-testnet/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.banksy
 
 #URL="https://snapshots-testnet.stake-town.com/cascadia/cascadia_6102-1_latest.tar.lz4"
 #curl $URL | lz4 -dc - | tar -xf - -C $HOME/.banksy
