@@ -39,8 +39,7 @@ banksyd config keyring-backend test
 banksyd config chain-id $CHAIN_ID
 banksyd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -Ls https://github.com/notional-labs/composable-networks/blob/main/testnet-2/genesis.json > $HOME/.banksy/config/genesis.json
-curl -Ls https://snapshots.kjnodes.com/composable-testnet/addrbook.json > $HOME/.banksy/config/addrbook.json
+curl -Ls https://raw.githubusercontent.com/notional-labs/composable-networks/main/testnet-2/genesis.json > $HOME/.banksy/config/genesis.json
 #curl -s https://snapshots-testnet.stake-town.com/cascadia/genesis.json > $HOME/.cascadiad/config/genesis.json
 #curl -s https://snapshots-testnet.stake-town.com/cascadia/addrbook.json > $HOME/.cascadiad/config/addrbook.json
 
