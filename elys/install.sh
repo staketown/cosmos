@@ -38,10 +38,8 @@ elysd config keyring-backend os
 elysd config chain-id $CHAIN_ID
 elysd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -Ls https://snapshots.kjnodes.com/elys-testnet/genesis.json > $HOME/.elys/config/genesis.json
-curl -Ls https://snapshots.kjnodes.com/elys-testnet/addrbook.json > $HOME/.elys/config/addrbook.json
-#curl -s https://snapshots-testnet.stake-town.com/cascadia/genesis.json > $HOME/.elys/config/genesis.json
-#curl -s https://snapshots-testnet.stake-town.com/cascadia/addrbook.json > $HOME/.elys/config/addrbook.json
+curl -s https://snapshots-testnet.stake-town.com/elys/genesis.json > $HOME/.elys/config/genesis.json
+curl -s https://snapshots-testnet.stake-town.com/elys/addrbook.json > $HOME/.elys/config/addrbook.json
 
 CONFIG_TOML=$HOME/.elys/config/config.toml
 PEERS="b651ea2a0517e82c1a476e25966ab3de3159afe8@34.229.22.39:26656,3b389873f999763d3f937f63f765f0948411e296@44.192.85.92:26656"
@@ -85,8 +83,7 @@ EOF
 elysd tendermint unsafe-reset-all --home $HOME/.elys --keep-addr-book
 
 # Add snapshot here
-#URL="https://snapshots-testnet.stake-town.com/cascadia/cascadia_6102-1_latest.tar.lz4"
-URL="https://snapshots.kjnodes.com/elys-testnet/snapshot_latest.tar.lz4"
+URL="https://snapshots-testnet.stake-town.com/elys/elystestnet-1_latest.tar.lz4"
 curl $URL | lz4 -dc - | tar -xf - -C $HOME/.elys
 
 sudo systemctl daemon-reload
