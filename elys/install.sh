@@ -29,7 +29,7 @@ echo "" && printGreen "Building binaries..." && sleep 1
 cd $HOME || return
 rm -rf elys
 URL="https://github.com/elys-network/elys/releases/download/v0.5.4/elys._v0.5.4_linux_amd64.tar.gz"
-wget $URL | tar -xf - -C $HOME/.elys
+wget $URL | tar -xf - -C $HOME/go/bin
 elysd version # v0.5.4
 
 elysd config keyring-backend os
