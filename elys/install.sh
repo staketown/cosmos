@@ -28,10 +28,8 @@ echo "" && printGreen "Building binaries..." && sleep 1
 
 cd $HOME || return
 rm -rf elys
-git clone https://github.com/elys-network/elys.git
-cd elys || return
-git checkout $BINARY_VERSION_TAG
-make install
+URL="https://github.com/elys-network/elys/releases/download/v0.5.4/elys._v0.5.4_linux_amd64.tar.gz"
+wget $URL | tar -xf - -C $HOME/.elys
 elysd version # v0.5.4
 
 elysd config keyring-backend os
