@@ -38,10 +38,8 @@ banksyd config keyring-backend test
 banksyd config chain-id $CHAIN_ID
 banksyd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-wget -O ~/.banksy/config/genesis.json https://raw.githubusercontent.com/notional-labs/composable-networks/main/banksy-testnet-3/genesis.json
-
-# curl -s https://snapshots-testnet.stake-town.com/composable/genesis.json > $HOME/.banksy/config/genesis.json
-# curl -s https://snapshots-testnet.stake-town.com/composable/addrbook.json > $HOME/.banksy/config/addrbook.json
+curl -s https://snapshots-testnet.stake-town.com/composable/genesis.json > $HOME/.banksy/config/genesis.json
+curl -s https://snapshots-testnet.stake-town.com/composable/addrbook.json > $HOME/.banksy/config/addrbook.json
 
 CONFIG_TOML=$HOME/.banksy/config/config.toml
 PEERS=""
@@ -83,11 +81,11 @@ LimitNOFILE=10000
 WantedBy=multi-user.target
 EOF
 
-# banksyd tendermint unsafe-reset-all --home $HOME/.banksy --keep-addr-book
+banksyd tendermint unsafe-reset-all --home $HOME/.banksy --keep-addr-book
 
 # Add snapshot here
-# URL="https://snapshots-testnet.stake-town.com/composable/banksy-testnet-2_latest.tar.lz4"
-# curl $URL | lz4 -dc - | tar -xf - -C $HOME/.banksy
+URL="https://snapshots-testnet.stake-town.com/composable/banksy-testnet-3_latest.tar.lz4"
+curl $URL | lz4 -dc - | tar -xf - -C $HOME/.banksy
 
 sudo systemctl daemon-reload
 sudo systemctl enable banksyd
