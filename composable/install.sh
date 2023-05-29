@@ -46,7 +46,7 @@ wget -O ~/.banksy/config/genesis.json https://raw.githubusercontent.com/notional
 CONFIG_TOML=$HOME/.banksy/config/config.toml
 PEERS=""
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
-SEEDS="872c8a78a17a24d6f44e1126c46ef52069c7bb18@65.109.80.150:21500"
+SEEDS="364b8245e72f083b0aa3e0d59b832020b66e9e9d@65.109.80.150:21500"
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
 
 APP_TOML=$HOME/.banksy/config/app.toml
