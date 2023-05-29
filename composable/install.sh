@@ -9,10 +9,10 @@ export -f selectPortSet && selectPortSet
 
 read -r -p "Enter node moniker: " NODE_MONIKER
 
-CHAIN_ID="banksy-testnet-2"
-CHAIN_DENOM="upica"
+CHAIN_ID="banksy-testnet-3"
+CHAIN_DENOM="ppica"
 BINARY_NAME="banksyd"
-BINARY_VERSION_TAG="v2.3.2"
+BINARY_VERSION_TAG="v2.3.5"
 CHEAT_SHEET="https://nodes.stake-town.com/composable"
 
 printDelimiter
@@ -32,19 +32,21 @@ git clone https://github.com/notional-labs/composable-testnet.git
 cd $HOME/composable-testnet || return
 git checkout $BINARY_VERSION_TAG
 make install
-banksyd version # v2.3.1
+banksyd version # v2.3.5
 
 banksyd config keyring-backend test
 banksyd config chain-id $CHAIN_ID
 banksyd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -s https://snapshots-testnet.stake-town.com/composable/genesis.json > $HOME/.banksy/config/genesis.json
-curl -s https://snapshots-testnet.stake-town.com/composable/addrbook.json > $HOME/.banksy/config/addrbook.json
+wget -O ~/.banksy/config/genesis.json https://raw.githubusercontent.com/notional-labs/composable-networks/main/banksy-testnet-3/genesis.json
+
+# curl -s https://snapshots-testnet.stake-town.com/composable/genesis.json > $HOME/.banksy/config/genesis.json
+# curl -s https://snapshots-testnet.stake-town.com/composable/addrbook.json > $HOME/.banksy/config/addrbook.json
 
 CONFIG_TOML=$HOME/.banksy/config/config.toml
 PEERS=""
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
-SEEDS="3f472746f46493309650e5a033076689996c8881@composable-testnet.rpc.kjnodes.com:15959"
+SEEDS="872c8a78a17a24d6f44e1126c46ef52069c7bb18@65.109.80.150:21500"
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
 
 APP_TOML=$HOME/.banksy/config/app.toml
@@ -81,11 +83,11 @@ LimitNOFILE=10000
 WantedBy=multi-user.target
 EOF
 
-banksyd tendermint unsafe-reset-all --home $HOME/.banksy --keep-addr-book
+# banksyd tendermint unsafe-reset-all --home $HOME/.banksy --keep-addr-book
 
 # Add snapshot here
-URL="https://snapshots-testnet.stake-town.com/composable/banksy-testnet-2_latest.tar.lz4"
-curl $URL | lz4 -dc - | tar -xf - -C $HOME/.banksy
+# URL="https://snapshots-testnet.stake-town.com/composable/banksy-testnet-2_latest.tar.lz4"
+# curl $URL | lz4 -dc - | tar -xf - -C $HOME/.banksy
 
 sudo systemctl daemon-reload
 sudo systemctl enable banksyd
