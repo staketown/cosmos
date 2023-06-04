@@ -62,6 +62,13 @@ sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.
 sed -i.bak -e "s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:$PORT_GRPC\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:$PORT_GRPC_WEB\"%; s%^address = \"tcp://0.0.0.0:1317\"%address = \"tcp://0.0.0.0:$PORT_API\"%" $APP_TOML && \
 sed -i.bak -e "s%^node = \"tcp://localhost:26657\"%node = \"tcp://localhost:$PORT_RPC\"%" $CLIENT_TOML
 
+printGreen "Install and configure cosmovisor..." && sleep 1
+
+go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.4.0
+mkdir -p ~/.elys/cosmovisor/genesis/bin
+mkdir -p ~/.elys/cosmovisor/upgrades
+cp ~/go/bin/elysd $HOME/.elys/cosmovisor/genesis/bin
+
 printGreen "Starting service and synchronization..." && sleep 1
 
 sudo tee /etc/systemd/system/elysd.service > /dev/null << EOF
@@ -70,10 +77,15 @@ Description=Elys Node
 After=network-online.target
 [Service]
 User=$USER
-ExecStart=$(which elysd) start
+ExecStart=$(which cosmovisor) run start
 Restart=on-failure
-RestartSec=10
+RestartSec=3
 LimitNOFILE=10000
+Environment="DAEMON_NAME=elysd"
+Environment="DAEMON_HOME=$HOME/.elys"
+Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=false"
+Environment="DAEMON_RESTART_AFTER_UPGRADE=true"
+Environment="UNSAFE_SKIP_BACKUP=true"
 [Install]
 WantedBy=multi-user.target
 EOF
