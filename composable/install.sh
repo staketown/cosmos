@@ -11,8 +11,8 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 
 CHAIN_ID="banksy-testnet-3"
 CHAIN_DENOM="ppica"
-BINARY_NAME="banksyd"
-BINARY_VERSION_TAG="v2.3.5"
+BINARY_NAME="centaurid"
+BINARY_VERSION_TAG="v3.0.0"
 CHEAT_SHEET="https://nodes.stake-town.com/composable"
 
 printDelimiter
@@ -32,11 +32,11 @@ git clone https://github.com/notional-labs/composable-testnet.git
 cd $HOME/composable-testnet || return
 git checkout $BINARY_VERSION_TAG
 make install
-banksyd version # v2.3.5
+centaurid version # v3.0.0
 
-banksyd config keyring-backend test
-banksyd config chain-id $CHAIN_ID
-banksyd init "$NODE_MONIKER" --chain-id $CHAIN_ID
+centaurid config keyring-backend test
+centaurid config chain-id $CHAIN_ID
+centaurid init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://snapshots-testnet.stake-town.com/composable/genesis.json > $HOME/.banksy/config/genesis.json
 curl -s https://snapshots-testnet.stake-town.com/composable/addrbook.json > $HOME/.banksy/config/addrbook.json
@@ -69,11 +69,11 @@ printGreen "Install and configure cosmovisor..." && sleep 1
 go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.4.0
 mkdir -p ~/.banksy/cosmovisor/genesis/bin
 mkdir -p ~/.banksy/cosmovisor/upgrades
-cp ~/go/bin/banksyd $HOME/.banksy/cosmovisor/genesis/bin
+cp ~/go/bin/centaurid $HOME/.banksy/cosmovisor/genesis/bin
 
 printGreen "Starting service and synchronization..." && sleep 1
 
-sudo tee /etc/systemd/system/banksyd.service > /dev/null << EOF
+sudo tee /etc/systemd/system/centaurid.service > /dev/null << EOF
 [Unit]
 Description=Composable Node
 After=network-online.target
@@ -83,7 +83,7 @@ ExecStart=$(which cosmovisor) run start
 Restart=on-failure
 RestartSec=3
 LimitNOFILE=10000
-Environment="DAEMON_NAME=banksyd"
+Environment="DAEMON_NAME=centaurid"
 Environment="DAEMON_HOME=$HOME/.banksy"
 Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=false"
 Environment="DAEMON_RESTART_AFTER_UPGRADE=true"
@@ -92,15 +92,15 @@ Environment="UNSAFE_SKIP_BACKUP=true"
 WantedBy=multi-user.target
 EOF
 
-banksyd tendermint unsafe-reset-all --home $HOME/.banksy --keep-addr-book
+centaurid tendermint unsafe-reset-all --home $HOME/.banksy --keep-addr-book
 
 # Add snapshot here
 URL="https://snapshots-testnet.stake-town.com/composable/banksy-testnet-3_latest.tar.lz4"
 curl $URL | lz4 -dc - | tar -xf - -C $HOME/.banksy
 
 sudo systemctl daemon-reload
-sudo systemctl enable banksyd
-sudo systemctl start banksyd
+sudo systemctl enable centaurid
+sudo systemctl start centaurid
 
 printDelimiter
 printGreen "Check logs:            sudo journalctl -u $BINARY_NAME -f -o cat"
