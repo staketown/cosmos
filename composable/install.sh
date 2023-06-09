@@ -79,6 +79,7 @@ Description=Composable Node
 After=network-online.target
 [Service]
 User=$USER
+WorkingDirectory=$HOME/
 ExecStart=$(which cosmovisor) run start
 Restart=on-failure
 RestartSec=3
