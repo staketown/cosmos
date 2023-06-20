@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="bbn-test1"
 CHAIN_DENOM="ubbn"
 BINARY_NAME="babylond"
-BINARY_VERSION_TAG="v0.5.0"
+BINARY_VERSION_TAG="v0.7.1"
 CHEAT_SHEET="https://nodes.stake-town.com/babylon"
 
 printDelimiter
@@ -30,9 +30,9 @@ cd || return
 rm -rf babylon
 git clone https://github.com/babylonchain/babylon
 cd babylon || return
-git checkout v0.5.0
+git checkout $BINARY_VERSION_TAG
 make install
-babylond version # v0.5.0
+babylond version # v0.7.1
 
 babylond config keyring-backend test
 babylond config chain-id $CHAIN_ID
