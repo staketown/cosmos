@@ -9,10 +9,10 @@ export -f selectPortSet && selectPortSet
 
 read -r -p "Enter node moniker: " NODE_MONIKER
 
-CHAIN_ID="bbn-test1"
+CHAIN_ID="bbn-test-2"
 CHAIN_DENOM="ubbn"
 BINARY_NAME="babylond"
-BINARY_VERSION_TAG="v0.7.1"
+BINARY_VERSION_TAG="v0.7.2"
 CHEAT_SHEET="https://nodes.stake-town.com/babylon"
 
 printDelimiter
@@ -32,7 +32,7 @@ git clone https://github.com/babylonchain/babylon
 cd babylon || return
 git checkout $BINARY_VERSION_TAG
 make install
-babylond version # v0.7.1
+babylond version # v0.7.2
 
 babylond config keyring-backend test
 babylond config chain-id $CHAIN_ID
@@ -44,7 +44,7 @@ curl -s https://snapshots-testnet.stake-town.com/babylon/addrbook.json > $HOME/.
 CONFIG_TOML=$HOME/.babylond/config/config.toml
 PEERS=""
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
-SEEDS="03ce5e1b5be3c9a81517d415f65378943996c864@18.207.168.204:26656,a5fabac19c732bf7d814cf22e7ffc23113dc9606@34.238.169.221:26656"
+SEEDS=
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
 
 APP_TOML=$HOME/.babylond/config/app.toml
@@ -55,9 +55,10 @@ sed -i 's|^pruning-interval *=.*|pruning-interval = "19"|g' $APP_TOML
 sed -i -e "s/^filter_peers *=.*/filter_peers = \"true\"/" $CONFIG_TOML
 indexer="null"
 sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $CONFIG_TOML
-sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.025ubbn"|g' $APP_TOML
+sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.00001ubbn"|g' $APP_TOML
 sed -i 's|^network *=.*|network = "mainnet"|g' $APP_TOML
 sed -i 's|^checkpoint-tag *=.*|checkpoint-tag = "bbn0"|g' $APP_TOML
+sed -i 's|^network *=.*|network = "mainnet"|g' $APP_TOML
 
 # Customize ports
 CLIENT_TOML=$HOME/.babylond/config/client.toml
@@ -97,8 +98,11 @@ EOF
 babylond tendermint unsafe-reset-all --home $HOME/.babylond --keep-addr-book
 
 # Add snapshot here
-URL="https://snapshots-testnet.stake-town.com/babylon/bbn-test1_latest.tar.lz4"
-curl $URL | lz4 -dc - | tar -xf - -C $HOME/.babylond
+SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/babylon-testnet/info.json | jq -r .fileName)
+curl "https://snapshots1-testnet.nodejumper.io/babylon-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.babylond"
+
+#URL="https://snapshots-testnet.stake-town.com/babylon/bbn-test1_latest.tar.lz4"
+#curl $URL | lz4 -dc - | tar -xf - -C $HOME/.babylond
 
 sudo systemctl daemon-reload
 sudo systemctl enable babylond
