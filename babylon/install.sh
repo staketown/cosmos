@@ -38,8 +38,15 @@ babylond config keyring-backend test
 babylond config chain-id $CHAIN_ID
 babylond init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -s https://snapshots-testnet.stake-town.com/babylon/genesis.json > $HOME/.babylond/config/genesis.json
-curl -s https://snapshots-testnet.stake-town.com/babylon/addrbook.json > $HOME/.babylond/config/addrbook.json
+curl -L https://github.com/babylonchain/networks/raw/main/bbn-test-2/genesis.tar.bz2 > genesis.tar.bz2
+tar -xjf genesis.tar.bz2
+rm genesis.tar.bz2
+mv genesis.json ~/.babylond/config/genesis.json
+
+curl -s https://snapshots1-testnet.nodejumper.io/babylon-testnet/addrbook.json > $HOME/.babylond/config/addrbook.json
+
+#curl -s https://snapshots-testnet.stake-town.com/babylon/genesis.json > $HOME/.babylond/config/genesis.json
+#curl -s https://snapshots-testnet.stake-town.com/babylon/addrbook.json > $HOME/.babylond/config/addrbook.json
 
 CONFIG_TOML=$HOME/.babylond/config/config.toml
 PEERS=""
@@ -82,7 +89,7 @@ Description=Babylon Node
 After=network-online.target
 [Service]
 User=$USER
-ExecStart=$(which cosmovisor) run start
+ExecStart=$(which cosmovisor) run start --x-crisis-skip-assert-invariants
 Restart=on-failure
 RestartSec=3
 LimitNOFILE=10000
