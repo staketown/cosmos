@@ -59,7 +59,6 @@ sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $CONFIG_TOML
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.00001ubbn"|g' $APP_TOML
 sed -i 's|^network *=.*|network = "mainnet"|g' $APP_TOML
 sed -i 's|^checkpoint-tag *=.*|checkpoint-tag = "bbn0"|g' $APP_TOML
-sed -i 's|^network *=.*|network = "mainnet"|g' $APP_TOML
 
 # Customize ports
 CLIENT_TOML=$HOME/.babylond/config/client.toml
