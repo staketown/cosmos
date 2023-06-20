@@ -53,6 +53,7 @@ PEERS=""
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
 SEEDS=
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
+sed -i 's/timeout_commit =.*/timeout_commit = "10s"/g' $CONFIG_TOML
 
 APP_TOML=$HOME/.babylond/config/app.toml
 sed -i 's|^pruning *=.*|pruning = "custom"|g' $APP_TOML
