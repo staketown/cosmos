@@ -99,8 +99,9 @@ centaurid tendermint unsafe-reset-all --home $HOME/.banksy --keep-addr-book
 URL="https://snapshots.stake-town.com/composable/centauri-1_latest.tar.lz4"
 curl $URL | lz4 -dc - | tar -xf - -C $HOME/.banksy
 
-WASM="https://cdn.discordapp.com/attachments/1115320577251627039/1122182157616545863/composable_wasm_client_data.tgz "
-curl $WASM | tar -xf - -C $HOME/.banksy
+WASM="https://cdn.discordapp.com/attachments/1115320577251627039/1122182157616545863/composable_wasm_client_data.tgz"
+wget tmp-arch $WASM | tar -xf tmp-arch -C $HOME/.banksy
+rm -rf tmp-arch
 
 sudo systemctl daemon-reload
 sudo systemctl enable centaurid
