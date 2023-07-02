@@ -100,7 +100,7 @@ URL="https://snapshots.stake-town.com/composable/centauri-1_latest.tar.lz4"
 curl $URL | lz4 -dc - | tar -xf - -C $HOME/.banksy
 
 WASM="https://cdn.discordapp.com/attachments/1115320577251627039/1122182157616545863/composable_wasm_client_data.tgz "
-curl $WASM | lz4 -dc - | tar -xf - -C $HOME/.banksy
+curl $WASM | tar -xf - -C $HOME/.banksy
 
 sudo systemctl daemon-reload
 sudo systemctl enable centaurid
