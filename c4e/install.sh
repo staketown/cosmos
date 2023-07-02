@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="perun-1"
 CHAIN_DENOM="uc4e"
 BINARY_NAME="c4ed"
-BINARY_VERSION_TAG="v1.2.0"
+BINARY_VERSION_TAG="v1.2.1"
 CHEAT_SHEET="https://nodes.stake-town.com/c4e"
 
 printDelimiter
@@ -33,7 +33,7 @@ git clone https://github.com/chain4energy/c4e-chain
 cd $HOME/c4e-chain || return
 git checkout $BINARY_VERSION_TAG
 make install
-c4ed version # v1.2.0
+c4ed version # v1.2.1
 
 c4ed config keyring-backend os
 c4ed config chain-id $CHAIN_ID
