@@ -81,7 +81,7 @@ Description=Composable Node
 After=network-online.target
 [Service]
 User=$USER
-WorkingDirectory=$HOME/
+WorkingDirectory=$HOME/.banksy
 ExecStart=$(which cosmovisor) run start
 Restart=on-failure
 RestartSec=3
