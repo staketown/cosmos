@@ -38,10 +38,8 @@ centaurid config keyring-backend file
 centaurid config chain-id $CHAIN_ID
 centaurid init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -L https://raw.githubusercontent.com/notional-labs/composable-networks/main/mainnet/genesis.json > $HOME/.banksy/config/genesis.json
-curl -s https://snapshots1.nodejumper.io/composable/addrbook.json > $HOME/.banksy/config/addrbook.json
-# curl -s https://snapshots-testnet.stake-town.com/composable/genesis.json > $HOME/.banksy/config/genesis.json
-# curl -s https://snapshots-testnet.stake-town.com/composable/addrbook.json > $HOME/.banksy/config/addrbook.json
+curl -s https://snapshots.stake-town.com/composable/genesis.json > $HOME/.banksy/config/genesis.json
+curl -s https://snapshots.stake-town.com/composable/addrbook.json > $HOME/.banksy/config/addrbook.json
 
 CONFIG_TOML=$HOME/.banksy/config/config.toml
 PEERS="4cb008db9c8ae2eb5c751006b977d6910e990c5d@65.108.71.163:2630,63559b939442512ed82d2ded46d02ab1021ea29a@95.214.55.138:53656"
@@ -97,12 +95,12 @@ EOF
 
 centaurid tendermint unsafe-reset-all --home $HOME/.banksy --keep-addr-book
 
-SNAP_NAME=$(curl -s https://snapshots1.nodejumper.io/composable/info.json | jq -r .fileName)
-curl "https://snapshots1.nodejumper.io/composable/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.banksy"
-
 # Add snapshot here
-# URL="https://snapshots-testnet.stake-town.com/composable/banksy-testnet-3_latest.tar.lz4"
-# curl $URL | lz4 -dc - | tar -xf - -C $HOME/.banksy
+URL="https://snapshots.stake-town.com/composable/centauri-1_latest.tar.lz4"
+curl $URL | lz4 -dc - | tar -xf - -C $HOME/.banksy
+
+WASM="https://cdn.discordapp.com/attachments/1115320577251627039/1122182157616545863/composable_wasm_client_data.tgz "
+curl $WASM | lz4 -dc - | tar -xf - -C $HOME/.banksy
 
 sudo systemctl daemon-reload
 sudo systemctl enable centaurid
