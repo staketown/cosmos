@@ -10,7 +10,7 @@ export -f selectPortSet && selectPortSet
 read -r -p "Enter node moniker: " NODE_MONIKER
 
 CHAIN_ID="galileo-3"
-CHAIN_DENOM="0.0001uandr"
+CHAIN_DENOM="uandr"
 BINARY_NAME="andromedad"
 BINARY_VERSION_TAG="galileo-3-v1.1.0-beta1"
 CHEAT_SHEET="https://nodes.stake-town.com/andromeda"
@@ -39,11 +39,8 @@ andromedad config keyring-backend os
 andromedad config chain-id $CHAIN_ID
 andromedad init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -Ls https://snapshots.kjnodes.com/andromeda-testnet/genesis.json > $HOME/.andromedad/config/genesis.json
-curl -Ls https://snapshots.kjnodes.com/andromeda-testnet/addrbook.json > $HOME/.andromedad/config/addrbook.json
-
-#curl -s https://snapshots-testnet.stake-town.com/archway/genesis.json > $HOME/.archway/config/genesis.json
-#curl -s https://snapshots-testnet.stake-town.com/archway/addrbook.json > $HOME/.archway/config/addrbook.json
+curl -s https://snapshots-testnet.stake-town.com/andromeda/genesis.json > $HOME/.andromedad/config/genesis.json
+curl -s https://snapshots-testnet.stake-town.com/andromeda/addrbook.json > $HOME/.andromedad/config/addrbook.json
 
 CONFIG_TOML=$HOME/.andromedad/config/config.toml
 PEERS=""
@@ -99,10 +96,8 @@ EOF
 andromedad tendermint unsafe-reset-all --home $HOME/.archway --keep-addr-book
 
 # Add snapshot here
-# URL="https://snapshots-testnet.stake-town.com/archway/constantine-3_latest.tar.lz4"
-# curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.archway
-
-curl -L https://snapshots.kjnodes.com/andromeda-testnet/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.andromedad
+URL="https://snapshots-testnet.stake-town.com/andromeda/galileo-3_latest.tar.lz4"
+curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.andromedad
 
 sudo systemctl daemon-reload
 sudo systemctl enable andromedad
