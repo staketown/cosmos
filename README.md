@@ -20,3 +20,4 @@ bash <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/composa
 | Ojo        |  11   |
 | Composable |  12   |
 | Elys       |  13   |
+| Andromeda  |  14   |
