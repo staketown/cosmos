@@ -27,7 +27,7 @@ source <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/utils
 echo "" && printGreen "Building binaries..." && sleep 1
 
 cd $HOME || return
-rm -rf archway
+rm -rf andromedad
 git clone https://github.com/andromedaprotocol/andromedad.git
 cd andromedad || return
 git checkout $BINARY_VERSION_TAG
