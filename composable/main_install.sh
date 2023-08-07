@@ -28,7 +28,7 @@ echo "" && printGreen "Building binaries..." && sleep 1
 
 cd $HOME || return
 rm -rf composable-testnet
-git clone https://github.com/notional-labs/composable-testnet.git
+git clone https://github.com/notional-labs/composable-centauri.git
 cd $HOME/composable-testnet || return
 git checkout $BINARY_VERSION_TAG
 make install
