@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="osmosis-1"
 CHAIN_DENOM="uosmo"
 BINARY_NAME="osmosisd"
-BINARY_VERSION_TAG="v17.0.0"
+BINARY_VERSION_TAG="v16.1.0"
 CHEAT_SHEET="https://nodes.stake-town.com/archway"
 
 printDelimiter
@@ -33,7 +33,7 @@ cd osmosis || return
 git checkout $BINARY_VERSION_TAG
 make install
 
-osmosisd version # v17.0.0
+osmosisd version # v16.1.0
 
 osmosisd config keyring-backend os
 osmosisd config chain-id $CHAIN_ID
@@ -99,7 +99,7 @@ osmosisd tendermint unsafe-reset-all --home $HOME/.osmosisd --keep-addr-book
 
 # Add snapshot here
 # URL="https://snapshots-testnet.stake-town.com/archway/constantine-3_latest.tar.lz4"
-URL="https://snapshots.kjnodes.com/osmosis/snapshot_latest.tar.lz4"
+URL="https://snapshots.polkachu.com/snapshots/osmosis/osmosis_11102255.tar.lz4"
 curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.osmosisd
 
 sudo systemctl daemon-reload
