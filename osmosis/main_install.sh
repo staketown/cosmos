@@ -95,7 +95,7 @@ Environment="UNSAFE_SKIP_BACKUP=true"
 WantedBy=multi-user.target
 EOF
 
-archwayd tendermint unsafe-reset-all --home $HOME/.osmosisd --keep-addr-book
+osmosisd tendermint unsafe-reset-all --home $HOME/.osmosisd --keep-addr-book
 
 # Add snapshot here
 # URL="https://snapshots-testnet.stake-town.com/archway/constantine-3_latest.tar.lz4"
