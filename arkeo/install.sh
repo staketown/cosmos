@@ -26,12 +26,9 @@ source <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/utils
 
 echo "" && printGreen "Building binaries..." && sleep 1
 
-cd $HOME || return
-rm -rf arkeo
-git clone https://github.com/arkeonetwork/arkeo
-cd arkeo || return
-git checkout $BINARY_VERSION_TAG
-make install
+wget https://snapshots-testnet.nodejumper.io/arkeonetwork-testnet/arkeod
+chmod +x arkeod
+mv arkeod $HOME/go/bin/
 
 arkeod version # ab05b124336ace257baa2cac07f7d1bfeed9ac02
 
