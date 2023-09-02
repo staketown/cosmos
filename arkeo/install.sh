@@ -26,7 +26,7 @@ source <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/utils
 
 echo "" && printGreen "Building binaries..." && sleep 1
 
-wget https://snapshots-testnet.nodejumper.io/arkeonetwork-testnet/arkeod
+wget https://snapshots-testnet.stake-town.com/arkeo/arkeod
 chmod +x arkeod
 mv arkeod $HOME/go/bin/
 
