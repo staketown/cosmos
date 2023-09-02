@@ -13,7 +13,7 @@ CHAIN_ID="arkeo"
 CHAIN_DENOM="uarkeo"
 BINARY_NAME="arkeod"
 BINARY_VERSION_TAG="ab05b124336ace257baa2cac07f7d1bfeed9ac02"
-CHEAT_SHEET="https://nodes.stake-town.com/archway"
+CHEAT_SHEET="https://nodes.stake-town.com/arkeo"
 
 printDelimiter
 echo -e "Node moniker:       $NODE_MONIKER"
@@ -37,10 +37,7 @@ arkeod config chain-id $CHAIN_ID
 arkeod init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s http://seed.arkeo.network:26657/genesis | jq '.result.genesis' > $HOME/.arkeo/config/genesis.json
-curl -s https://snapshots-testnet.nodejumper.io/arkeonetwork-testnet/addrbook.json > $HOME/.arkeo/config/addrbook.json
-
-# curl -s https://snapshots-testnet.stake-town.com/archway/genesis.json > $HOME/.archway/config/genesis.json
-# curl -s https://snapshots-testnet.stake-town.com/archway/addrbook.json > $HOME/.archway/config/addrbook.json
+curl -s https://snapshots-testnet.stake-town.com/arkeo/addrbook.json > $HOME/.arkeo/config/addrbook.json
 
 CONFIG_TOML=$HOME/.arkeo/config/config.toml
 PEERS=""
@@ -96,11 +93,8 @@ EOF
 arkeod tendermint unsafe-reset-all --home $HOME/.arkeo --keep-addr-book
 
 # Add snapshot here
-# URL="https://snapshots-testnet.stake-town.com/archway/constantine-3_latest.tar.lz4"
-# curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.archway
-
-SNAP_NAME=$(curl -s https://snapshots-testnet.nodejumper.io/arkeonetwork-testnet/info.json | jq -r .fileName)
-curl "https://snapshots-testnet.nodejumper.io/arkeonetwork-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.arkeo"
+URL="https://snapshots-testnet.stake-town.com/arkeo/arkeo_latest.tar.lz4"
+curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.arkeo
 
 sudo systemctl daemon-reload
 sudo systemctl enable arkeod
