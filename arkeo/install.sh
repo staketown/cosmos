@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="arkeo"
 CHAIN_DENOM="uarkeo"
 BINARY_NAME="arkeod"
-BINARY_VERSION_TAG="ab05b124336ace257baa2cac07f7d1bfeed9ac02"
+BINARY_VERSION_TAG="1"
 CHEAT_SHEET="https://nodes.stake-town.com/arkeo"
 
 printDelimiter
@@ -30,7 +30,7 @@ wget https://snapshots-testnet.stake-town.com/arkeo/arkeod
 chmod +x arkeod
 mv arkeod $HOME/go/bin/
 
-arkeod version # ab05b124336ace257baa2cac07f7d1bfeed9ac02
+arkeod version # 1
 
 arkeod config keyring-backend os
 arkeod config chain-id $CHAIN_ID
