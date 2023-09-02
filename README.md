@@ -14,7 +14,7 @@ bash <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/composa
 | Lava          |   5   |
 | Archway       |   6   |
 | Babylon       |   7   |
-| Defund        |   8   |
+| Juno          |   8   |
 | Cascadia      |   9   |
 | C4E           |  10   |
 | Ojo           |  11   |
