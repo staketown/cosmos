@@ -98,6 +98,7 @@ cascadiad tendermint unsafe-reset-all --home $HOME/.cascadiad --keep-addr-book
 # Add snapshot here
 URL="https://snapshots-testnet.stake-town.com/cascadia/cascadia_6102-1_latest.tar.lz4"
 curl $URL | lz4 -dc - | tar -xf - -C $HOME/.cascadiad
+[[ -f $HOME/.cascadiad/data/upgrade-info.json ]] && cp $HOME/.cascadiad/data/upgrade-info.json $HOME/.cascadiad/cosmovisor/genesis/upgrade-info.json
 
 sudo systemctl daemon-reload
 sudo systemctl enable cascadiad

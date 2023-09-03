@@ -98,6 +98,7 @@ junod tendermint unsafe-reset-all --home $HOME/.juno --keep-addr-book
 # Add snapshot here
 URL="https://snapshots.polkachu.com/testnet-snapshots/juno/juno_3099949.tar.lz4"
 curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.juno
+[[ -f $HOME/.juno/data/upgrade-info.json ]]  && cp $HOME/.juno/data/upgrade-info.json $HOME/.juno/cosmovisor/genesis/upgrade-info.json
 
 sudo systemctl daemon-reload
 sudo systemctl enable junod
