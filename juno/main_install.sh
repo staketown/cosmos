@@ -39,8 +39,8 @@ junod config keyring-backend os
 junod config chain-id $CHAIN_ID
 junod init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -s https://snapshots.polkachu.com/genesis/juno/genesis.json > $HOME/.juno/config/genesis.json
-curl -s https://snapshots.polkachu.com/addrbook/juno/addrbook.json > $HOME/.juno/config/addrbook.json
+curl -s https://snapshots.stake-town.com/juno/genesis.json > $HOME/.juno/config/genesis.json
+curl -s https://snapshots.stake-town.com/juno/addrbook.json > $HOME/.juno/config/addrbook.json
 
 CONFIG_TOML=$HOME/.juno/config/config.toml
 PEERS=""
@@ -96,7 +96,7 @@ EOF
 junod tendermint unsafe-reset-all --home $HOME/.juno --keep-addr-book
 
 # Add snapshot here
-URL="https://snapshots.polkachu.com/snapshots/juno/juno_9861414.tar.lz4"
+URL="https://snapshots.stake-town.com/juno/juno-1_latest.tar.lz4"
 curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.juno
 [[ -f $HOME/.juno/data/upgrade-info.json ]]  && cp $HOME/.juno/data/upgrade-info.json $HOME/.juno/cosmovisor/genesis/upgrade-info.json
 
