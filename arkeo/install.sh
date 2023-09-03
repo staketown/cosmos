@@ -95,6 +95,7 @@ arkeod tendermint unsafe-reset-all --home $HOME/.arkeo --keep-addr-book
 # Add snapshot here
 URL="https://snapshots-testnet.stake-town.com/arkeo/arkeo_latest.tar.lz4"
 curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.arkeo
+[[ -f $HOME/.arkeo/data/upgrade-info.json ]]  && cp $HOME/.arkeo/data/upgrade-info.json $HOME/.arkeo/cosmovisor/genesis/upgrade-info.json
 
 sudo systemctl daemon-reload
 sudo systemctl enable arkeod

@@ -100,6 +100,7 @@ lavad tendermint unsafe-reset-all --home $HOME/.lava --keep-addr-book
 # Add snapshot here
 URL="https://snapshots-testnet.stake-town.com/lava/lava-testnet-2_latest.tar.lz4"
 curl -L $URL | tar -Ilz4 -xf - -C $HOME/.lava
+[[ -f $HOME/.lava/data/upgrade-info.json ]]  && cp $HOME/.lava/data/upgrade-info.json $HOME/.lava/cosmovisor/genesis/upgrade-info.json
 
 sudo systemctl daemon-reload
 sudo systemctl enable lavad

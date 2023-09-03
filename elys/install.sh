@@ -95,6 +95,7 @@ elysd tendermint unsafe-reset-all --home $HOME/.elys --keep-addr-book
 # Add snapshot here
 URL="https://snapshots-testnet.stake-town.com/elys/elystestnet-1_latest.tar.lz4"
 curl $URL | lz4 -dc - | tar -xf - -C $HOME/.elys
+[[ -f $HOME/.elys/data/upgrade-info.json ]] && cp $HOME/.elys/data/upgrade-info.json $HOME/.elys/cosmovisor/genesis/upgrade-info.json
 
 sudo systemctl daemon-reload
 sudo systemctl enable elysd

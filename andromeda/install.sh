@@ -98,6 +98,7 @@ andromedad tendermint unsafe-reset-all --home $HOME/.andromedad --keep-addr-book
 # Add snapshot here
 URL="https://snapshots-testnet.stake-town.com/andromeda/galileo-3_latest.tar.lz4"
 curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.andromedad
+[[ -f $HOME/.andromedad/data/upgrade-info.json ]]  && cp $HOME/.andromedad/data/upgrade-info.json $HOME/.andromedad/cosmovisor/genesis/upgrade-info.json
 
 sudo systemctl daemon-reload
 sudo systemctl enable andromedad

@@ -98,6 +98,7 @@ centaurid tendermint unsafe-reset-all --home $HOME/.banksy --keep-addr-book
 # Add snapshot here
 URL="https://snapshots.stake-town.com/composable/centauri-1_latest.tar.lz4"
 curl $URL | lz4 -dc - | tar -xf - -C $HOME/.banksy
+[[ -f $HOME/.banksy/data/upgrade-info.json ]] && cp $HOME/.banksy/data/upgrade-info.json $HOME/.banksy/cosmovisor/genesis/upgrade-info.json
 
 sudo systemctl daemon-reload
 sudo systemctl enable centaurid

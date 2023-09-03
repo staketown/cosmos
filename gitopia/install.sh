@@ -97,6 +97,7 @@ gitopiad tendermint unsafe-reset-all --home $HOME/.gitopia --keep-addr-book
 # Add snapshot here
 URL="https://snapshots-testnet.stake-town.com/gitopia/gitopia_latest.tar.lz4"
 curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.gitopia
+[[ -f $HOME/.gitopia/data/upgrade-info.json ]] && cp $HOME/.gitopia/data/upgrade-info.json $HOME/.gitopia/cosmovisor/genesis/upgrade-info.json
 
 sudo systemctl daemon-reload
 sudo systemctl enable gitopiad

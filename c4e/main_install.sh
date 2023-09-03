@@ -98,6 +98,7 @@ c4ed tendermint unsafe-reset-all --home $HOME/.c4e-chain --keep-addr-book
 # Add snapshot here
 URL="https://snapshots.stake-town.com/c4e/perun-1_latest.tar.lz4"
 curl $URL | lz4 -dc - | tar -xf - -C $HOME/.c4e-chain
+[[ -f $HOME/.c4e-chain/data/upgrade-info.json ]]  && cp $HOME/.c4e-chain/data/upgrade-info.json $HOME/.c4e-chain/cosmovisor/genesis/upgrade-info.json
 
 sudo systemctl daemon-reload
 sudo systemctl enable c4ed
