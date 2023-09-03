@@ -9,10 +9,10 @@ export -f selectPortSet && selectPortSet
 
 read -r -p "Enter node moniker: " NODE_MONIKER
 
-CHAIN_ID="uni-6"
-CHAIN_DENOM="ujunox"
+CHAIN_ID="juno-1"
+CHAIN_DENOM="ujuno"
 BINARY_NAME="junod"
-BINARY_VERSION_TAG="v17.0.0-alpha.1"
+BINARY_VERSION_TAG="v16.0.0"
 CHEAT_SHEET=""
 
 printDelimiter
@@ -33,19 +33,19 @@ cd juno || return
 git checkout $BINARY_VERSION_TAG
 make install
 
-junod version # v17.0.0-alpha.1
+junod version # v16.0.0
 
 junod config keyring-backend os
 junod config chain-id $CHAIN_ID
 junod init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -s https://snapshots.polkachu.com/testnet-genesis/juno/genesis.json > $HOME/.juno/config/genesis.json
-curl -s https://snapshots.polkachu.com/testnet-addrbook/juno/addrbook.json > $HOME/.juno/config/addrbook.json
+curl -s https://snapshots.polkachu.com/genesis/juno/genesis.json > $HOME/.juno/config/genesis.json
+curl -s https://snapshots.polkachu.com/addrbook/juno/addrbook.json > $HOME/.juno/config/addrbook.json
 
 CONFIG_TOML=$HOME/.juno/config/config.toml
 PEERS=""
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
-SEEDS="ade4d8bc8cbe014af6ebdf3cb7b1e9ad36f412c0@testnet-seeds.polkachu.com:12656"
+SEEDS="ade4d8bc8cbe014af6ebdf3cb7b1e9ad36f412c0@seeds.polkachu.com:12656"
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
 
 APP_TOML=$HOME/.juno/config/app.toml
@@ -56,7 +56,7 @@ sed -i 's|^pruning-interval *=.*|pruning-interval = "19"|g' $APP_TOML
 sed -i -e "s/^filter_peers *=.*/filter_peers = \"true\"/" $CONFIG_TOML
 indexer="null"
 sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $CONFIG_TOML
-sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0ujunox"|g' $APP_TOML
+sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0ujuno"|g' $APP_TOML
 
 # Customize ports
 CLIENT_TOML=$HOME/.juno/config/client.toml
@@ -96,7 +96,7 @@ EOF
 junod tendermint unsafe-reset-all --home $HOME/.juno --keep-addr-book
 
 # Add snapshot here
-URL="https://snapshots.polkachu.com/testnet-snapshots/juno/juno_3072093.tar.lz4"
+URL="https://snapshots.polkachu.com/snapshots/juno/juno_9861414.tar.lz4"
 curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.juno
 
 sudo systemctl daemon-reload
