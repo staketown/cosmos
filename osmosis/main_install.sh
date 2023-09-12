@@ -12,8 +12,8 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="osmosis-1"
 CHAIN_DENOM="uosmo"
 BINARY_NAME="osmosisd"
-BINARY_VERSION_TAG="v16.1.0"
-CHEAT_SHEET="https://nodes.stake-town.com/archway"
+BINARY_VERSION_TAG="v19.0.0"
+CHEAT_SHEET=""
 
 printDelimiter
 echo -e "Node moniker:       $NODE_MONIKER"
@@ -33,7 +33,7 @@ cd osmosis || return
 git checkout $BINARY_VERSION_TAG
 make install
 
-osmosisd version # v16.1.0
+osmosisd version # v19.0.0
 
 osmosisd config keyring-backend os
 osmosisd config chain-id $CHAIN_ID
@@ -99,8 +99,8 @@ osmosisd tendermint unsafe-reset-all --home $HOME/.osmosisd --keep-addr-book
 
 # Add snapshot here
 # URL="https://snapshots-testnet.stake-town.com/archway/constantine-3_latest.tar.lz4"
-URL="https://snapshots.polkachu.com/snapshots/osmosis/osmosis_11102255.tar.lz4"
-curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.osmosisd
+curl -L https://snapshots.kjnodes.com/osmosis/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.osmosisd
+[[ -f $HOME/.osmosisd/data/upgrade-info.json ]] && cp $HOME/.osmosisd/data/upgrade-info.json $HOME/.osmosisd/cosmovisor/genesis/upgrade-info.json
 
 sudo systemctl daemon-reload
 sudo systemctl enable osmosisd
