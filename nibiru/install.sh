@@ -9,10 +9,10 @@ export -f selectPortSet && selectPortSet
 
 read -r -p "Enter node moniker: " NODE_MONIKER
 
-CHAIN_ID="nibiru-itn-1"
+CHAIN_ID="nibiru-itn-2"
 CHAIN_DENOM="unibi"
 BINARY_NAME="nibid"
-BINARY_VERSION_TAG="v0.19.2"
+BINARY_VERSION_TAG="v0.21.9"
 CHEAT_SHEET="https://nodes.stake-town.com/nibiru"
 
 printDelimiter
@@ -30,16 +30,18 @@ cd $HOME || return
 rm -rf nibiru
 git clone https://github.com/NibiruChain/nibiru
 cd $HOME/nibiru || return
-git checkout v0.19.2
+git checkout $BINARY_VERSION_TAG
 make install
-nibid version # v0.19.2
+nibid version # 0.21.9
 
 nibid config keyring-backend os
 nibid config chain-id $CHAIN_ID
 nibid init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -s https://snapshots-testnet.stake-town.com/nibiru/genesis.json > $HOME/.nibid/config/genesis.json
-curl -s https://snapshots-testnet.stake-town.com/nibiru/addrbook.json > $HOME/.nibid/config/addrbook.json
+
+curl -s https://github.com/NibiruChain/Networks/blob/main/Testnet/nibiru-itn-2/genesis.json > $HOME/.nibid/config/genesis.json
+# curl -s https://snapshots-testnet.stake-town.com/nibiru/genesis.json > $HOME/.nibid/config/genesis.json
+# curl -s https://snapshots-testnet.stake-town.com/nibiru/addrbook.json > $HOME/.nibid/config/addrbook.json
 
 CONFIG_TOML=$HOME/.nibid/config/config.toml
 PEERS=""
@@ -95,8 +97,8 @@ EOF
 nibid tendermint unsafe-reset-all --home $HOME/.nibid --keep-addr-book
 
 # Add snapshot here
-URL="https://snapshots-testnet.stake-town.com/nibiru/nibiru-itn-1_latest.tar.lz4"
-curl $URL | lz4 -dc - | tar -xf - -C $HOME/.nibid
+# URL="https://snapshots-testnet.stake-town.com/nibiru/nibiru-itn-1_latest.tar.lz4"
+# curl $URL | lz4 -dc - | tar -xf - -C $HOME/.nibid
 
 sudo systemctl daemon-reload
 sudo systemctl enable nibid
