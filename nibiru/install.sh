@@ -97,6 +97,7 @@ nibid tendermint unsafe-reset-all --home $HOME/.nibid --keep-addr-book
 # Add snapshot here
 URL="https://snapshots-testnet.stake-town.com/nibiru/nibiru-itn-2_latest.tar.lz4"
 curl $URL | lz4 -dc - | tar -xf - -C $HOME/.nibid
+[[ -f $HOME/.juno/data/upgrade-info.json ]]  && cp $HOME/.juno/data/upgrade-info.json $HOME/.juno/cosmovisor/genesis/upgrade-info.json
 
 sudo systemctl daemon-reload
 sudo systemctl enable nibid
