@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="gitopia"
 CHAIN_DENOM="ulore"
 BINARY_NAME="gitopiad"
-BINARY_VERSION_TAG="v2.1.1"
+BINARY_VERSION_TAG="v3.0.1"
 
 printDelimiter
 echo -e "Node moniker:       $NODE_MONIKER"
