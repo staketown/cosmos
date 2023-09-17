@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="centauri-1"
 CHAIN_DENOM="ppica"
 BINARY_NAME="centaurid"
-BINARY_VERSION_TAG="v4.5.0"
+BINARY_VERSION_TAG="v5.1.0"
 CHEAT_SHEET="https://nodes.stake-town.com/composable"
 
 printDelimiter
@@ -32,7 +32,7 @@ git clone https://github.com/notional-labs/composable-centauri.git
 cd $HOME/composable-testnet || return
 git checkout $BINARY_VERSION_TAG
 make install
-centaurid version # v4.5.0
+centaurid version # v5.1.0
 
 centaurid config keyring-backend file
 centaurid config chain-id $CHAIN_ID
