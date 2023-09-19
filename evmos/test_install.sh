@@ -9,10 +9,10 @@ export -f selectPortSet && selectPortSet
 
 read -r -p "Enter node moniker: " NODE_MONIKER
 
-CHAIN_ID="evmos_9001-2"
+CHAIN_ID="evmos_9000-4"
 CHAIN_DENOM="evmosd"
 BINARY_NAME="evmosd"
-BINARY_VERSION_TAG="v13.0.2"
+BINARY_VERSION_TAG="v14.0.0-rc5"
 CHEAT_SHEET=""
 
 printDelimiter
@@ -39,24 +39,24 @@ evmosd config keyring-backend os
 evmosd config chain-id $CHAIN_ID
 evmosd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -s https://snapshots.polkachu.com/genesis/evmos/genesis.json > $HOME/.evmosd/config/genesis.json
-curl -s https://snapshots.polkachu.com/addrbook/evmos/addrbook.json > $HOME/.evmosd/config/addrbook.json
+curl -s https://snapshots.polkachu.com/testnet-genesis/evmos/genesis.json > $HOME/.evmosd/config/genesis.json
+# curl -s https://snapshots.polkachu.com/addrbook/evmos/addrbook.json > $HOME/.evmosd/config/addrbook.json
 
 CONFIG_TOML=$HOME/.evmosd/config/config.toml
 PEERS=""
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
-SEEDS="ade4d8bc8cbe014af6ebdf3cb7b1e9ad36f412c0@seeds.polkachu.com:13456"
+SEEDS="ade4d8bc8cbe014af6ebdf3cb7b1e9ad36f412c0@testnet-seeds.polkachu.com:13456"
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
 
 APP_TOML=$HOME/.evmosd/config/app.toml
 sed -i 's|^pruning *=.*|pruning = "custom"|g' $APP_TOML
 sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "60000"|g' $APP_TOML
-sed -i 's|^pruning-keep-every *=.*|pruning-keep-every = "2000"|g' $APP_TOML
-sed -i 's|^pruning-interval *=.*|pruning-interval = "17"|g' $APP_TOML
+sed -i 's|^pruning-keep-every *=.*|pruning-keep-every = "17"|g' $APP_TOML
+sed -i 's|^pruning-interval *=.*|pruning-interval = "2000"|g' $APP_TOML
 sed -i -e "s/^filter_peers *=.*/filter_peers = \"true\"/" $CONFIG_TOML
 indexer="null"
 sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $CONFIG_TOML
-sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.001atevmos"|g' $APP_TOML
+# sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.001atevmos"|g' $APP_TOML
 
 # Customize ports
 CLIENT_TOML=$HOME/.evmosd/config/client.toml
