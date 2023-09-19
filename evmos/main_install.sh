@@ -70,7 +70,7 @@ printGreen "Install and configure cosmovisor..." && sleep 1
 go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.4.0
 mkdir -p ~/.evmosd/cosmovisor/genesis/bin
 mkdir -p ~/.evmosd/cosmovisor/upgrades
-cp ~/go/bin/evmosd ~/.arkeo/cosmovisor/genesis/bin
+cp ~/go/bin/evmosd ~/.evmosd/cosmovisor/genesis/bin
 
 printGreen "Starting service and synchronization..." && sleep 1
 
