@@ -27,7 +27,7 @@ source <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/utils
 echo "" && printGreen "Building binaries..." && sleep 1
 
 cd $HOME || return
-rm -rf composable-testnet
+rm -rf composable-centauri
 git clone https://github.com/notional-labs/composable-centauri.git
 cd $HOME/composable-centauri || return
 git checkout $BINARY_VERSION_TAG
