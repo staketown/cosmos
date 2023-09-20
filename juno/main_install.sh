@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="juno-1"
 CHAIN_DENOM="ujuno"
 BINARY_NAME="junod"
-BINARY_VERSION_TAG="v16.0.0"
+BINARY_VERSION_TAG="v17.0.0"
 CHEAT_SHEET=""
 
 printDelimiter
@@ -33,7 +33,7 @@ cd juno || return
 git checkout $BINARY_VERSION_TAG
 make install
 
-junod version # v16.0.0
+junod version # v17.0.0
 
 junod config keyring-backend os
 junod config chain-id $CHAIN_ID
