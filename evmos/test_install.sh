@@ -56,7 +56,7 @@ sed -i 's|^pruning-interval *=.*|pruning-interval = "2000"|g' $APP_TOML
 sed -i -e "s/^filter_peers *=.*/filter_peers = \"true\"/" $CONFIG_TOML
 indexer="null"
 sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $CONFIG_TOML
-# sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.001atevmos"|g' $APP_TOML
+sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.001atevmos"|g' $APP_TOML
 
 # Customize ports
 CLIENT_TOML=$HOME/.evmosd/config/client.toml
@@ -93,7 +93,7 @@ Environment="UNSAFE_SKIP_BACKUP=true"
 WantedBy=multi-user.target
 EOF
 
-# arkeod tendermint unsafe-reset-all --home $HOME/.arkeo --keep-addr-book
+# evmosd tendermint unsafe-reset-all --home $HOME/.evmosd --keep-addr-book
 
 # Add snapshot here
 # URL="https://snapshots-testnet.stake-town.com/arkeo/arkeo_latest.tar.lz4"

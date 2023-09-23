@@ -93,7 +93,7 @@ Environment="UNSAFE_SKIP_BACKUP=true"
 WantedBy=multi-user.target
 EOF
 
-# arkeod tendermint unsafe-reset-all --home $HOME/.arkeo --keep-addr-book
+# evmosd tendermint unsafe-reset-all --home $HOME/.evmosd --keep-addr-book
 
 # Add snapshot here
 # URL="https://snapshots-testnet.stake-town.com/arkeo/arkeo_latest.tar.lz4"
