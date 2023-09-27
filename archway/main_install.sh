@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="archway-1"
 CHAIN_DENOM="aarch"
 BINARY_NAME="archwayd"
-BINARY_VERSION_TAG="v2.0.0"
+BINARY_VERSION_TAG="v4.0.2"
 CHEAT_SHEET="https://nodes.stake-town.com/archway"
 
 printDelimiter
@@ -33,7 +33,7 @@ cd archway || return
 git checkout $BINARY_VERSION_TAG
 make install
 
-archwayd version # v2.0.0
+archwayd version # v4.0.2
 
 archwayd config keyring-backend os
 archwayd config chain-id $CHAIN_ID
