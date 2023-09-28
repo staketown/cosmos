@@ -47,7 +47,7 @@ curl -Ls https://raw.githubusercontent.com/obajay/nodes-Guides/main/Projects/Sou
 CONFIG_TOML=$HOME/.source/config/config.toml
 PEERS=""
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
-SEEDS="3f472746f46493309650e5a033076689996c8881@source-testnet.rpc.kjnodes.com:28659"
+SEEDS="51aa068c578243c470d846bed1b539369fdb0a14@rpc-t.source.nodestake.top:666"
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
 
 APP_TOML=$HOME/.source/config/app.toml
