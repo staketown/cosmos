@@ -39,8 +39,8 @@ archwayd config keyring-backend os
 archwayd config chain-id $CHAIN_ID
 archwayd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -s https://snapshots-testnet.stake-town.com/archway/genesis.json > $HOME/.archway/config/genesis.json
-curl -s https://snapshots-testnet.stake-town.com/archway/addrbook.json > $HOME/.archway/config/addrbook.json
+curl -s https://snapshots.stake-town.com/archway/genesis.json > $HOME/.archway/config/genesis.json
+curl -s https://snapshots.stake-town.com/archway/addrbook.json > $HOME/.archway/config/addrbook.json
 
 CONFIG_TOML=$HOME/.archway/config/config.toml
 PEERS=""
