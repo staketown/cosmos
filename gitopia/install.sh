@@ -38,8 +38,8 @@ gitopiad config keyring-backend os
 gitopiad config chain-id $CHAIN_ID
 gitopiad init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -Ls https://snapshots-testnet.stake-town.com/gitopia/genesis.json > $HOME/.gitopia/config/genesis.json
-curl -Ls https://snapshots-testnet.stake-town.com/gitopia/addrbook.json > $HOME/.gitopia/config/addrbook.json
+curl -Ls https://snapshots.stake-town.com/gitopia/genesis.json > $HOME/.gitopia/config/genesis.json
+curl -Ls https://snapshots.stake-town.com/gitopia/addrbook.json > $HOME/.gitopia/config/addrbook.json
 
 CONFIG_TOML=$HOME/.gitopia/config/config.toml
 PEERS=""
