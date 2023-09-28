@@ -38,11 +38,8 @@ sourced config keyring-backend os
 sourced config chain-id $CHAIN_ID
 sourced init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -Ls https://raw.githubusercontent.com/Source-Protocol-Cosmos/testnets/master/sourcetest-1/genesis.json > $HOME/.source/config/genesis.json
-curl -Ls https://raw.githubusercontent.com/obajay/nodes-Guides/main/Projects/Source/addrbook.json > $HOME/.source/config/addrbook.json
-
-#curl -Ls https://snapshots-testnet.stake-town.com/source/genesis.json > $HOME/.source/config/genesis.json
-#curl -Ls https://snapshots-testnet.stake-town.com/source/addrbook.json > $HOME/.source/config/addrbook.json
+curl -Ls https://snapshots-testnet.stake-town.com/source/genesis.json > $HOME/.source/config/genesis.json
+curl -Ls https://snapshots-testnet.stake-town.com/source/addrbook.json > $HOME/.source/config/addrbook.json
 
 CONFIG_TOML=$HOME/.source/config/config.toml
 PEERS=""
@@ -99,11 +96,8 @@ EOF
 sourced tendermint unsafe-reset-all --home $HOME/.source --keep-addr-book
 
 # Add snapshot here
-SNAP_NAME=$(curl -s https://ss-t.source.nodestake.top/ | egrep -o ">20.*\.tar.lz4" | tr -d ">")
-curl -o - -L https://ss-t.source.nodestake.top/${SNAP_NAME}  | lz4 -c -d - | tar -x -C $HOME/.source
-
-#URL="https://snapshots-testnet.stake-town.com/source/sourcechain-testnet_latest.tar.lz4 "
-#curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.source
+URL="https://snapshots-testnet.stake-town.com/source/sourcetest-1_latest.tar.lz4"
+curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.source
 
 sudo systemctl daemon-reload
 sudo systemctl enable sourced
