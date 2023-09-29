@@ -96,9 +96,9 @@ EOF
 # evmosd tendermint unsafe-reset-all --home $HOME/.evmosd --keep-addr-book
 
 # Add snapshot here
-# URL="https://snapshots-testnet.stake-town.com/arkeo/arkeo_latest.tar.lz4"
-# curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.arkeo
-# [[ -f $HOME/.arkeo/data/upgrade-info.json ]]  && cp $HOME/.arkeo/data/upgrade-info.json $HOME/.arkeo/cosmovisor/genesis/upgrade-info.json
+SNAP_NAME=$(curl -s https://ss.evmos.nodestake.top/ | egrep -o ">20.*\.tar.lz4" | tr -d ">")
+curl -o - -L https://ss.evmos.nodestake.top/${SNAP_NAME}  | lz4 -c -d - | tar -x -C $HOME/.evmosd
+[[ -f $HOME/.evmosd/data/upgrade-info.json ]]  && cp $HOME/.evmosd/data/upgrade-info.json $HOME/.evmosd/cosmovisor/genesis/upgrade-info.json
 
 sudo systemctl daemon-reload
 sudo systemctl enable evmosd
