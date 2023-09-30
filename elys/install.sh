@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="elystestnet-1"
 CHAIN_DENOM="uelys"
 BINARY_NAME="elysd"
-BINARY_VERSION_TAG="v0.7.0"
+BINARY_VERSION_TAG="v0.12.0"
 CHEAT_SHEET="https://nodes.stake-town.com/elys"
 
 printDelimiter
@@ -28,9 +28,11 @@ echo "" && printGreen "Building binaries..." && sleep 1
 
 cd $HOME || return
 rm -rf elys
-URL="https://github.com/elys-network/elys/releases/download/v0.5.4/elys._v0.5.4_linux_amd64.tar.gz"
-wget $URL | tar -xf elys._v0.5.4_linux_amd64.tar.gz -C $HOME/go/bin
-elysd version # v0.7.0
+git clone https://github.com/elys-network/elys.git
+cd elys || return
+git checkout v0.12.0
+
+make install
 
 elysd config keyring-backend os
 elysd config chain-id $CHAIN_ID
