@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="nibiru-itn-3"
 CHAIN_DENOM="unibi"
 BINARY_NAME="nibid"
-BINARY_VERSION_TAG="v0.21.9"
+BINARY_VERSION_TAG="v0.21.11"
 CHEAT_SHEET="https://nodes.stake-town.com/nibiru"
 
 printDelimiter
@@ -32,7 +32,7 @@ git clone https://github.com/NibiruChain/nibiru
 cd $HOME/nibiru || return
 git checkout $BINARY_VERSION_TAG
 make install
-nibid version # 0.21.9
+nibid version # 0.21.11
 
 nibid config keyring-backend os
 nibid config chain-id $CHAIN_ID
@@ -99,6 +99,11 @@ nibid tendermint unsafe-reset-all --home $HOME/.nibid --keep-addr-book
 URL="https://snapshots-testnet.stake-town.com/nibiru/nibiru-itn-3_latest.tar.lz4"
 curl $URL | lz4 -dc - | tar -xf - -C $HOME/.nibid
 [[ -f $HOME/.nibid/data/upgrade-info.json ]]  && cp $HOME/.nibid/data/upgrade-info.json $HOME/.nibid/cosmovisor/genesis/upgrade-info.json
+
+# Copy wasm
+cd $HOME/.nibid/data || return
+wget https://storage.googleapis.com/nibiru-itn-3-snapshots/nibiru-itn-3-wasm.tar.gz
+tar xvof nibiru-itn-3-wasm.tar.gz
 
 sudo systemctl daemon-reload
 sudo systemctl enable nibid
