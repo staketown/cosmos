@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="entangle_33133-1"
 CHAIN_DENOM="aNGL"
 BINARY_NAME="entangled"
-BINARY_VERSION_TAG="v0.12.0"
+BINARY_VERSION_TAG="v1.0.1"
 CHEAT_SHEET="https://nodes.stake-town.com/elys"
 
 printDelimiter
@@ -28,9 +28,9 @@ echo "" && printGreen "Building binaries..." && sleep 1
 
 cd $HOME || return
 rm -rf entangle-blockchain
-git clone git clone https://github.com/Entangle-Protocol/entangle-blockchain.git
+git clone https://github.com/Entangle-Protocol/entangle-blockchain.git
 cd entangle-blockchain || return
-git checkout v1.0.1
+git checkout $BINARY_VERSION_TAG
 
 make install
 
