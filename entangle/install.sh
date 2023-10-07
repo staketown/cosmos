@@ -30,7 +30,7 @@ cd $HOME || return
 rm -rf entangle-blockchain
 git clone https://github.com/Entangle-Protocol/entangle-blockchain.git
 cd entangle-blockchain || return
-git checkout $BINARY_VERSION_TAG
+# git checkout $BINARY_VERSION_TAG
 
 make install
 
