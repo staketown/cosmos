@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="banksy-testnet-3"
 CHAIN_DENOM="ppica"
 BINARY_NAME="centaurid"
-BINARY_VERSION_TAG="v3.0.4-testnet"
+BINARY_VERSION_TAG="v6.0.3-ics"
 CHEAT_SHEET="https://nodes.stake-town.com/composable"
 
 printDelimiter
@@ -32,7 +32,7 @@ git clone https://github.com/notional-labs/composable-testnet.git
 cd $HOME/composable-testnet || return
 git checkout $BINARY_VERSION_TAG
 make install
-centaurid version # v3.0.4-testnet
+centaurid version # v6.0.3-ics
 
 centaurid config keyring-backend test
 centaurid config chain-id $CHAIN_ID
