@@ -21,7 +21,7 @@ git clone https://github.com/ojo-network/price-feeder umee-price-feeder
 cd umee-price-feeder || return
 git checkout umee/v2.1.7
 make build
-sudo mv ./build/price-feeder /usr/local/bin
+sudo mv ./build/price-feeder /usr/local/bin/umee-price-feeder
 rm $HOME/.umee-price-feeder -rf
 mkdir $HOME/.umee-price-feeder
 curl -s https://raw.githubusercontent.com/ojo-network/price-feeder/umee/umee-provider-config/currency-pairs.toml > $HOME/.umee-price-feeder/config.toml
