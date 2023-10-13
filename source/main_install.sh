@@ -38,10 +38,8 @@ sourced config keyring-backend os
 sourced config chain-id $CHAIN_ID
 sourced init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -s  https://raw.githubusercontent.com/Source-Protocol-Cosmos/mainnet/master/source-1/genesis.json > ~/.source/config/genesis.json
-#curl -Ls https://snapshots-testnet.stake-town.com/source/genesis.json > $HOME/.source/config/genesis.json
-
-#curl -Ls https://snapshots-testnet.stake-town.com/source/addrbook.json > $HOME/.source/config/addrbook.json
+curl -Ls https://snapshots.stake-town.com/source/genesis.json > $HOME/.source/config/genesis.json
+curl -Ls https://snapshots.stake-town.com/source/addrbook.json > $HOME/.source/config/addrbook.json
 
 CONFIG_TOML=$HOME/.source/config/config.toml
 PEERS="96d63849a529a15f037a28c276ea6e3ac2449695@34.222.1.252:26656,0107ac60e43f3b3d395fea706cb54877a3241d21@35.87.85.162:26656"
@@ -98,8 +96,8 @@ EOF
 sourced tendermint unsafe-reset-all --home $HOME/.source --keep-addr-book
 
 # Add snapshot here
-# URL="https://snapshots-testnet.stake-town.com/source/sourcetest-1_latest.tar.lz4"
-# curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.source
+URL="https://snapshots.stake-town.com/source/source-1_latest.tar.lz4"
+curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.source
 
 sudo systemctl daemon-reload
 sudo systemctl enable sourced
