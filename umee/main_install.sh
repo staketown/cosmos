@@ -13,7 +13,7 @@ CHAIN_ID="umee-1"
 CHAIN_DENOM="uumee"
 BINARY_NAME="umeed"
 BINARY_VERSION_TAG="v6.0.2"
-CHEAT_SHEET="https://nodes.stake-town.com/c4e"
+CHEAT_SHEET=""
 
 printDelimiter
 echo -e "Node moniker:       $NODE_MONIKER"
@@ -25,7 +25,6 @@ printDelimiter && sleep 1
 source <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/utils/dependencies.sh)
 
 echo "" && printGreen "Building binaries..." && sleep 1
-
 
 cd $HOME || return
 rm -rf umee
@@ -39,11 +38,8 @@ umeed config keyring-backend os
 umeed config chain-id $CHAIN_ID
 umeed init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -Ls https://snapshots.kjnodes.com/umee/genesis.json > $HOME/.umee/config/genesis.json
-curl -Ls https://snapshots.kjnodes.com/umee/addrbook.json > $HOME/.umee/config/addrbook.json
-
-# curl -s https://snapshots.stake-town.com/umee/genesis.json > $HOME/.umee/config/genesis.json
-# curl -s https://snapshots.stake-town.com/umee/addrbook.json > $HOME/.umee/config/addrbook.json
+curl -s https://snapshots.stake-town.com/umee/genesis.json > $HOME/.umee/config/genesis.json
+curl -s https://snapshots.stake-town.com/umee/addrbook.json > $HOME/.umee/config/addrbook.json
 
 CONFIG_TOML=$HOME/.umee/config/config.toml
 PEERS=""
@@ -99,16 +95,9 @@ EOF
 umeed tendermint unsafe-reset-all --home $HOME/.umee --keep-addr-book
 
 # Add snapshot here
-#URL="https://snapshots.stake-town.com/umee/perun-1_latest.tar.lz4"
-#curl $URL | lz4 -dc - | tar -xf - -C $HOME/.umee
-#[[ -f $HOME/.umee/data/upgrade-info.json ]]  && cp $HOME/.umee/data/upgrade-info.json $HOME/.umee/cosmovisor/genesis/upgrade-info.json
-
-
-curl -L -o snapshot_latest.tar.lz4 https://snapshots.kjnodes.com/umee/snapshot_latest.tar.lz4
-sha256sum -c <(curl -L https://snapshots.kjnodes.com/umee/snapshot_latest.tar.lz4.sha256sum)
-tar -Ilz4 -xf snapshot_latest.tar.lz4 -C $HOME/.umee
-rm snapshot_latest.tar.lz4
-[[ -f $HOME/.umee/data/upgrade-info.json ]] && cp $HOME/.umee/data/upgrade-info.json $HOME/.umee/cosmovisor/genesis/upgrade-info.json
+URL="https://snapshots.stake-town.com/umee/umee-1_latest.tar.lz4"
+curl $URL | lz4 -dc - | tar -xf - -C $HOME/.umee
+[[ -f $HOME/.umee/data/upgrade-info.json ]]  && cp $HOME/.umee/data/upgrade-info.json $HOME/.umee/cosmovisor/genesis/upgrade-info.json
 
 sudo systemctl daemon-reload
 sudo systemctl enable umeed
