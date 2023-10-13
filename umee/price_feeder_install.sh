@@ -55,11 +55,11 @@ s|^global-labels *=.*|global-labels = [[\"chain_id\", \"$CHAIN_ID\"]]|;\
 s|^service-name *=.*|service-name = \"umee-price-feeder\"|;" $HOME/.umee-price-feeder/config.toml
 
 printGreen "Sending 1 umee from $MAIN_WALLET to price feeder wallet: price_feeder_wallet"
-echo $WALLET_PASS | umeed tx bank send $MAIN_WALLET_ADDRESS $PRICEFEEDER_ADDRESS 1000000uumee --from $MAIN_WALLET_ADDRESS --chain-id umee-1 --fees 5000uumee --gas-adjustment 1.4 --gas auto -y
+echo $WALLET_PASS | umeed tx bank send $MAIN_WALLET_ADDRESS $PRICEFEEDER_ADDRESS 1000000uumee --from $MAIN_WALLET_ADDRESS --chain-id umee-1 --fees 15000uumee --gas-adjustment 1.4 --gas auto -y
 
 printGreen "Waiting 5 seconds..." && sleep 5
 printGreen "Delegate price feeder responsibility"
-echo $WALLET_PASS | umeed tx oracle delegate-feed-consent $MAIN_WALLET_ADDRESS $PRICEFEEDER_ADDRESS --from $MAIN_WALLET_ADDRESS --chain-id umee-1 --gas-adjustment 1.4 --fees 5000uumee --gas auto -y
+echo $WALLET_PASS | umeed tx oracle delegate-feed-consent $MAIN_WALLET_ADDRESS $PRICEFEEDER_ADDRESS --from $MAIN_WALLET_ADDRESS --chain-id umee-1 --gas-adjustment 1.4 --fees 15000uumee --gas auto -y
 
 
 printGreen "Install systemd service for price feeder"
