@@ -99,9 +99,16 @@ EOF
 umeed tendermint unsafe-reset-all --home $HOME/.umee --keep-addr-book
 
 # Add snapshot here
-URL="https://snapshots.stake-town.com/umee/perun-1_latest.tar.lz4"
-curl $URL | lz4 -dc - | tar -xf - -C $HOME/.umee
-[[ -f $HOME/.umee/data/upgrade-info.json ]]  && cp $HOME/.umee/data/upgrade-info.json $HOME/.umee/cosmovisor/genesis/upgrade-info.json
+#URL="https://snapshots.stake-town.com/umee/perun-1_latest.tar.lz4"
+#curl $URL | lz4 -dc - | tar -xf - -C $HOME/.umee
+#[[ -f $HOME/.umee/data/upgrade-info.json ]]  && cp $HOME/.umee/data/upgrade-info.json $HOME/.umee/cosmovisor/genesis/upgrade-info.json
+
+
+curl -L -o snapshot_latest.tar.lz4 https://snapshots.kjnodes.com/umee/snapshot_latest.tar.lz4
+sha256sum -c <(curl -L https://snapshots.kjnodes.com/umee/snapshot_latest.tar.lz4.sha256sum)
+tar -Ilz4 -xf snapshot_latest.tar.lz4 -C $HOME/.umee
+rm snapshot_latest.tar.lz4
+[[ -f $HOME/.umee/data/upgrade-info.json ]] && cp $HOME/.umee/data/upgrade-info.json $HOME/.umee/cosmovisor/genesis/upgrade-info.json
 
 sudo systemctl daemon-reload
 sudo systemctl enable umeed
