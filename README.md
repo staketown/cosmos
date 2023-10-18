@@ -24,4 +24,4 @@ bash <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/composa
 | Evmos         |  15   |
 | Osmosis       |  16   |
 | Arkeo Network |  17   |
-| Entangle      |  18   |
+| Axelar        |  18   |

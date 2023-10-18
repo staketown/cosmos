@@ -47,7 +47,7 @@ curl -Ls https://snapshots.kjnodes.com/axelar/addrbook.json > $HOME/.axelar/conf
 CONFIG_TOML=$HOME/.axelar/config/config.toml
 PEERS=""
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
-SEEDS="3f472746f46493309650e5a033076689996c8881@andromeda-testnet.rpc.kjnodes.com:14759"
+SEEDS="400f3d9e30b69e78a7fb891f60d76fa3c73f0ecc@axelar.rpc.kjnodes.com:16559"
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
 
 APP_TOML=$HOME/.axelar/config/app.toml
