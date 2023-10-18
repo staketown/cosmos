@@ -9,10 +9,10 @@ export -f selectPortSet && selectPortSet
 
 read -r -p "Enter node moniker: " NODE_MONIKER
 
-CHAIN_ID="axelar-dojo-1"
+CHAIN_ID="axelar-testnet-lisbon-3"
 CHAIN_DENOM="uaxl"
 BINARY_NAME="axelard"
-BINARY_VERSION_TAG="v0.34.0"
+BINARY_VERSION_TAG="v0.34.1"
 CHEAT_SHEET=""
 
 printDelimiter
@@ -33,21 +33,21 @@ cd axelar-core || return
 git checkout $BINARY_VERSION_TAG
 make install
 
-axelard version # v0.34.0
+axelard version # v0.34.1
 
 axelard config keyring-backend os
 axelard config chain-id $CHAIN_ID
 axelard init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -Ls https://snapshots.kjnodes.com/axelar/genesis.json > $HOME/.axelar/config/genesis.json
-curl -Ls https://snapshots.kjnodes.com/axelar/addrbook.json > $HOME/.axelar/config/addrbook.json
+wget -O genesis.json https://snapshots.polkachu.com/testnet-genesis/axelar/genesis.json --inet4-only
+# curl -Ls https://snapshots.kjnodes.com/axelar/addrbook.json > $HOME/.axelar/config/addrbook.json
 #curl -s https://snapshots-testnet.stake-town.com/andromeda/genesis.json > $HOME/.andromedad/config/genesis.json
 #curl -s https://snapshots-testnet.stake-town.com/andromeda/addrbook.json > $HOME/.andromedad/config/addrbook.json
 
 CONFIG_TOML=$HOME/.axelar/config/config.toml
 PEERS=""
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
-SEEDS="400f3d9e30b69e78a7fb891f60d76fa3c73f0ecc@axelar.rpc.kjnodes.com:16559"
+SEEDS="ade4d8bc8cbe014af6ebdf3cb7b1e9ad36f412c0@testnet-seeds.polkachu.com:15156"
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
 
 APP_TOML=$HOME/.axelar/config/app.toml
@@ -98,7 +98,7 @@ EOF
 axelard tendermint unsafe-reset-all --home $HOME/.axelar --keep-addr-book
 
 # Add snapshot here
-curl -L https://snapshots.kjnodes.com/axelar/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.axelar
+curl -L https://snapshots.polkachu.com/testnet-snapshots/axelar/axelar_10115119.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.axelar
 [[ -f $HOME/.axelar/data/upgrade-info.json ]] && cp $HOME/.axelar/data/upgrade-info.json $HOME/.axelar/cosmovisor/genesis/upgrade-info.json
 
 sudo systemctl daemon-reload
