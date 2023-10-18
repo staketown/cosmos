@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="cascadia_6102-1"
 CHAIN_DENOM="aCC"
 BINARY_NAME="cascadiad"
-BINARY_VERSION_TAG="v0.1.6"
+BINARY_VERSION_TAG="v0.1.7"
 CHEAT_SHEET="https://nodes.stake-town.com/casandra"
 
 printDelimiter
