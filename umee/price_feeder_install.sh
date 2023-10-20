@@ -6,6 +6,7 @@ printLogo
 
 read -r -p "Enter your main wallet address (that is used by validator): " MAIN_WALLET
 read -r -p "Enter password to you main wallet: " WALLET_PASS
+read -r -p "Enter chain id: " CHAIN_ID
 
 printGreen "Creating wallet for price feeder"
 echo $WALLET_PASS | umeed keys add price_feeder_wallet --keyring-backend os
@@ -34,7 +35,6 @@ curl -s https://raw.githubusercontent.com/ojo-network/price-feeder/umee/price-fe
 
 printDelimiter
 printGreen "Configure price feeder"
-CHAIN_ID=umee-1
 KEYRING="os"
 LISTEN_PORT=7173
 RPC_PORT=$(grep -A 3 "\[rpc\]" ~/.umee/config/config.toml | egrep -o ":[0-9]+" | awk '{print substr($0, 2)}')
