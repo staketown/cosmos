@@ -39,8 +39,6 @@ umeed config keyring-backend os
 umeed config chain-id $CHAIN_ID
 umeed init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -Ls https://canon-4.rpc.network.umee.cc/genesis.json > $HOME/.umee/config/genesis.json
-
 curl -s https://snapshots-testnet.stake-town.com/umee/genesis.json > $HOME/.umee/config/genesis.json
 curl -s https://snapshots-testnet.stake-town.com/umee/addrbook.json > $HOME/.umee/config/addrbook.json
 
