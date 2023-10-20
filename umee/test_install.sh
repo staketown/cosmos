@@ -41,11 +41,11 @@ umeed init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -Ls https://canon-4.rpc.network.umee.cc/genesis.json > $HOME/.umee/config/genesis.json
 
-# curl -s https://snapshots.stake-town.com/umee/genesis.json > $HOME/.umee/config/genesis.json
-# curl -s https://snapshots.stake-town.com/umee/addrbook.json > $HOME/.umee/config/addrbook.json
+curl -s https://snapshots-testnet.stake-town.com/umee/genesis.json > $HOME/.umee/config/genesis.json
+curl -s https://snapshots-testnet.stake-town.com/umee/addrbook.json > $HOME/.umee/config/addrbook.json
 
 CONFIG_TOML=$HOME/.umee/config/config.toml
-PEERS="e25008728d8f800383561d5ce68cff2d6bfc3826@canon-4.network.umee.cc:11002,dfd1d83b668ff2e59dc1d601a4990d1bd95044ba@canon-4.network.umee.cc:11001,ee7d691781717cbd1bf6f965dc45aad19c7af05f@canon-4.network.umee.cc:11000"
+PEERS="e25008728d8f800383561d5ce68cff2d6bfc3826@canon-4.network.umee.cc:10002,dfd1d83b668ff2e59dc1d601a4990d1bd95044ba@canon-4.network.umee.cc:10001,ee7d691781717cbd1bf6f965dc45aad19c7af05f@canon-4.network.umee.cc:10000"
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
 SEEDS=""
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
@@ -98,9 +98,9 @@ EOF
 umeed tendermint unsafe-reset-all --home $HOME/.umee --keep-addr-book
 
 # Add snapshot here
-#URL="https://snapshots.stake-town.com/umee/perun-1_latest.tar.lz4"
-#curl $URL | lz4 -dc - | tar -xf - -C $HOME/.umee
-#[[ -f $HOME/.umee/data/upgrade-info.json ]]  && cp $HOME/.umee/data/upgrade-info.json $HOME/.umee/cosmovisor/genesis/upgrade-info.json
+URL="https://snapshots-testnet.stake-town.com/umee/canon-4_latest.tar.lz4"
+curl $URL | lz4 -dc - | tar -xf - -C $HOME/.umee
+[[ -f $HOME/.umee/data/upgrade-info.json ]]  && cp $HOME/.umee/data/upgrade-info.json $HOME/.umee/cosmovisor/genesis/upgrade-info.json
 
 sudo systemctl daemon-reload
 sudo systemctl enable umeed
