@@ -9,10 +9,10 @@ export -f selectPortSet && selectPortSet
 
 read -r -p "Enter node moniker: " NODE_MONIKER
 
-CHAIN_ID="banksy-testnet-3"
+CHAIN_ID="banksy-testnet-4"
 CHAIN_DENOM="ppica"
 BINARY_NAME="centaurid"
-BINARY_VERSION_TAG="v6.0.3-ics"
+BINARY_VERSION_TAG="v5.2.5-testnet4"
 CHEAT_SHEET="https://nodes.stake-town.com/composable"
 
 printDelimiter
@@ -31,8 +31,8 @@ rm -rf composable-testnet
 git clone https://github.com/notional-labs/composable-testnet.git
 cd $HOME/composable-testnet || return
 git checkout $BINARY_VERSION_TAG
+
 make install
-centaurid version # v6.0.3-ics
 
 centaurid config keyring-backend test
 centaurid config chain-id $CHAIN_ID
@@ -42,9 +42,9 @@ curl -s https://snapshots-testnet.stake-town.com/composable/genesis.json > $HOME
 curl -s https://snapshots-testnet.stake-town.com/composable/addrbook.json > $HOME/.banksy/config/addrbook.json
 
 CONFIG_TOML=$HOME/.banksy/config/config.toml
-PEERS=""
+PEERS="a89d3d9fc0465615aa1100dcf53172814aa2b8cf@168.119.91.22:2260"
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
-SEEDS="364b8245e72f083b0aa3e0d59b832020b66e9e9d@65.109.80.150:21500"
+SEEDS="3f472746f46493309650e5a033076689996c8881@composable-testnet.rpc.kjnodes.com:15959"
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
 
 APP_TOML=$HOME/.banksy/config/app.toml
@@ -96,7 +96,7 @@ EOF
 centaurid tendermint unsafe-reset-all --home $HOME/.banksy --keep-addr-book
 
 # Add snapshot here
-URL="https://snapshots-testnet.stake-town.com/composable/banksy-testnet-3_latest.tar.lz4"
+URL="https://snapshots-testnet.stake-town.com/composable/banksy-testnet-4_latest.tar.lz4"
 curl $URL | lz4 -dc - | tar -xf - -C $HOME/.banksy
 [[ -f $HOME/.banksy/data/upgrade-info.json ]] && cp $HOME/.banksy/data/upgrade-info.json $HOME/.banksy/cosmovisor/genesis/upgrade-info.json
 
