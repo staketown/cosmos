@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="uni-6"
 CHAIN_DENOM="ujunox"
 BINARY_NAME="junod"
-BINARY_VERSION_TAG="v17.0.0-alpha.2"
+BINARY_VERSION_TAG="v18.0.0-alpha.1"
 CHEAT_SHEET=""
 
 printDelimiter
@@ -32,8 +32,6 @@ git clone https://github.com/CosmosContracts/juno juno
 cd juno || return
 git checkout $BINARY_VERSION_TAG
 make install
-
-junod version # v17.0.0-alpha.2
 
 junod config keyring-backend os
 junod config chain-id $CHAIN_ID
