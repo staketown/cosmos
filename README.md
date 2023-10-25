@@ -25,3 +25,4 @@ bash <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/composa
 | Osmosis       |  16   |
 | Arkeo Network |  17   |
 | Axelar        |  18   |
+| Band          |  19   |
