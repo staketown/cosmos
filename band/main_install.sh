@@ -112,8 +112,8 @@ curl -L https://snapshots.stake-town.com/band/laozi-mainnet_latest.tar.lz4 | tar
 [[ -f $HOME/.band/data/upgrade-info.json ]] && cp $HOME/.band/data/upgrade-info.json $HOME/.band/cosmovisor/genesis/upgrade-info.json
 
 sudo systemctl daemon-reload
-sudo systemctl enable bandd
-sudo systemctl start bandd
+sudo systemctl enable band
+sudo systemctl start band
 
 printDelimiter
 printGreen "Check logs:            sudo journalctl -u $BINARY_NAME -f -o cat"
