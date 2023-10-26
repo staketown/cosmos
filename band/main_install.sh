@@ -55,7 +55,7 @@ curl -Ls https://snapshots.stake-town.com/band/addrbook.json > $HOME/.band/confi
 CONFIG_TOML=$HOME/.band/config/config.toml
 PEERS=""
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
-SEEDS="400f3d9e30b69e78a7fb891f60d76fa3c73f0ecc@band.rpc.kjnodes.com:16959"
+SEEDS="da61931cbbbb2b62dbe7c470d049126cf365d257@35.213.165.61:26656,fffd730672f04d5dc065fa9afce2eb1d6bc4d150@35.212.60.28:26656"
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
 
 APP_TOML=$HOME/.band/config/app.toml
