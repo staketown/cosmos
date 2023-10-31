@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="evmos_9000-4"
 CHAIN_DENOM="evmosd"
 BINARY_NAME="evmosd"
-BINARY_VERSION_TAG="v14.0.0-rc5"
+BINARY_VERSION_TAG="v15.0.0-rc2"
 CHEAT_SHEET=""
 
 printDelimiter
@@ -32,8 +32,6 @@ git clone https://github.com/tharsis/evmos
 cd evmos || return
 git checkout $BINARY_VERSION_TAG
 make install
-
-evmosd version # v2.0.0
 
 evmosd config keyring-backend os
 evmosd config chain-id $CHAIN_ID
