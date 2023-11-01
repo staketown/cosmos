@@ -95,7 +95,8 @@ EOF
 quasarnoded tendermint unsafe-reset-all --home $HOME/.quasarnode --keep-addr-book
 
 # Add snapshot here
-curl -L https://snapshots-testnet.staket-town.com/quasar/quasar-test-1_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.quasarnode
+URL=https://snapshots-testnet.staket-town.com/quasar/quasar-test-1_latest.tar.lz4
+curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.quasarnode
 [[ -f $HOME/.quasarnode/data/upgrade-info.json ]] && cp $HOME/.quasarnode/data/upgrade-info.json $HOME/.quasarnode/cosmovisor/genesis/upgrade-info.json
 
 sudo systemctl daemon-reload
