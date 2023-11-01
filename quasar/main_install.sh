@@ -71,7 +71,7 @@ printGreen "Install and configure cosmovisor..." && sleep 1
 go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.4.0
 mkdir -p ~/.quasarnode/cosmovisor/genesis/bin
 mkdir -p ~/.quasarnode/cosmovisor/upgrades
-cp ~/go/bin/centaurid $HOME/.quasarnode/cosmovisor/genesis/bin
+cp ~/go/bin/quasarnoded $HOME/.quasarnode/cosmovisor/genesis/bin
 
 printGreen "Starting service and synchronization..." && sleep 1
 
