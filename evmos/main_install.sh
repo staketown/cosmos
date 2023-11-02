@@ -96,8 +96,8 @@ EOF
 evmosd tendermint unsafe-reset-all --home $HOME/.evmosd --keep-addr-book
 
 # Add snapshot here
-curl -L https://snapshots.polkachu.com/snapshots/evmos/evmos_16703407.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.evmosd
-[[ -f $HOME/.evmosd/data/upgrade-info.json ]]  && cp $HOME/.evmosd/data/upgrade-info.json $HOME/.evmosd/cosmovisor/genesis/upgrade-info.json
+#curl -L https://snapshots.polkachu.com/snapshots/evmos/evmos_16703407.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.evmosd
+#[[ -f $HOME/.evmosd/data/upgrade-info.json ]]  && cp $HOME/.evmosd/data/upgrade-info.json $HOME/.evmosd/cosmovisor/genesis/upgrade-info.json
 
 sudo systemctl daemon-reload
 sudo systemctl enable evmosd
