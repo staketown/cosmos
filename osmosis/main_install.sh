@@ -31,9 +31,8 @@ rm -rf osmosis
 git clone https://github.com/osmosis-labs/osmosis.git
 cd osmosis || return
 git checkout $BINARY_VERSION_TAG
-make install
 
-osmosisd version # v19.0.0
+make install
 
 osmosisd config keyring-backend os
 osmosisd config chain-id $CHAIN_ID
