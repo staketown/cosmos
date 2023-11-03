@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="elystestnet-1"
 CHAIN_DENOM="uelys"
 BINARY_NAME="elysd"
-BINARY_VERSION_TAG="v0.12.0"
+BINARY_VERSION_TAG="v0.13.0"
 CHEAT_SHEET="https://nodes.stake-town.com/elys"
 
 printDelimiter
@@ -30,7 +30,7 @@ cd $HOME || return
 rm -rf elys
 git clone https://github.com/elys-network/elys.git
 cd elys || return
-git checkout v0.12.0
+git checkout $BINARY_VERSION_TAG
 
 make install
 
