@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="euphoria-2"
 CHAIN_DENOM="ueaura"
 BINARY_NAME="aurad"
-BINARY_VERSION_TAG="euphoria_v0.4.4"
+BINARY_VERSION_TAG="euphoria_v0.7.0"
 CHEAT_SHEET=""
 
 printDelimiter
