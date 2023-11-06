@@ -27,3 +27,4 @@ bash <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/composa
 | Axelar        |  18   |
 | Band          |  19   |
 | Quasar        |  20   |
+| Aura          |  21   |
