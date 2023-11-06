@@ -50,7 +50,7 @@ wget -O $HOME/.aura/config/addrbook.json "https://raw.githubusercontent.com/obaj
 CONFIG_TOML=$HOME/.aura/config/config.toml
 PEERS=""
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
-SEEDS=""
+SEEDS="705e3c2b2b554586976ed88bb27f68e4c4176a33@52.76.203.126:26656"
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
 
 APP_TOML=$HOME/.aura/config/app.toml
