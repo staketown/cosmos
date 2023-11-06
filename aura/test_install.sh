@@ -38,8 +38,8 @@ aurad config keyring-backend os
 aurad config chain-id $CHAIN_ID
 aurad init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -s https://snapshots.stake-town.com/aura/genesis.json > $HOME/.aura/config/genesis.json
-curl -s https://snapshots.stake-town.com/aura/addrbook.json > $HOME/.aura/config/addrbook.json
+curl -s https://snapshots-testnet.stake-town.com/aura/genesis.json > $HOME/.aura/config/genesis.json
+curl -s https://snapshots-testnet.stake-town.com/aura/addrbook.json > $HOME/.aura/config/addrbook.json
 
 CONFIG_TOML=$HOME/.aura/config/config.toml
 PEERS=""
@@ -95,7 +95,7 @@ EOF
 aurad tendermint unsafe-reset-all --home $HOME/.aura --keep-addr-book
 
 # Add snapshot here
-URL="https://snapshots.stake-town.com/aura/euphoria-2_latest.tar.lz4"
+URL="https://snapshots-testnet.stake-town.com/aura/euphoria-2_latest.tar.lz4"
 curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.aura
 [[ -f $HOME/.aura/data/upgrade-info.json ]]  && cp $HOME/.aura/data/upgrade-info.json $HOME/.aura/cosmovisor/genesis/upgrade-info.json
 
