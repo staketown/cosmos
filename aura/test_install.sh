@@ -38,14 +38,8 @@ aurad config keyring-backend os
 aurad config chain-id $CHAIN_ID
 aurad init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-wget https://github.com/aura-nw/testnets/raw/main/euphoria-2/euphoria-2-genesis.tar.gz
-tar -xzvf euphoria-2-genesis.tar.gz
-mv euphoria-2-genesis.json $HOME/.aura/config/genesis.json
-
-wget -O $HOME/.aura/config/addrbook.json "https://raw.githubusercontent.com/obajay/nodes-Guides/main/Aura/Testnet/addrbook.json"
-
-#curl -s https://snapshots.stake-town.com/aura/genesis.json > $HOME/.aura/config/genesis.json
-#curl -s https://snapshots.stake-town.com/aura/addrbook.json > $HOME/.aura/config/addrbook.json
+curl -s https://snapshots.stake-town.com/aura/genesis.json > $HOME/.aura/config/genesis.json
+curl -s https://snapshots.stake-town.com/aura/addrbook.json > $HOME/.aura/config/addrbook.json
 
 CONFIG_TOML=$HOME/.aura/config/config.toml
 PEERS=""
@@ -101,9 +95,9 @@ EOF
 aurad tendermint unsafe-reset-all --home $HOME/.aura --keep-addr-book
 
 # Add snapshot here
-#URL="https://snapshots.stake-town.com/aura/xstaxy-1_latest.tar.lz4"
-#curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.aura
-#[[ -f $HOME/.aura/data/upgrade-info.json ]]  && cp $HOME/.aura/data/upgrade-info.json $HOME/.aura/cosmovisor/genesis/upgrade-info.json
+URL="https://snapshots.stake-town.com/aura/euphoria-2_latest.tar.lz4"
+curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.aura
+[[ -f $HOME/.aura/data/upgrade-info.json ]]  && cp $HOME/.aura/data/upgrade-info.json $HOME/.aura/cosmovisor/genesis/upgrade-info.json
 
 sudo systemctl daemon-reload
 sudo systemctl enable aurad
