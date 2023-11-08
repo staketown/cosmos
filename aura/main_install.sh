@@ -22,7 +22,25 @@ echo -e "Chain demon:        $CHAIN_DENOM"
 echo -e "Binary version tag: $BINARY_VERSION_TAG"
 printDelimiter && sleep 1
 
-source <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/utils/dependencies.sh)
+printGreen "Installing dependencies..." && sleep 1
+
+sudo apt-get update &&
+sudo apt-get install -y curl iptables build-essential git lz4 wget jq make gcc nano chrony \
+tmux htop nvme-cli pkg-config libssl-dev libleveldb-dev tar clang bsdmainutils ncdu unzip libleveldb-dev &&
+
+
+printGreen "Installing go..." && sleep 1
+
+if ! [ -x "$(command -v go)" ]; then
+  ver="1.19.6"
+  wget "https://golang.org/dl/go$ver.linux-amd64.tar.gz"
+  sudo rm -rf /usr/local/go
+  sudo tar -C /usr/local -xzf "go$ver.linux-amd64.tar.gz"
+  rm "go$ver.linux-amd64.tar.gz"
+  echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> $HOME/.bash_profile
+  source $HOME/.bash_profile
+  go version
+fi
 
 echo "" && printGreen "Building binaries..." && sleep 1
 
@@ -38,11 +56,8 @@ aurad config keyring-backend os
 aurad config chain-id $CHAIN_ID
 aurad init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -Ls https://snapshots.kjnodes.com/aura/genesis.json > $HOME/.aura/config/genesis.json
-curl -Ls https://snapshots.kjnodes.com/aura/addrbook.json > $HOME/.aura/config/addrbook.json
-
-#curl -s https://snapshots.stake-town.com/aura/genesis.json > $HOME/.aura/config/genesis.json
-#curl -s https://snapshots.stake-town.com/aura/addrbook.json > $HOME/.aura/config/addrbook.json
+curl -s https://snapshots.stake-town.com/aura/genesis.json > $HOME/.aura/config/genesis.json
+curl -s https://snapshots.stake-town.com/aura/addrbook.json > $HOME/.aura/config/addrbook.json
 
 CONFIG_TOML=$HOME/.aura/config/config.toml
 PEERS=""
@@ -98,9 +113,8 @@ EOF
 aurad tendermint unsafe-reset-all --home $HOME/.aura --keep-addr-book
 
 # Add snapshot here
-#URL="https://snapshots.stake-town.com/aura/xstaxy-1_latest.tar.lz4"
-#curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.aura
-curl -L https://snapshots.kjnodes.com/aura/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.aura
+URL="https://snapshots.stake-town.com/aura/xstaxy-1_latest.tar.lz4"
+curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.aura
 [[ -f $HOME/.aura/data/upgrade-info.json ]]  && cp $HOME/.aura/data/upgrade-info.json $HOME/.aura/cosmovisor/genesis/upgrade-info.json
 
 sudo systemctl daemon-reload
