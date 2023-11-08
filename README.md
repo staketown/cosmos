@@ -28,3 +28,4 @@ bash <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/composa
 | Band          |  19   |
 | Quasar        |  20   |
 | Aura          |  21   |
+| Mantra        |  22   |
