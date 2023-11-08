@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="mantrachain-testnet-1"
 CHAIN_DENOM="uaum"
 BINARY_NAME="mantrachaind"
-BINARY_VERSION_TAG="euphoria_v0.7.0"
+BINARY_VERSION_TAG="1.0.0"
 CHEAT_SHEET=""
 
 printDelimiter
