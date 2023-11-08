@@ -39,7 +39,7 @@ curl -s https://snapshots-testnet.stake-town.com/mantra/genesis.json > $HOME/.ma
 curl -s https://snapshots-testnet.stake-town.com/mantra/addrbook.json > $HOME/.mantrachain/config/addrbook.json
 
 CONFIG_TOML=$HOME/.mantrachain/config/config.toml
-PEERS="dc0e4f03c75caf3c19474ffbead6f71ba37d96f8@35.192.223.187:26656"
+PEERS="dc0e4f03c75caf3c19474ffbead6f71ba37d96f8@35.192.223.187:26656,eaeb4872c88fa5d3a3fea9deb93cecb552dbe7a3@65.109.65.248:47656"
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
 SEEDS=""
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
