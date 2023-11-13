@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="xstaxy-1"
 CHAIN_DENOM="uaura"
 BINARY_NAME="aurad"
-BINARY_VERSION_TAG="aura_v0.4.5"
+BINARY_VERSION_TAG="v0.7.1"
 CHEAT_SHEET=""
 
 printDelimiter
@@ -22,25 +22,7 @@ echo -e "Chain demon:        $CHAIN_DENOM"
 echo -e "Binary version tag: $BINARY_VERSION_TAG"
 printDelimiter && sleep 1
 
-printGreen "Installing dependencies..." && sleep 1
-
-sudo apt-get update &&
-sudo apt-get install -y curl iptables build-essential git lz4 wget jq make gcc nano chrony \
-tmux htop nvme-cli pkg-config libssl-dev libleveldb-dev tar clang bsdmainutils ncdu unzip libleveldb-dev &&
-
-
-printGreen "Installing go..." && sleep 1
-
-if ! [ -x "$(command -v go)" ]; then
-  ver="1.19.6"
-  wget "https://golang.org/dl/go$ver.linux-amd64.tar.gz"
-  sudo rm -rf /usr/local/go
-  sudo tar -C /usr/local -xzf "go$ver.linux-amd64.tar.gz"
-  rm "go$ver.linux-amd64.tar.gz"
-  echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> $HOME/.bash_profile
-  source $HOME/.bash_profile
-  go version
-fi
+source <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/utils/dependencies.sh)
 
 echo "" && printGreen "Building binaries..." && sleep 1
 
