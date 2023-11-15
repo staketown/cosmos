@@ -20,7 +20,7 @@ cd $HOME || return
 rm umee-price-feeder -rf
 git clone https://github.com/ojo-network/price-feeder umee-price-feeder
 cd umee-price-feeder || return
-git checkout umee/v2.1.7
+git checkout umee/v2.1.8
 make build
 sudo mv ./build/price-feeder /usr/local/bin/umee-price-feeder
 rm $HOME/.umee-price-feeder -rf
