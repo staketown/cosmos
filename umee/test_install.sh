@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="canon-4"
 CHAIN_DENOM="uumee"
 BINARY_NAME="umeed"
-BINARY_VERSION_TAG="v6.0.2"
+BINARY_VERSION_TAG="v6.2.0-beta"
 CHEAT_SHEET=""
 
 printDelimiter
