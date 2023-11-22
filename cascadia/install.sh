@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="cascadia_6102-1"
 CHAIN_DENOM="aCC"
 BINARY_NAME="cascadiad"
-BINARY_VERSION_TAG="v0.1.8"
+BINARY_VERSION_TAG="v0.1.7"
 CHEAT_SHEET="https://nodes.stake-town.com/casandra"
 
 printDelimiter
@@ -32,8 +32,8 @@ rm -rf cascadia
 git clone https://github.com/cascadiafoundation/cascadia
 cd $HOME/cascadia || return
 git checkout $BINARY_VERSION_TAG
+
 make install
-cascadiad version # v0.1.6
 
 cascadiad config keyring-backend os
 cascadiad config chain-id $CHAIN_ID
