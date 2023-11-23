@@ -20,17 +20,19 @@ cd $HOME || return
 rm umee-price-feeder -rf
 git clone https://github.com/ojo-network/price-feeder umee-price-feeder
 cd umee-price-feeder || return
-git checkout umee/v2.1.8
+git checkout umee/v2.3.0
 make build
 sudo mv ./build/price-feeder /usr/local/bin/umee-price-feeder
 rm $HOME/.umee-price-feeder -rf
 mkdir $HOME/.umee-price-feeder
-curl -s https://raw.githubusercontent.com/ojo-network/price-feeder/umee/v2.1.8/umee-provider-configcurrency-pairs.toml > $HOME/.umee-price-feeder/currency-pairs.toml
-echo >> $HOME/.umee-price-feeder/config.toml
-curl -s https://raw.githubusercontent.com/ojo-network/price-feeder/umee/v2.1.8/umee-provider-config/deviation-thresholds.toml >> $HOME/.umee-price-feeder/deviation-thresholds.toml
-echo >> $HOME/.umee-price-feeder/config.toml
-curl -s https://raw.githubusercontent.com/ojo-network/price-feeder/umee/v2.1.8/umee-provider-config/endpoints.toml >> $HOME/.umee-price-feeder/endpoints.toml
-echo >> $HOME/.umee-price-feeder/config.toml
+
+CURRENCY_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/umee/umee-provider-config/currency-pairs.toml
+ENDPOINTS_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/umee/umee-provider-config/endpoints.toml
+DEVIATION_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/umee/umee-provider-config/deviation-thresholds.toml
+
+curl -s $CURRENCY_URL > $HOME/.umee-price-feeder/currency-pairs.toml
+curl -s $DEVIATION_URL >> $HOME/.umee-price-feeder/deviation-thresholds.toml
+curl -s $ENDPOINTS_URL >> $HOME/.umee-price-feeder/endpoints.toml
 curl -s https://raw.githubusercontent.com/ojo-network/price-feeder/umee/price-feeder.example.toml >> $HOME/.umee-price-feeder/config.toml
 
 printDelimiter
