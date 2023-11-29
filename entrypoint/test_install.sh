@@ -28,7 +28,7 @@ echo "" && printGreen "Building binaries..." && sleep 1
 
 cd $HOME || return
 
-wget -O https://github.com/entrypoint-zone/testnets/releases/download/v1.2.0/entrypointd-1.2.0-linux-amd64 ~/go/bin/entrypointd
+wget -O ~/go/bin/entrypointd https://github.com/entrypoint-zone/testnets/releases/download/v1.2.0/entrypointd-1.2.0-linux-amd64
 chmod +x ~/go/bin/entrypointd
 
 entrypointd config keyring-backend os
