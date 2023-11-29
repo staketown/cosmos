@@ -1,8 +1,11 @@
 # Cosmos networks
+
 ## Run install script
+
 ```
 bash <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/composable/install.sh)
 ```
+
 ## Network prefixes
 
 | Network       | Index |
@@ -29,3 +32,4 @@ bash <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/composa
 | Quasar        |  20   |
 | Aura          |  21   |
 | Mantra        |  22   |
+| Entrypoint    |  23   |
