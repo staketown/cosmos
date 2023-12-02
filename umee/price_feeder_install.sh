@@ -8,6 +8,9 @@ options=("umee-1" "canon-4")
 PS3='Select your chain: '
 selected="You choose the chain: "
 CHAIN_ID=
+CURRENCY_URL=
+ENDPOINTS_URL=
+DEVIATION_URL=
 
 select opt in "${options[@]}"
 do
@@ -15,11 +18,17 @@ do
         "${options[0]}")
             echo "$selected $opt"
             CHAIN_ID=$opt
+            CURRENCY_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/umee/umee-provider-config/currency-pairs.toml
+            ENDPOINTS_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/umee/umee-provider-config/endpoints.toml
+            DEVIATION_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/umee/umee-provider-config/deviation-thresholds.toml
             break
             ;;
         "${options[1]}")
             echo "$selected $opt"
             CHAIN_ID=$opt
+            CURRENCY_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/umee/umee-provider-config/currency-pairs.toml
+            ENDPOINTS_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/umee/umee-provider-config/endpoints.toml
+            DEVIATION_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/umee/umee-provider-config/deviation-thresholds.toml
             break
             ;;
         *) echo "unknown option $REPLY"
@@ -49,18 +58,7 @@ sudo mv ./build/price-feeder /usr/local/bin/umee-price-feeder
 rm $HOME/.umee-price-feeder -rf
 mkdir $HOME/.umee-price-feeder
 
-if [[ $CHAIN_ID -eq "umee-1" ]]; then
-  CURRENCY_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/umee/umee-provider-config/currency-pairs.toml
-  ENDPOINTS_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/umee/umee-provider-config/endpoints.toml
-  DEVIATION_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/umee/umee-provider-config/deviation-thresholds.toml
-else
-  echo $CHAIN_ID
-  CURRENCY_URL=https://raw.githubusercontent.com/gsk967/ojo-price-feeder/sai/add_tia_wsteth_sfrxeth/umee-provider-config/currency-pairs.toml
-  ENDPOINTS_URL=https://raw.githubusercontent.com/gsk967/ojo-price-feeder/sai/add_tia_wsteth_sfrxeth/umee-provider-config/endpoints.toml
-  DEVIATION_URL=https://raw.githubusercontent.com/gsk967/ojo-price-feeder/sai/add_tia_wsteth_sfrxeth/umee-provider-config/deviation-thresholds.toml
-fi
-
-curl -s $CURRENCY_URL > $HOME/.umee-price-feeder/currency-pairs.toml
+curl -s $CURRENCY_URL >> $HOME/.umee-price-feeder/currency-pairs.toml
 curl -s $DEVIATION_URL >> $HOME/.umee-price-feeder/deviation-thresholds.toml
 curl -s $ENDPOINTS_URL >> $HOME/.umee-price-feeder/endpoints.toml
 curl -s https://raw.githubusercontent.com/ojo-network/price-feeder/umee/price-feeder.example.toml >> $HOME/.umee-price-feeder/config.toml
