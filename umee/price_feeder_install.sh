@@ -4,9 +4,31 @@ source <(curl -s https://raw.githubusercontent.com/staketown/utils/master/common
 
 printLogo
 
+options=("umee-1" "canon-4")
+selected="You choose the chain: "
+CHAIN_ID=
+
+select opt in "${options[@]}"
+do
+    case $opt in
+        "${options[0]}")
+            echo "$selected $opt"
+            CHAIN_ID=$opt
+            break
+            ;;
+        "${options[1]}")
+            echo "$selected $opt"
+            CHAIN_ID=$opt
+            break
+            ;;
+        *) echo "unknown option $REPLY"
+          exit 1
+          ;;
+    esac
+done
+
 read -r -p "Enter your main wallet address (that is used by validator): " MAIN_WALLET
 read -r -p "Enter password to you main wallet: " WALLET_PASS
-read -r -p "Enter chain id: " CHAIN_ID
 
 printGreen "Creating wallet for price feeder"
 echo $WALLET_PASS | umeed keys add price_feeder_wallet --keyring-backend os
@@ -26,9 +48,16 @@ sudo mv ./build/price-feeder /usr/local/bin/umee-price-feeder
 rm $HOME/.umee-price-feeder -rf
 mkdir $HOME/.umee-price-feeder
 
-CURRENCY_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/umee/umee-provider-config/currency-pairs.toml
-ENDPOINTS_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/umee/umee-provider-config/endpoints.toml
-DEVIATION_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/umee/umee-provider-config/deviation-thresholds.toml
+if [[ $CHAIN_ID -eq "umee-1"]]; then
+  CURRENCY_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/umee/umee-provider-config/currency-pairs.toml
+  ENDPOINTS_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/umee/umee-provider-config/endpoints.toml
+  DEVIATION_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/umee/umee-provider-config/deviation-thresholds.toml
+else
+  echo $CHAIN_ID
+  CURRENCY_URL=https://raw.githubusercontent.com/gsk967/ojo-price-feeder/sai/add_tia_wsteth_sfrxeth/umee-provider-config/currency-pairs.toml
+  ENDPOINTS_URL=https://raw.githubusercontent.com/gsk967/ojo-price-feeder/sai/add_tia_wsteth_sfrxeth/umee-provider-config/endpoints.toml
+  DEVIATION_URL=https://raw.githubusercontent.com/gsk967/ojo-price-feeder/sai/add_tia_wsteth_sfrxeth/umee-provider-config/deviation-thresholds.toml
+fi
 
 curl -s $CURRENCY_URL > $HOME/.umee-price-feeder/currency-pairs.toml
 curl -s $DEVIATION_URL >> $HOME/.umee-price-feeder/deviation-thresholds.toml
@@ -38,6 +67,7 @@ curl -s https://raw.githubusercontent.com/ojo-network/price-feeder/umee/price-fe
 printDelimiter
 printGreen "Configure price feeder"
 KEYRING="os"
+GAS_ADJUSTMENT=2.1
 LISTEN_PORT=7173
 RPC_PORT=$(grep -A 3 "\[rpc\]" ~/.umee/config/config.toml | egrep -o ":[0-9]+" | awk '{print substr($0, 2)}')
 GRPC_PORT=$(grep -A 6 "\[grpc\]" ~/.umee/config/app.toml | egrep -o ":[0-9]+" | awk '{print substr($0, 2)}')
@@ -46,6 +76,7 @@ MAIN_WALLET_ADDRESS=$(echo $WALLET_PASS | umeed keys show $MAIN_WALLET -a)
 PRICEFEEDER_ADDRESS=$(echo $WALLET_PASS | umeed keys show price_feeder_wallet --keyring-backend os -a)
 
 sed -i "s/^listen_addr *=.*/listen_addr = \"0.0.0.0:${LISTEN_PORT}\"/;\
+s/^gas_adjustment *=.*/gas_adjustment = \"$GAS_ADJUSTMENT\"/;\
 s/^address *=.*/address = \"$PRICEFEEDER_ADDRESS\"/;\
 s/^chain_id *=.*/chain_id = \"$CHAIN_ID\"/;\
 s/^validator *=.*/validator = \"$VALIDATOR_ADDRESS\"/;\
@@ -57,11 +88,11 @@ s|^global-labels *=.*|global-labels = [[\"chain_id\", \"$CHAIN_ID\"]]|;\
 s|^service-name *=.*|service-name = \"umee-price-feeder\"|;" $HOME/.umee-price-feeder/config.toml
 
 printGreen "Sending 1 umee from $MAIN_WALLET to price feeder wallet: price_feeder_wallet"
-echo $WALLET_PASS | umeed tx bank send $MAIN_WALLET_ADDRESS $PRICEFEEDER_ADDRESS 1000000uumee --from $MAIN_WALLET_ADDRESS --chain-id $CHAIN_ID --fees 15000uumee --gas-adjustment 1.4 --gas auto -y
+echo $WALLET_PASS | umeed tx bank send $MAIN_WALLET_ADDRESS $PRICEFEEDER_ADDRESS 1000000uumee --from $MAIN_WALLET_ADDRESS --chain-id $CHAIN_ID --fees 20000uumee --gas-adjustment 1.4 --gas auto -y
 
 printGreen "Waiting 5 seconds..." && sleep 5
 printGreen "Delegate price feeder responsibility"
-echo $WALLET_PASS | umeed tx oracle delegate-feed-consent $MAIN_WALLET_ADDRESS $PRICEFEEDER_ADDRESS --from $MAIN_WALLET_ADDRESS --chain-id $CHAIN_ID --gas-adjustment 1.4 --fees 15000uumee --gas auto -y
+echo $WALLET_PASS | umeed tx oracle delegate-feed-consent $MAIN_WALLET_ADDRESS $PRICEFEEDER_ADDRESS --from $MAIN_WALLET_ADDRESS --chain-id $CHAIN_ID --gas-adjustment 1.4 --fees 20000uumee --gas auto -y
 
 
 printGreen "Install systemd service for price feeder"
