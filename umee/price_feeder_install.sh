@@ -49,7 +49,8 @@ sudo mv ./build/price-feeder /usr/local/bin/umee-price-feeder
 rm $HOME/.umee-price-feeder -rf
 mkdir $HOME/.umee-price-feeder
 
-if [[ $CHAIN_ID -eq "umee-1"]]; then
+if [[ $CHAIN_ID -eq "umee-1"]]
+then
   CURRENCY_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/umee/umee-provider-config/currency-pairs.toml
   ENDPOINTS_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/umee/umee-provider-config/endpoints.toml
   DEVIATION_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/umee/umee-provider-config/deviation-thresholds.toml
