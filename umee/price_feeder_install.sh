@@ -5,6 +5,7 @@ source <(curl -s https://raw.githubusercontent.com/staketown/utils/master/common
 printLogo
 
 options=("umee-1" "canon-4")
+PS3='Select your chain: '
 selected="You choose the chain: "
 CHAIN_ID=
 
