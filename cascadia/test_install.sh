@@ -9,11 +9,11 @@ export -f selectPortSet && selectPortSet
 
 read -r -p "Enter node moniker: " NODE_MONIKER
 
-CHAIN_ID="cascadia_6102-1"
+CHAIN_ID="cascadia_11029-1"
 CHAIN_DENOM="aCC"
 BINARY_NAME="cascadiad"
-BINARY_VERSION_TAG="v0.1.8"
-CHEAT_SHEET="https://nodes.stake-town.com/casandra"
+BINARY_VERSION_TAG="v0.1.9"
+CHEAT_SHEET=""
 
 printDelimiter
 echo -e "Node moniker:       $NODE_MONIKER"
@@ -43,7 +43,7 @@ curl -s https://snapshots-testnet.stake-town.com/cascadia/genesis.json > $HOME/.
 curl -s https://snapshots-testnet.stake-town.com/cascadia/addrbook.json > $HOME/.cascadiad/config/addrbook.json
 
 CONFIG_TOML=$HOME/.cascadiad/config/config.toml
-PEERS="b651ea2a0517e82c1a476e25966ab3de3159afe8@34.229.22.39:26656,3b389873f999763d3f937f63f765f0948411e296@44.192.85.92:26656"
+PEERS="0c96a6c328eb58d1467afff4130ab446c294108c@34.239.67.55:26656,d1ed80e232fc2f3742637daacab454e345bbe475@54.204.246.120:26656"
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
 SEEDS=""
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
@@ -80,7 +80,7 @@ Description=Cascadia Node
 After=network-online.target
 [Service]
 User=$USER
-ExecStart=$(which cosmovisor) run start
+ExecStart=$(which cosmovisor) run start --chain-id $CHAIN_ID
 Restart=on-failure
 RestartSec=3
 LimitNOFILE=10000
@@ -96,7 +96,7 @@ EOF
 cascadiad tendermint unsafe-reset-all --home $HOME/.cascadiad --keep-addr-book
 
 # Add snapshot here
-URL="https://snapshots-testnet.stake-town.com/cascadia/cascadia_6102-1_latest.tar.lz4"
+URL="https://snapshots-testnet.stake-town.com/cascadia/cascadia_11029-1_latest.tar.lz4"
 curl $URL | lz4 -dc - | tar -xf - -C $HOME/.cascadiad
 [[ -f $HOME/.cascadiad/data/upgrade-info.json ]] && cp $HOME/.cascadiad/data/upgrade-info.json $HOME/.cascadiad/cosmovisor/genesis/upgrade-info.json
 
