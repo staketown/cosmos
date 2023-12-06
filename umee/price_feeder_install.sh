@@ -16,6 +16,7 @@ select opt in "${options[@]}"
 do
     case $opt in
         "${options[0]}")
+            # umee-1
             echo "$selected $opt"
             CHAIN_ID=$opt
             CURRENCY_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/umee/umee-provider-config/currency-pairs.toml
@@ -24,6 +25,7 @@ do
             break
             ;;
         "${options[1]}")
+            # canon-4
             echo "$selected $opt"
             CHAIN_ID=$opt
             CURRENCY_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/umee/umee-provider-config/currency-pairs.toml
@@ -58,10 +60,10 @@ sudo mv ./build/price-feeder /usr/local/bin/umee-price-feeder
 rm $HOME/.umee-price-feeder -rf
 mkdir $HOME/.umee-price-feeder
 
-curl -s $CURRENCY_URL >> $HOME/.umee-price-feeder/currency-pairs.toml
-curl -s $DEVIATION_URL >> $HOME/.umee-price-feeder/deviation-thresholds.toml
-curl -s $ENDPOINTS_URL >> $HOME/.umee-price-feeder/endpoints.toml
-curl -s https://raw.githubusercontent.com/ojo-network/price-feeder/umee/price-feeder.example.toml >> $HOME/.umee-price-feeder/config.toml
+curl -s $CURRENCY_URL > $HOME/.umee-price-feeder/currency-pairs.toml
+curl -s $DEVIATION_URL > $HOME/.umee-price-feeder/deviation-thresholds.toml
+curl -s $ENDPOINTS_URL > $HOME/.umee-price-feeder/endpoints.toml
+curl -s https://raw.githubusercontent.com/ojo-network/price-feeder/umee/price-feeder.example.toml > $HOME/.umee-price-feeder/config.toml
 
 printDelimiter
 printGreen "Configure price feeder"
