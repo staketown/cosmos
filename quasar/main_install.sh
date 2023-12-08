@@ -38,10 +38,8 @@ quasarnoded config keyring-backend os
 quasarnoded config chain-id $CHAIN_ID
 quasarnoded init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -Ls https://snapshots.kjnodes.com/quasar/genesis.json > $HOME/.quasarnode/config/genesis.json
-curl -Ls https://snapshots.kjnodes.com/quasar/addrbook.json > $HOME/.quasarnode/config/addrbook.json
-#curl -s https://raw.githubusercontent.com/quasar-finance/questnet/main/v04/definitive-genesis.json > $HOME/.quasarnode/config/genesis.json
-#curl -s https://snapshots2-testnet.nodejumper.io/quasar-testnet/addrbook.json > $HOME/.quasarnode/config/addrbook.json
+curl -Ls https://snapshots.stake-town.com/quasar/genesis.json > $HOME/.quasarnode/config/genesis.json
+curl -Ls https://snapshots.stake-town.com/quasar/addrbook.json > $HOME/.quasarnode/config/addrbook.json
 
 CONFIG_TOML=$HOME/.quasarnode/config/config.toml
 SEEDS="400f3d9e30b69e78a7fb891f60d76fa3c73f0ecc@quasar.rpc.kjnodes.com:14859"
@@ -97,7 +95,8 @@ EOF
 quasarnoded tendermint unsafe-reset-all --home $HOME/.quasarnode --keep-addr-book
 
 # Add snapshot here
-curl -L https://snapshots.kjnodes.com/quasar/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.quasarnode
+URL="https://snapshots.stake-town.com/quasar/quasar-1_latest.tar.lz4"
+curl $URL | lz4 -dc - | tar -xf - -C $HOME/.quasarnode
 [[ -f $HOME/.quasarnode/data/upgrade-info.json ]] && cp $HOME/.quasarnode/data/upgrade-info.json $HOME/.quasarnode/cosmovisor/genesis/upgrade-info.json
 
 sudo systemctl daemon-reload

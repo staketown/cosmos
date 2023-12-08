@@ -38,8 +38,8 @@ quicksilverd config keyring-backend os
 quicksilverd config chain-id $CHAIN_ID
 quicksilverd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -Ls https://snapshots.kjnodes.com/quicksilver-testnet/genesis.json > $HOME/.quicksilverd/config/genesis.json
-curl -Ls https://snapshots.kjnodes.com/quicksilver-testnet/addrbook.json > $HOME/.quicksilverd/config/addrbook.json
+curl -Ls https://snapshots-testnet.stake-town.com/quicksilver/genesis.json > $HOME/.quicksilverd/config/genesis.json
+curl -Ls https://snapshots-testnet.stake-town.com/quicksilver/addrbook.json > $HOME/.quicksilverd/config/addrbook.json
 
 CONFIG_TOML=$HOME/.quicksilverd/config/config.toml
 PEERS=""
@@ -95,7 +95,8 @@ EOF
 quicksilverd tendermint unsafe-reset-all --home $HOME/.quicksilverd --keep-addr-book
 
 # Add snapshot here
-curl -L https://snapshots.kjnodes.com/quicksilver-testnet/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.quicksilverd
+URL="https://snapshots-testnet.stake-town.com/quicksilver/rhye-1_latest.tar.lz4"
+curl $URL | lz4 -dc - | tar -xf - -C $HOME/.quicksilverd
 [[ -f $HOME/.quicksilverd/data/upgrade-info.json ]] && cp $HOME/.quicksilverd/data/upgrade-info.json $HOME/.quicksilverd/cosmovisor/genesis/upgrade-info.json
 
 sudo systemctl daemon-reload
