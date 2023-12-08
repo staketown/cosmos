@@ -31,7 +31,7 @@ chmod +x $HOME/go/bin/uniond
 
 uniond config keyring-backend os
 uniond config chain-id $CHAIN_ID
-uniond init "$NODE_MONIKER" --chain-id $CHAIN_ID
+uniond init "$NODE_MONIKER" bn254 --chain-id $CHAIN_ID
 
 # Download genesis and addrbook
 curl -Ls https://snapshots.kjnodes.com/union-testnet/genesis.json > $HOME/.union/config/genesis.json
