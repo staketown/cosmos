@@ -34,3 +34,4 @@ bash <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/composa
 | Mantra        |  22   |
 | Entrypoint    |  23   |
 | Union         |  24   |
+| QuickSilver   |  25   |
