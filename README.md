@@ -33,3 +33,4 @@ bash <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/composa
 | Aura          |  21   |
 | Mantra        |  22   |
 | Entrypoint    |  23   |
+| Union         |  24   |
