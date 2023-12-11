@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="xstaxy-1"
 CHAIN_DENOM="uaura"
 BINARY_NAME="aurad"
-BINARY_VERSION_TAG="v0.7.1"
+BINARY_VERSION_TAG="v0.7.2"
 CHEAT_SHEET=""
 
 printDelimiter
