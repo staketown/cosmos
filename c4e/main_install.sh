@@ -12,8 +12,8 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="perun-1"
 CHAIN_DENOM="uc4e"
 BINARY_NAME="c4ed"
-BINARY_VERSION_TAG="v1.2.1"
-CHEAT_SHEET="https://nodes.stake-town.com/c4e"
+BINARY_VERSION_TAG="v1.3.0"
+CHEAT_SHEET=""
 
 printDelimiter
 echo -e "Node moniker:       $NODE_MONIKER"
