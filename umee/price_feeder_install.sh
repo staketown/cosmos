@@ -67,6 +67,7 @@ curl -s https://raw.githubusercontent.com/ojo-network/price-feeder/umee/price-fe
 
 printDelimiter
 printGreen "Configure price feeder"
+
 KEYRING="os"
 GAS_ADJUSTMENT=2.1
 LISTEN_PORT=7173
@@ -78,6 +79,7 @@ PRICEFEEDER_ADDRESS=$(echo $WALLET_PASS | umeed keys show price_feeder_wallet --
 
 sed -i "s/^listen_addr *=.*/listen_addr = \"0.0.0.0:${LISTEN_PORT}\"/;\
 s/^gas_adjustment *=.*/gas_adjustment = \"$GAS_ADJUSTMENT\"/;\
+s/^config_dir *=.*/config_dir = \"$HOME/.umee-price-feeder\"/;\
 s/^address *=.*/address = \"$PRICEFEEDER_ADDRESS\"/;\
 s/^chain_id *=.*/chain_id = \"$CHAIN_ID\"/;\
 s/^validator *=.*/validator = \"$VALIDATOR_ADDRESS\"/;\
