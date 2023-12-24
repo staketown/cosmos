@@ -9,10 +9,10 @@ export -f selectPortSet && selectPortSet
 
 read -r -p "Enter node moniker: " NODE_MONIKER
 
-CHAIN_ID="rhye-1"
+CHAIN_ID="rhye-2"
 CHAIN_DENOM="uqck"
 BINARY_NAME="umeed"
-BINARY_VERSION_TAG="v1.4.4-rc.3"
+BINARY_VERSION_TAG="v1.4.5-rc.1"
 CHEAT_SHEET=""
 
 printDelimiter
@@ -42,9 +42,9 @@ curl -Ls https://snapshots-testnet.stake-town.com/quicksilver/genesis.json > $HO
 curl -Ls https://snapshots-testnet.stake-town.com/quicksilver/addrbook.json > $HOME/.quicksilverd/config/addrbook.json
 
 CONFIG_TOML=$HOME/.quicksilverd/config/config.toml
-PEERS=""
+PEERS="5fc67b60aff6ce69e7b183cb35d045add8f3cf8e@65.109.65.248:50656"
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
-SEEDS="3f472746f46493309650e5a033076689996c8881@quicksilver-testnet.rpc.kjnodes.com:11159"
+SEEDS=""
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
 
 APP_TOML=$HOME/.quicksilverd/config/app.toml
@@ -95,7 +95,7 @@ EOF
 quicksilverd tendermint unsafe-reset-all --home $HOME/.quicksilverd --keep-addr-book
 
 # Add snapshot here
-URL="https://snapshots-testnet.stake-town.com/quicksilver/rhye-1_latest.tar.lz4"
+URL="https://snapshots-testnet.stake-town.com/quicksilver/rhye-2_latest.tar.lz4"
 curl $URL | lz4 -dc - | tar -xf - -C $HOME/.quicksilverd
 [[ -f $HOME/.quicksilverd/data/upgrade-info.json ]] && cp $HOME/.quicksilverd/data/upgrade-info.json $HOME/.quicksilverd/cosmovisor/genesis/upgrade-info.json
 
