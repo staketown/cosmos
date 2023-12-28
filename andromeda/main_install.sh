@@ -63,7 +63,7 @@ sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001uandr"|g' $APP_TO
 CLIENT_TOML=$HOME/.andromeda/config/client.toml
 sed -i.bak -e "s/^external_address *=.*/external_address = \"$(wget -qO- eth0.me):$PORT_PPROF_LADDR\"/" $CONFIG_TOML
 sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:$PORT_PROXY_APP\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:$PORT_RPC\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:$PORT_P2P\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:$PORT_PPROF_LADDR\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":$PORT_PROMETHEUS\"%" $CONFIG_TOML && \
-sed -i.bak -e "s%^address = \"localhost:9090\"%address = \"0.0.0.0:$PORT_GRPC\"%; s%^address = \"localhost9091\"%address = \"0.0.0.0:$PORT_GRPC_WEB\"%; s%^address = \"tcp://localhost:1317\"%address = \"tcp://0.0.0.0:$PORT_API\"%" $APP_TOML && \
+sed -i.bak -e "s%^address = \"localhost:9090\"%address = \"0.0.0.0:$PORT_GRPC\"%; s%^address = \"localhost:9091\"%address = \"0.0.0.0:$PORT_GRPC_WEB\"%; s%^address = \"tcp://localhost:1317\"%address = \"tcp://0.0.0.0:$PORT_API\"%" $APP_TOML && \
 sed -i.bak -e "s%^node = \"tcp://localhost:26657\"%node = \"tcp://localhost:$PORT_RPC\"%" $CLIENT_TOML
 
 printGreen "Install and configure cosmovisor..." && sleep 1
@@ -100,9 +100,8 @@ andromedad tendermint unsafe-reset-all --home $HOME/.andromeda --keep-addr-book
 #URL="https://snapshots-testnet.stake-town.com/andromeda/galileo-3_latest.tar.lz4"
 #curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.andromeda
 
-SNAP_NAME=$(curl -s https://snapshots.nodejumper.io/andromeda/info.json | jq -r .fileName)
-curl "https://snapshots.nodejumper.io/andromeda/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.andromeda"
-[[ -f $HOME/.andromeda/data/upgrade-info.json ]]  && cp $HOME/.andromeda/data/upgrade-info.json $HOME/.andromeda/cosmovisor/genesis/upgrade-info.json
+curl -L https://snapshots.kjnodes.com/andromeda/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.andromeda
+[[ -f $HOME/.andromeda/data/upgrade-info.json ]] && cp $HOME/.andromeda/data/upgrade-info.json $HOME/.andromeda/cosmovisor/genesis/upgrade-info.json
 
 sudo systemctl daemon-reload
 sudo systemctl enable andromedad
