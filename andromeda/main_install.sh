@@ -38,10 +38,8 @@ andromedad config keyring-backend os
 andromedad config chain-id $CHAIN_ID
 andromedad init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -s https://raw.githubusercontent.com/andromedaprotocol/mainnet/release/genesis.json > $HOME/.andromeda/config/genesis.json
-curl -s https://snapshots.nodejumper.io/andromeda-testnet/addrbook.json > $HOME/.andromeda/config/addrbook.json
-#curl -s https://snapshots-testnet.stake-town.com/andromeda/genesis.json > $HOME/.andromeda/config/genesis.json
-#curl -s https://snapshots-testnet.stake-town.com/andromeda/addrbook.json > $HOME/.andromeda/config/addrbook.json
+curl -s https://snapshots.stake-town.com/andromeda/genesis.json > $HOME/.andromeda/config/genesis.json
+curl -s https://snapshots.stake-town.com/andromeda/addrbook.json > $HOME/.andromeda/config/addrbook.json
 
 CONFIG_TOML=$HOME/.andromeda/config/config.toml
 PEERS="e4c2267b90c7cfbb45090ab7647dc01df97f58f9@andromeda-m.peer.stavr.tech:4376,26cdc42778d24c8b0b0b68ed07c97685bfd8682f@178.162.165.65:26656,17dda7b03ce866dbe36c048282fb742dd895a489@95.56.244.244:56659,0f310196e29d1f289966141e22caa72afaea8060@seeds.cros-nest.com:46656"
@@ -97,10 +95,8 @@ EOF
 andromedad tendermint unsafe-reset-all --home $HOME/.andromeda --keep-addr-book
 
 # Add snapshot here
-#URL="https://snapshots-testnet.stake-town.com/andromeda/galileo-3_latest.tar.lz4"
-#curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.andromeda
-
-curl -L https://snapshots.kjnodes.com/andromeda/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.andromeda
+URL="https://snapshots.stake-town.com/andromeda/andromeda-1_latest.tar.lz4"
+curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.andromeda
 [[ -f $HOME/.andromeda/data/upgrade-info.json ]] && cp $HOME/.andromeda/data/upgrade-info.json $HOME/.andromeda/cosmovisor/genesis/upgrade-info.json
 
 sudo systemctl daemon-reload
