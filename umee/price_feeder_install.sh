@@ -18,6 +18,7 @@ do
         "${options[0]}")
             # umee-1
             echo "$selected $opt"
+            GAS_ADJUSTMENT=1.6
             CHAIN_ID=$opt
             CURRENCY_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/umee/umee-provider-config/currency-pairs.toml
             ENDPOINTS_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/umee/umee-provider-config/endpoints.toml
@@ -27,6 +28,7 @@ do
         "${options[1]}")
             # canon-4
             echo "$selected $opt"
+            GAS_ADJUSTMENT=2.01
             CHAIN_ID=$opt
             CURRENCY_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/sai/add-stumee-kava/umee-provider-config/currency-pairs.toml
             ENDPOINTS_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/sai/add-stumee-kava/umee-provider-config/endpoints.toml
@@ -69,7 +71,6 @@ printDelimiter
 printGreen "Configure price feeder"
 
 KEYRING="os"
-GAS_ADJUSTMENT=2.1
 LISTEN_PORT=7173
 RPC_PORT=$(grep -A 3 "\[rpc\]" ~/.umee/config/config.toml | egrep -o ":[0-9]+" | awk '{print substr($0, 2)}')
 GRPC_PORT=$(grep -A 6 "\[grpc\]" ~/.umee/config/app.toml | egrep -o ":[0-9]+" | awk '{print substr($0, 2)}')
@@ -86,7 +87,7 @@ s/^validator *=.*/validator = \"$VALIDATOR_ADDRESS\"/;\
 s/^backend *=.*/backend = \"$KEYRING\"/;\
 s|^dir *=.*|dir = \"$HOME/.umee\"|;\
 s|^grpc_endpoint *=.*|grpc_endpoint = \"localhost:${GRPC_PORT}\"|;\
-s|^tmrpc_endpoint *=.*|tmrpc_endpoint = \"http://127.0.0.1:${RPC_PORT}\"|;\
+s|^tmrpc_endpoint *=.*|tmrpc_endpoint = \"http://localhost:${RPC_PORT}\"|;\
 s|^global-labels *=.*|global-labels = [[\"chain_id\", \"$CHAIN_ID\"]]|;\
 s|^service-name *=.*|service-name = \"umee-price-feeder\"|;" $HOME/.umee-price-feeder/config.toml
 
