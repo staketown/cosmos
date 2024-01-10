@@ -29,7 +29,7 @@ do
             echo "$selected $opt"
             CHAIN_ID=$opt
             CURRENCY_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/sai/add-stumee-kava/umee-provider-config/currency-pairs.toml
-            ENDPOINTS_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/umee/umee-provider-config/endpoints.toml
+            ENDPOINTS_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/sai/add-stumee-kava/umee-provider-config/endpoints.toml
             DEVIATION_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/sai/add-stumee-kava/umee-provider-config/deviation-thresholds.toml
             break
             ;;
