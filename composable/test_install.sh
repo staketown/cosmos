@@ -9,10 +9,10 @@ export -f selectPortSet && selectPortSet
 
 read -r -p "Enter node moniker: " NODE_MONIKER
 
-CHAIN_ID="banksy-testnet-4"
+CHAIN_ID="banksy-testnet-5"
 CHAIN_DENOM="ppica"
 BINARY_NAME="centaurid"
-BINARY_VERSION_TAG="v6.2.0"
+BINARY_VERSION_TAG="v6.4.0"
 CHEAT_SHEET="https://nodes.stake-town.com/composable"
 
 printDelimiter
@@ -42,9 +42,9 @@ curl -s https://snapshots-testnet.stake-town.com/composable/genesis.json > $HOME
 curl -s https://snapshots-testnet.stake-town.com/composable/addrbook.json > $HOME/.banksy/config/addrbook.json
 
 CONFIG_TOML=$HOME/.banksy/config/config.toml
-PEERS="a89d3d9fc0465615aa1100dcf53172814aa2b8cf@168.119.91.22:2260"
+PEERS=""
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
-SEEDS="3f472746f46493309650e5a033076689996c8881@composable-testnet.rpc.kjnodes.com:15959"
+SEEDS="6e8a56df9b9c52a730dd780172fc135a96a9feda@65.109.26.223:26656"
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
 
 APP_TOML=$HOME/.banksy/config/app.toml
