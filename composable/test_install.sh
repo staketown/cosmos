@@ -96,7 +96,7 @@ EOF
 centaurid tendermint unsafe-reset-all --home $HOME/.banksy --keep-addr-book
 
 # Add snapshot here
-URL="https://snapshots-testnet.stake-town.com/composable/banksy-testnet-4_latest.tar.lz4"
+URL="https://snapshots-testnet.stake-town.com/composable/banksy-testnet-5_latest.tar.lz4"
 curl $URL | lz4 -dc - | tar -xf - -C $HOME/.banksy
 [[ -f $HOME/.banksy/data/upgrade-info.json ]] && cp $HOME/.banksy/data/upgrade-info.json $HOME/.banksy/cosmovisor/genesis/upgrade-info.json
 
