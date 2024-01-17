@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="sourcetest-1"
 CHAIN_DENOM="usource"
 BINARY_NAME="sourced"
-BINARY_VERSION_TAG="v3.0.0"
+BINARY_VERSION_TAG="v3.0.1"
 CHEAT_SHEET="https://nodes.stake-town.com/source"
 
 printDelimiter
