@@ -12,8 +12,8 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="centauri-1"
 CHAIN_DENOM="ppica"
 BINARY_NAME="centaurid"
-BINARY_VERSION_TAG="v6.3.6"
-CHEAT_SHEET="https://nodes.stake-town.com/composable"
+BINARY_VERSION_TAG="v6.4.2"
+CHEAT_SHEET=""
 
 printDelimiter
 echo -e "Node moniker:       $NODE_MONIKER"
