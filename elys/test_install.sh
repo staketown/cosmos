@@ -12,8 +12,8 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="elystestnet-1"
 CHAIN_DENOM="uelys"
 BINARY_NAME="elysd"
-BINARY_VERSION_TAG="v0.26.0"
-CHEAT_SHEET="https://nodes.stake-town.com/elys"
+BINARY_VERSION_TAG="v0.27.0"
+CHEAT_SHEET=""
 
 printDelimiter
 echo -e "Node moniker:       $NODE_MONIKER"
