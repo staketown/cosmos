@@ -66,7 +66,7 @@ sed -i 's|^pruning-interval *=.*|pruning-interval = "19"|g' $APP_TOML
 sed -i -e "s/^filter_peers *=.*/filter_peers = \"true\"/" $CONFIG_TOML
 indexer="null"
 sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $CONFIG_TOML
-sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0$CHAIN_DENOM\"/" $APP_TOML
+sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.0025$CHAIN_DENOM\"/" $APP_TOML
 
 # Customize ports
 CLIENT_TOML=$HOME/.band/config/client.toml
