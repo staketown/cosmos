@@ -20,7 +20,7 @@ do
         "${options[0]}")
             # umee-1
             echo "$selected $opt"
-            VERSION=umee/v2.3.0
+            VERSION=umee/v2.4.0
             GAS_ADJUSTMENT=1.6
             CHAIN_ID=$opt
             CURRENCY_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/umee/umee-provider-config/currency-pairs.toml
@@ -31,7 +31,7 @@ do
         "${options[1]}")
             # canon-4
             echo "$selected $opt"
-            VERSION=umee/v2.1.9-rc1
+            VERSION=umee/v2.4.0
             GAS_ADJUSTMENT=2.01
             CHAIN_ID=$opt
             CURRENCY_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/sai/add-stumee-kava/umee-provider-config/currency-pairs.toml
