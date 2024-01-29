@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="uni-6"
 CHAIN_DENOM="ujunox"
 BINARY_NAME="junod"
-BINARY_VERSION_TAG="v19.0.0-alpha.2"
+BINARY_VERSION_TAG="v19.0.0-alpha.3"
 CHEAT_SHEET=""
 
 printDelimiter
