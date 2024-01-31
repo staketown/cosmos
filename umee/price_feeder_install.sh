@@ -34,9 +34,9 @@ do
             VERSION=umee/v2.4.0
             GAS_ADJUSTMENT=2.01
             CHAIN_ID=$opt
-            CURRENCY_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/sai/add-stumee-kava/umee-provider-config/currency-pairs.toml
-            ENDPOINTS_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/sai/add-stumee-kava/umee-provider-config/endpoints.toml
-            DEVIATION_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/sai/add-stumee-kava/umee-provider-config/deviation-thresholds.toml
+            CURRENCY_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/sai/add-milkTIA_config/umee-provider-config/currency-pairs.toml
+            ENDPOINTS_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/sai/add-milkTIA_config/umee-provider-config/endpoints.toml
+            DEVIATION_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/sai/add-milkTIA_config/umee-provider-config/deviation-thresholds.toml
             break
             ;;
         *) echo "unknown option $REPLY"
