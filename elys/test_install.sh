@@ -42,7 +42,7 @@ curl -s https://snapshots-testnet.stake-town.com/elys/genesis.json > $HOME/.elys
 curl -s https://snapshots-testnet.stake-town.com/elys/addrbook.json > $HOME/.elys/config/addrbook.json
 
 CONFIG_TOML=$HOME/.elys/config/config.toml
-PEERS="ae22b82b1dc34fa0b1a64854168692310f562136@147.135.104.10:26656,cdf9ae8529aa00e6e6703b28f3dcfdd37e07b27c@147.135.9.107:26656 "
+PEERS="ae22b82b1dc34fa0b1a64854168692310f562136@147.135.104.10:26656,cdf9ae8529aa00e6e6703b28f3dcfdd37e07b27c@147.135.9.107:26656"
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
 SEEDS=""
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
