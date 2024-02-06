@@ -12,7 +12,8 @@ CURRENCY_URL=
 ENDPOINTS_URL=
 DEVIATION_URL=
 VERSION=
-GAS_ADJUSTMENT=
+GAS_PREVOTE=
+GAS_VOTE=
 
 select opt in "${options[@]}"
 do
@@ -21,7 +22,8 @@ do
             # umee-1
             echo "$selected $opt"
             VERSION=umee/v2.4.0
-            GAS_ADJUSTMENT=1.6
+            GAS_PREVOTE=55000
+            GAS_VOTE=160000
             CHAIN_ID=$opt
             CURRENCY_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/umee/umee-provider-config/currency-pairs.toml
             ENDPOINTS_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/umee/umee-provider-config/endpoints.toml
@@ -32,7 +34,8 @@ do
             # canon-4
             echo "$selected $opt"
             VERSION=umee/v2.4.0
-            GAS_ADJUSTMENT=2.01
+            GAS_PREVOTE=55000
+            GAS_VOTE=160000
             CHAIN_ID=$opt
             CURRENCY_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/sai/add-milkTIA_config/umee-provider-config/currency-pairs.toml
             ENDPOINTS_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/sai/add-milkTIA_config/umee-provider-config/endpoints.toml
@@ -83,7 +86,8 @@ MAIN_WALLET_ADDRESS=$(echo $WALLET_PASS | umeed keys show $MAIN_WALLET -a)
 PRICEFEEDER_ADDRESS=$(echo $WALLET_PASS | umeed keys show price_feeder_wallet --keyring-backend os -a)
 
 sed -i "s/^listen_addr *=.*/listen_addr = \"0.0.0.0:${LISTEN_PORT}\"/;\
-s/^gas_adjustment *=.*/gas_adjustment = \"$GAS_ADJUSTMENT\"/;\
+s/^gas_prevote *=.*/gas_prevote = \"$GAS_PREVOTE\"/;\
+s/^gas_vote *=.*/gas_vote = \"$GAS_VOTE\"/;\
 s/^config_dir *=.*/config_dir = \"$HOME/.umee-price-feeder\"/;\
 s/^address *=.*/address = \"$PRICEFEEDER_ADDRESS\"/;\
 s/^chain_id *=.*/chain_id = \"$CHAIN_ID\"/;\
