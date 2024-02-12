@@ -18,7 +18,7 @@ bash <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/composa
 | Archway       |   6   |
 | Babylon       |   7   |
 | Juno          |   8   |
-| Cascadia      |   9   |
+| Celestia      |   9   |
 | C4E           |  10   |
 | Ojo           |  11   |
 | Composable    |  12   |
