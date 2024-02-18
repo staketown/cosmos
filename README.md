@@ -2,8 +2,14 @@
 
 ## Run install script
 
+For mainnet
+```bash
+bash <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/composable/main_install.sh)
 ```
-bash <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/composable/install.sh)
+
+For testnet
+```bash
+bash <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/composable/test_install.sh)
 ```
 
 ## Network prefixes

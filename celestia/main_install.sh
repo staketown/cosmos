@@ -38,10 +38,8 @@ celestia-appd config keyring-backend os
 celestia-appd config chain-id $CHAIN_ID
 celestia-appd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -Ls https://snapshots.kjnodes.com/celestia/genesis.json > $HOME/.celestia-app/config/genesis.json
-curl -Ls https://snapshots.kjnodes.com/celestia/addrbook.json > $HOME/.celestia-app/config/addrbook.json
-#curl -s https://snapshots-testnet.stake-town.com/cascadia/genesis.json > $HOME/.cascadiad/config/genesis.json
-#curl -s https://snapshots-testnet.stake-town.com/cascadia/addrbook.json > $HOME/.cascadiad/config/addrbook.json
+curl -s https://snapshots.stake-town.com/celestia/genesis.json > $HOME/.celestia-app/config/genesis.json
+curl -s https://snapshots.stake-town.com/celestia/addrbook.json > $HOME/.celestia-app/config/addrbook.json
 
 CONFIG_TOML=$HOME/.celestia-app/config/config.toml
 PEERS=""
@@ -97,7 +95,7 @@ EOF
 celestia-appd tendermint unsafe-reset-all --home $HOME/.celestia-app --keep-addr-book
 
 # Add snapshot here
-URL="https://snapshots.kjnodes.com/celestia/snapshot_latest.tar.lz4"
+URL="https://snapshots.stake-town.com/celestia/celestia_latest.tar.lz4"
 curl $URL | lz4 -dc - | tar -xf - -C $HOME/.celestia-app
 [[ -f $HOME/.celestia-app/data/upgrade-info.json ]] && cp $HOME/.celestia-app/data/upgrade-info.json $HOME/.celestia-app/cosmovisor/genesis/upgrade-info.json
 
