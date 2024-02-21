@@ -27,15 +27,12 @@ source <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/utils
 echo "" && printGreen "Building binaries..." && sleep 1
 
 cd $HOME || return
-wget -O quicksilverd https://github.com/quicksilver-zone/quicksilver/releases/download/$BINARY_BINARY_VERSION_TAG/quicksilverd-$BINARY_BINARY_VERSION_TAG-amd64
-chmod +x quicksilverd
-mv quicksilverd $HOME/go/bin
-
-cd $HOME || return
 rm -rf sidechain
 git clone https://github.com/sideprotocol/sidechain.git
 cd $HOME/sidechain || return
 git checkout $BINARY_VERSION_TAG
+
+make install
 
 sided config keyring-backend os
 sided config chain-id $CHAIN_ID
