@@ -38,8 +38,10 @@ sided config keyring-backend os
 sided config chain-id $CHAIN_ID
 sided init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -Ls https://snapshots-testnet.stake-town.com/quicksilver/genesis.json > $HOME/.sidechain/config/genesis.json
-curl -Ls https://snapshots-testnet.stake-town.com/quicksilver/addrbook.json > $HOME/.sidechain/config/addrbook.json
+wget https://raw.githubusercontent.com/sideprotocol/testnet/main/shambhala/genesis.json -O $HOME/.sided/config/genesis.json
+
+#curl -Ls https://snapshots-testnet.stake-town.com/quicksilver/genesis.json > $HOME/.sidechain/config/genesis.json
+#curl -Ls https://snapshots-testnet.stake-town.com/quicksilver/addrbook.json > $HOME/.sidechain/config/addrbook.json
 
 CONFIG_TOML=$HOME/.sidechain/config/config.toml
 PEERS=""
@@ -95,7 +97,7 @@ EOF
 sided tendermint unsafe-reset-all --home $HOME/.sidechain --keep-addr-book
 
 # Add snapshot here
-URL="https://snapshots.polkachu.com/testnet-snapshots/side/side_3144788.tar.lz4"
+URL="https://snapshots.synergynodes.com/side_testnet/side_3148379.tar.lz4"
 #URL="https://snapshots-testnet.stake-town.com/quicksilver/rhye-2_latest.tar.lz4"
 curl $URL | lz4 -dc - | tar -xf - -C $HOME/.sidechain
 [[ -f $HOME/.sidechain/data/upgrade-info.json ]] && cp $HOME/.sidechain/data/upgrade-info.json $HOME/.sidechain/cosmovisor/genesis/upgrade-info.json
