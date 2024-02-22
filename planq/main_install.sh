@@ -38,9 +38,8 @@ planqd config keyring-backend os
 planqd config chain-id $CHAIN_ID
 planqd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -s https://snapshots.polkachu.com/genesis/planq/genesis.json > $HOME/.planqd/config/genesis.json
-#curl -s https://snapshots.stake-town.com/planq/genesis.json > $HOME/.planqd/config/genesis.json
-#curl -s https://snapshots.stake-town.com/planq/addrbook.json > $HOME/.planqd/config/addrbook.json
+curl -s https://snapshots.stake-town.com/planq/genesis.json > $HOME/.planqd/config/genesis.json
+curl -s https://snapshots.stake-town.com/planq/addrbook.json > $HOME/.planqd/config/addrbook.json
 
 CONFIG_TOML=$HOME/.planqd/config/config.toml
 PEERS=""
@@ -96,8 +95,7 @@ EOF
 planqd tendermint unsafe-reset-all --home $HOME/.planqd --keep-addr-book
 
 # Add snapshot here
-URL="https://snapshots.polkachu.com/snapshots/planq/planq_7588883.tar.lz4"
-#URL="https://snapshots.stake-town.com/aura/xstaxy-1_latest.tar.lz4"
+URL="https://snapshots.stake-town.com/planq/planq_7070-2_latest.tar.lz4"
 curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.planqd
 [[ -f $HOME/.planqd/data/upgrade-info.json ]]  && cp $HOME/.planqd/data/upgrade-info.json $HOME/.planqd/cosmovisor/genesis/upgrade-info.json
 
