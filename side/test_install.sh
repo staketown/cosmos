@@ -38,13 +38,13 @@ sided config keyring-backend os
 sided config chain-id $CHAIN_ID
 sided init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -Ls https://raw.githubusercontent.com/sideprotocol/testnet/main/side-testnet-2/genesis.json > $HOME/.side/config/genesis.json
-#curl -Ls https://snapshots-testnet.stake-town.com/side/addrbook.json > $HOME/.sidechain/config/addrbook.json
+curl -Ls https://snapshots-testnet.stake-town.com/side/genesis.json > $HOME/.side/config/genesis.json
+curl -Ls https://snapshots-testnet.stake-town.com/side/addrbook.json > $HOME/.side/config/addrbook.json
 
 CONFIG_TOML=$HOME/.side/config/config.toml
 PEERS=""
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
-SEEDS="d9911bd0eef9029e8ce3263f61680ef4f71a87c413.230.121.124:26656,693bdfec73a81abddf6f758aa49321de48456a96@13.231.67.192:26656"
+SEEDS="693bdfec73a81abddf6f758aa49321de48456a96@13.231.67.192:26656"
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
 
 APP_TOML=$HOME/.side/config/app.toml
@@ -95,9 +95,9 @@ EOF
 sided tendermint unsafe-reset-all --home $HOME/.side --keep-addr-book
 
 # Add snapshot here
-#URL="https://snapshots-testnet.stake-town.com/side/side-testnet-2_latest.tar.lz4"
-#curl $URL | lz4 -dc - | tar -xf - -C $HOME/.side
-#[[ -f $HOME/.side/data/upgrade-info.json ]] && cp $HOME/.side/data/upgrade-info.json $HOME/.side/cosmovisor/genesis/upgrade-info.json
+URL="https://snapshots-testnet.stake-town.com/side/side-testnet-2_latest.tar.lz4"
+curl $URL | lz4 -dc - | tar -xf - -C $HOME/.side
+[[ -f $HOME/.side/data/upgrade-info.json ]] && cp $HOME/.side/data/upgrade-info.json $HOME/.side/cosmovisor/genesis/upgrade-info.json
 
 sudo systemctl daemon-reload
 sudo systemctl enable sided
