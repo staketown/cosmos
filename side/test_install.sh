@@ -44,7 +44,7 @@ curl -Ls https://raw.githubusercontent.com/sideprotocol/testnet/main/side-testne
 CONFIG_TOML=$HOME/.side/config/config.toml
 PEERS=""
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
-SEEDS="ade4d8bc8cbe014af6ebdf3cb7b1e9ad36f412c0@testnet-seeds.polkachu.com:26356"
+SEEDS="d9911bd0eef9029e8ce3263f61680ef4f71a87c413.230.121.124:26656,693bdfec73a81abddf6f758aa49321de48456a96@13.231.67.192:26656"
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
 
 APP_TOML=$HOME/.side/config/app.toml
