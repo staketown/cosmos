@@ -41,3 +41,4 @@ bash <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/composa
 | Entrypoint    |  23   |
 | Side Protocol |  24   |
 | QuickSilver   |  25   |
+| Planq         |  26   |
