@@ -12,6 +12,7 @@ PORT_API=1317
 PORT_API=1317
 PORT_EVM_RPC=8545
 PORT_EVM_WS=8546
+PORT_EVM_METRICS=6065
 
 source <(curl -s https://raw.githubusercontent.com/staketown/utils/master/common.sh)
 
@@ -27,10 +28,11 @@ function persistPorts {
   echo "export ${PREFIX}_PORT_P2P=$(expr $PORT_P2P \+ 100 \* $ARG)" >>$HOME/.bash_profile
   echo "export ${PREFIX}_PORT_PROMETHEUS=$(expr $PORT_PROMETHEUS \+ 1000 \* $ARG)" >>$HOME/.bash_profile
   echo "export ${PREFIX}_PORT_API=$(expr $PORT_API \+ 100 \* $ARG)" >>$HOME/.bash_profile
-  echo "export ${PREFIX}_PORT_API=$(expr $PORT_EVM_RPC \+ 100 \* $ARG)" >>$HOME/.bash_profile
-  echo "export ${PREFIX}_PORT_API=$(expr $PORT_EVM_WS \+ 100 \* $ARG)" >>$HOME/.bash_profile
+  echo "export ${PREFIX}_PORT_EVM_RPC=$(expr $PORT_EVM_RPC \+ 100 \* $ARG)" >>$HOME/.bash_profile
+  echo "export ${PREFIX}_PORT_EVM_WS=$(expr $PORT_EVM_WS \+ 100 \* $ARG)" >>$HOME/.bash_profile
+  echo "export ${PREFIX}_PORT_EVM_METRICS=$(expr $PORT_EVM_METRICS \+ 100 \* $ARG)" >>$HOME/.bash_profile
 
-  printGreen "The following ports will be used: $PORT_GRPC $PORT_GRPC_WEB $PORT_PROXY_APP $PORT_RPC $PORT_PPROF_LADDR $PORT_P2P $PORT_PROMETHEUS $PORT_API $PORT_EVM_RPC $PORT_EVM_WS"
+  printGreen "The following ports will be used: $PORT_GRPC $PORT_GRPC_WEB $PORT_PROXY_APP $PORT_RPC $PORT_PPROF_LADDR $PORT_P2P $PORT_PROMETHEUS $PORT_API $PORT_EVM_RPC $PORT_EVM_WS $PORT_EVM_METRICS"
 }
 
 function exportPorts {
@@ -44,10 +46,11 @@ function exportPorts {
   export "PORT_P2P=$(expr $PORT_P2P \+ 100 \* $ARG)"
   export "PORT_PROMETHEUS=$(expr $PORT_PROMETHEUS \+ 1000 \* $ARG)"
   export "PORT_API=$(expr $PORT_API \+ 100 \* $ARG)"
-  export "PORT_API=$(expr $PORT_EVM_RPC \+ 100 \* $ARG)"
-  export "PORT_API=$(expr $PORT_EVM_WS \+ 100 \* $ARG)"
+  export "PORT_EVM_RPC=$(expr $PORT_EVM_RPC \+ 100 \* $ARG)"
+  export "PORT_EVM_WS=$(expr $PORT_EVM_WS \+ 100 \* $ARG)"
+  export "PORT_EVM_METRICS=$(expr $PORT_EVM_METRICS \+ 100 \* $ARG)"
 
-  printGreen "The following ports will be used: $PORT_GRPC $PORT_GRPC_WEB $PORT_PROXY_APP $PORT_RPC $PORT_PPROF_LADDR $PORT_P2P $PORT_PROMETHEUS $PORT_API $PORT_EVM_RPC $PORT_EVM_WS"
+  printGreen "The following ports will be used: $PORT_GRPC $PORT_GRPC_WEB $PORT_PROXY_APP $PORT_RPC $PORT_PPROF_LADDR $PORT_P2P $PORT_PROMETHEUS $PORT_API $PORT_EVM_RPC $PORT_EVM_WS $PORT_EVM_METRICS"
 }
 
 function selectPortSet {
