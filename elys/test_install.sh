@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="elystestnet-1"
 CHAIN_DENOM="uelys"
 BINARY_NAME="elysd"
-BINARY_VERSION_TAG="v0.29.15"
+BINARY_VERSION_TAG="v0.29.16"
 CHEAT_SHEET=""
 
 printDelimiter
