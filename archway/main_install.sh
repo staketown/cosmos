@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="archway-1"
 CHAIN_DENOM="aarch"
 BINARY_NAME="archwayd"
-BINARY_VERSION_TAG="v6.0.1"
+BINARY_VERSION_TAG="v6.0.2"
 CHEAT_SHEET="https://nodes.stake-town.com/archway"
 
 printDelimiter
