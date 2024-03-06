@@ -42,3 +42,4 @@ bash <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/composa
 | Side Protocol |  24   |
 | QuickSilver   |  25   |
 | Planq         |  26   |
+| CrossFi       |  27   |
