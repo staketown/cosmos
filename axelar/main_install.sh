@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="axelar-dojo-1"
 CHAIN_DENOM="uaxl"
 BINARY_NAME="axelard"
-BINARY_VERSION_TAG="v0.34.0"
+BINARY_VERSION_TAG="v0.35.5"
 CHEAT_SHEET=""
 
 printDelimiter
@@ -31,9 +31,8 @@ rm -rf axelar-core
 git clone https://github.com/axelarnetwork/axelar-core.git
 cd axelar-core || return
 git checkout $BINARY_VERSION_TAG
-make install
 
-axelard version # v0.34.0
+make install
 
 axelard config keyring-backend os
 axelard config chain-id $CHAIN_ID
