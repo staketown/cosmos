@@ -33,13 +33,13 @@ do
         "${options[1]}")
             # canon-4
             echo "$selected $opt"
-            VERSION=umee/v2.4.0
+            VERSION=umee/v2.4.1
             GAS_PREVOTE=55000
             GAS_VOTE=160000
             CHAIN_ID=$opt
-            CURRENCY_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/sai/add-milkTIA_config/umee-provider-config/currency-pairs.toml
-            ENDPOINTS_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/sai/add-milkTIA_config/umee-provider-config/endpoints.toml
-            DEVIATION_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/sai/add-milkTIA_config/umee-provider-config/deviation-thresholds.toml
+            CURRENCY_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/sai/adding_bld_pf_cfg/umee-provider-config/currency-pairs.toml
+            ENDPOINTS_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/sai/adding_bld_pf_cfg/umee-provider-config/endpoints.toml
+            DEVIATION_URL=https://raw.githubusercontent.com/ojo-network/price-feeder/sai/adding_bld_pf_cfg/umee-provider-config/deviation-thresholds.toml
             break
             ;;
         *) echo "unknown option $REPLY"
