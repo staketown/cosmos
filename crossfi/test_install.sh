@@ -37,10 +37,8 @@ crossfid config keyring-backend os
 crossfid config chain-id $CHAIN_ID
 crossfid init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -L https://snapshots-testnet.nodejumper.io/crossfi-testnet/genesis.json > $HOME/.mineplex-chain/config/genesis.json
-curl -L https://snapshots-testnet.nodejumper.io/crossfi-testnet/addrbook.json > $HOME/.mineplex-chain/config/addrbook.json
-#curl -s https://snapshots-testnet.stake-town.com/elys/genesis.json > $HOME/.elys/config/genesis.json
-#curl -s https://snapshots-testnet.stake-town.com/elys/addrbook.json > $HOME/.elys/config/addrbook.json
+curl -s https://snapshots-testnet.stake-town.com/crossfi/genesis.json > $HOME/.mineplex-chain/config/genesis.json
+curl -s https://snapshots-testnet.stake-town.com/crossfi/addrbook.json > $HOME/.mineplex-chain/config/addrbook.json
 
 CONFIG_TOML=$HOME/.mineplex-chain/config/config.toml
 PEERS=""
@@ -96,8 +94,7 @@ EOF
 crossfid tendermint unsafe-reset-all --home $HOME/.mineplex-chain --keep-addr-book
 
 # Add snapshot here
-#URL="https://snapshots-testnet.stake-town.com/elys/elystestnet-1_latest.tar.lz4"
-URL="https://snapshots-testnet.nodejumper.io/crossfi-testnet/crossfi-testnet_latest.tar.lz4"
+URL="https://snapshots-testnet.stake-town.com/crossfi/crossfi-evm-testnet-1_latest.tar.lz4"
 curl $URL | lz4 -dc - | tar -xf - -C $HOME/.mineplex-chain
 [[ -f $HOME/.mineplex-chain/data/upgrade-info.json ]] && cp $HOME/.mineplex-chain/data/upgrade-info.json $HOME/.mineplex-chain/cosmovisor/genesis/upgrade-info.json
 
