@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="elystestnet-1"
 CHAIN_DENOM="uelys"
 BINARY_NAME="elysd"
-BINARY_VERSION_TAG="v0.29.26"
+BINARY_VERSION_TAG="v0.29.28"
 CHEAT_SHEET=""
 
 printDelimiter
@@ -32,7 +32,7 @@ git clone https://github.com/elys-network/elys.git
 cd elys || return
 git checkout $BINARY_VERSION_TAG
 
-make install
+ROCKSDB=1 make install
 
 elysd config keyring-backend os
 elysd config chain-id $CHAIN_ID
