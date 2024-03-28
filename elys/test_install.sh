@@ -32,7 +32,7 @@ git clone https://github.com/elys-network/elys.git
 cd elys || return
 git checkout $BINARY_VERSION_TAG
 
-ROCKSDB=1 make install
+make install
 
 elysd config keyring-backend os
 elysd config chain-id $CHAIN_ID
