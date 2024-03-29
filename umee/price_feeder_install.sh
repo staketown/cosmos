@@ -33,7 +33,7 @@ do
         "${options[1]}")
             # canon-4
             echo "$selected $opt"
-            VERSION=umee/v2.4.2
+            VERSION=umee/v2.4.3-rc1
             GAS_PREVOTE=55000
             GAS_VOTE=160000
             CHAIN_ID=$opt
