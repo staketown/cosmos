@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="banksy-testnet-5"
 CHAIN_DENOM="ppica"
 BINARY_NAME="centaurid"
-BINARY_VERSION_TAG="v6.4.91"
+BINARY_VERSION_TAG="v6.5.21"
 CHEAT_SHEET="https://nodes.stake-town.com/composable"
 
 printDelimiter
