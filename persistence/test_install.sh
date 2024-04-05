@@ -27,9 +27,9 @@ source <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/utils
 echo "" && printGreen "Building binaries..." && sleep 1
 
 cd $HOME || return
-rm -rf quasar
+rm -rf persistenceCore
 git clone https://github.com/persistenceOne/persistenceCore
-cd quasar || return
+cd persistenceCore || return
 git checkout $BINARY_VERSION_TAG
 
 make install
