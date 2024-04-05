@@ -9,7 +9,7 @@ export -f selectPortSet && selectPortSet
 
 read -r -p "Enter node moniker: " NODE_MONIKER
 
-CHAIN_ID="test-core-2"
+CHAIN_ID="core-1"
 CHAIN_DENOM="uxprt"
 BINARY_NAME="persistenceCore"
 BINARY_VERSION_TAG="v11.7.0-fix"
@@ -38,13 +38,13 @@ persistenceCore config keyring-backend os
 persistenceCore config chain-id $CHAIN_ID
 persistenceCore init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-wget -O genesis.json https://snapshots.polkachu.com/testnet-genesis/persistence/genesis.json --inet4-only
+wget -O genesis.json https://snapshots.polkachu.com/genesis/persistence/genesis.json --inet4-only
 mv genesis.json ~/.persistenceCore/config
 #curl -Ls https://snapshots-testnet.stake-town.com/persistence/genesis.json >$HOME/.persistenceCore/config/genesis.json
 #curl -Ls https://snapshots-testnet.stake-town.com/persistence/addrbook.json >$HOME/.persistenceCore/config/addrbook.json
 
 CONFIG_TOML=$HOME/.persistenceCore/config/config.toml
-SEEDS="ade4d8bc8cbe014af6ebdf3cb7b1e9ad36f412c0@testnet-seeds.polkachu.com:15456"
+SEEDS="ade4d8bc8cbe014af6ebdf3cb7b1e9ad36f412c0@seeds.polkachu.com:15456"
 PEERS=""
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
@@ -63,8 +63,8 @@ sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0uxprt"|g' $APP_TOML
 CLIENT_TOML=$HOME/.persistenceCore/config/client.toml
 sed -i.bak -e "s/^external_address *=.*/external_address = \"$(wget -qO- eth0.me):$PORT_PPROF_LADDR\"/" $CONFIG_TOML
 sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:$PORT_PROXY_APP\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:$PORT_RPC\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:$PORT_P2P\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:$PORT_PPROF_LADDR\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":$PORT_PROMETHEUS\"%" $CONFIG_TOML &&
-sed -i.bak -e "s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:$PORT_GRPC\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:$PORT_GRPC_WEB\"%; s%^address = \"tcp://0.0.0.0:1317\"%address = \"tcp://0.0.0.0:$PORT_API\"%" $APP_TOML &&
-sed -i.bak -e "s%^node = \"tcp://127.0.0.1:26657\"%node = \"tcp://127.0.0.1:$PORT_RPC\"%" $CLIENT_TOML
+  sed -i.bak -e "s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:$PORT_GRPC\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:$PORT_GRPC_WEB\"%; s%^address = \"tcp://0.0.0.0:1317\"%address = \"tcp://0.0.0.0:$PORT_API\"%" $APP_TOML &&
+  sed -i.bak -e "s%^node = \"tcp://127.0.0.1:26657\"%node = \"tcp://127.0.0.1:$PORT_RPC\"%" $CLIENT_TOML
 
 printGreen "Install and configure cosmovisor..." && sleep 1
 
@@ -77,7 +77,7 @@ printGreen "Starting service and synchronization..." && sleep 1
 
 sudo tee /etc/systemd/system/persistenceCore.service >/dev/null <<EOF
 [Unit]
-Description=Quasar Node
+Description=Persistence Node
 After=network-online.target
 [Service]
 User=$USER
@@ -98,7 +98,7 @@ persistenceCore tendermint unsafe-reset-all --home $HOME/.persistenceCore --keep
 
 # Add snapshot here
 #URL=https://snapshots-testnet.stake-town.com/quasar/quasar-test-1_latest.tar.lz4
-URL=https://snapshots.polkachu.com/testnet-snapshots/persistence/persistence_4791370.tar.lz4
+URL=https://snapshots.polkachu.com/snapshots/persistence/persistence_16101650.tar.lz4
 curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.persistenceCore
 [[ -f $HOME/.persistenceCore/data/upgrade-info.json ]] && cp $HOME/.persistenceCore/data/upgrade-info.json $HOME/.persistenceCore/cosmovisor/genesis/upgrade-info.json
 
