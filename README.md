@@ -43,3 +43,4 @@ bash <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/composa
 | QuickSilver   |  25   |
 | Planq         |  26   |
 | CrossFi       |  27   |
+| Persistence   |  28   |
