@@ -27,21 +27,22 @@ source <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/utils
 echo "" && printGreen "Building binaries..." && sleep 1
 
 cd $HOME || return
-rm -rf persistenceCore
-git clone https://github.com/persistenceOne/persistenceCore
-cd persistenceCore || return
-git checkout $BINARY_VERSION_TAG
+#rm -rf persistenceCore
+#git clone https://github.com/persistenceOne/persistenceCore
+#cd persistenceCore || return
+#git checkout $BINARY_VERSION_TAG
+#
+#make install
 
-make install
+wget -O $HOME/go/bin/persistenceCore https://s3.ap-south-1.amazonaws.com/patch-v11.8.2/binaries/persistenceCore-v11.8.2-linux-amd64
+chmod +x $HOME/go/bin/persistenceCore
 
 persistenceCore config keyring-backend os
 persistenceCore config chain-id $CHAIN_ID
 persistenceCore init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-wget -O genesis.json https://snapshots.polkachu.com/genesis/persistence/genesis.json --inet4-only
-mv genesis.json ~/.persistenceCore/config
-#curl -Ls https://snapshots-testnet.stake-town.com/persistence/genesis.json >$HOME/.persistenceCore/config/genesis.json
-#curl -Ls https://snapshots-testnet.stake-town.com/persistence/addrbook.json >$HOME/.persistenceCore/config/addrbook.json
+curl -Ls https://snapshots.stake-town.com/persistence/genesis.json >$HOME/.persistenceCore/config/genesis.json
+curl -Ls https://snapshots.stake-town.com/persistence/addrbook.json >$HOME/.persistenceCore/config/addrbook.json
 
 CONFIG_TOML=$HOME/.persistenceCore/config/config.toml
 SEEDS="ade4d8bc8cbe014af6ebdf3cb7b1e9ad36f412c0@seeds.polkachu.com:15456"
@@ -97,8 +98,7 @@ EOF
 persistenceCore tendermint unsafe-reset-all --home $HOME/.persistenceCore --keep-addr-book
 
 # Add snapshot here
-#URL=https://snapshots-testnet.stake-town.com/quasar/quasar-test-1_latest.tar.lz4
-URL=https://snapshots.polkachu.com/snapshots/persistence/persistence_16101650.tar.lz4
+URL=https://snapshots-testnet.stake-town.com/persistence/core-1_latest.tar.lz4
 curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.persistenceCore
 [[ -f $HOME/.persistenceCore/data/upgrade-info.json ]] && cp $HOME/.persistenceCore/data/upgrade-info.json $HOME/.persistenceCore/cosmovisor/genesis/upgrade-info.json
 
