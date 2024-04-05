@@ -28,7 +28,7 @@ echo "" && printGreen "Building binaries..." && sleep 1
 
 cd $HOME || return
 #rm -rf persistenceCore
-#git clone https://github.com/persistenceOne/persistenceCore
+#git clone https://github.com/persistenceOne/persistenceCore.git
 #cd persistenceCore || return
 #git checkout $BINARY_VERSION_TAG
 #
