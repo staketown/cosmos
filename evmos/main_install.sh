@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="evmos_9001-2"
 CHAIN_DENOM="evmosd"
 BINARY_NAME="evmosd"
-BINARY_VERSION_TAG="v16.0.3"
+BINARY_VERSION_TAG="v17.0.0"
 CHEAT_SHEET=""
 
 printDelimiter
