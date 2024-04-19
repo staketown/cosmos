@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="centauri-1"
 CHAIN_DENOM="ppica"
 BINARY_NAME="centaurid"
-BINARY_VERSION_TAG="v6.5.0"
+BINARY_VERSION_TAG="v6.5.4"
 CHEAT_SHEET=""
 
 printDelimiter
