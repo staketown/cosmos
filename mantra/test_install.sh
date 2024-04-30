@@ -26,10 +26,12 @@ source <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/utils
 
 echo "" && printGreen "Building binaries..." && sleep 1
 
-wget https://snapshots-testnet.stake-town.com/mantra/mantrachaind-linux-amd64.zip
-unzip mantrachaind-linux-amd64.zip -d $HOME/go/bin/
-
-sudo wget -P /usr/lib https://github.com/CosmWasm/wasmvm/releases/download/v1.3.0/libwasmvm.x86_64.so
+cd $HOME || return
+sudo wget -O /usr/lib/libwasmvm.x86_64.so https://github.com/CosmWasm/wasmvm/releases/download/v1.3.1/libwasmvm.x86_64.so
+wget https://github.com/MANTRA-Finance/public/raw/main/mantrachain-hongbai/mantrachaind-linux-amd64.zip
+unzip mantrachaind-linux-amd64.zip
+rm mantrachaind-linux-amd64.zip
+mv mantrachaind $HOME/go/bin
 
 mantrachaind config keyring-backend os
 mantrachaind config chain-id $CHAIN_ID
@@ -39,9 +41,9 @@ curl -s https://snapshots-testnet.stake-town.com/mantra/genesis.json > $HOME/.ma
 curl -s https://snapshots-testnet.stake-town.com/mantra/addrbook.json > $HOME/.mantrachain/config/addrbook.json
 
 CONFIG_TOML=$HOME/.mantrachain/config/config.toml
-PEERS="dc0e4f03c75caf3c19474ffbead6f71ba37d96f8@35.192.223.187:26656,eaeb4872c88fa5d3a3fea9deb93cecb552dbe7a3@65.109.65.248:47656"
+PEERS=""
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
-SEEDS=""
+SEEDS="ade4d8bc8cbe014af6ebdf3cb7b1e9ad36f412c0@testnet-seeds.polkachu.com:25156"
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
 
 APP_TOML=$HOME/.mantrachain/config/app.toml
@@ -52,7 +54,7 @@ sed -i 's|^pruning-interval *=.*|pruning-interval = "19"|g' $APP_TOML
 sed -i -e "s/^filter_peers *=.*/filter_peers = \"true\"/" $CONFIG_TOML
 indexer="null"
 sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $CONFIG_TOML
-sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0002uaum"|g' $APP_TOML
+sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0002uom"|g' $APP_TOML
 
 # Customize ports
 CLIENT_TOML=$HOME/.mantrachain/config/client.toml
@@ -92,7 +94,7 @@ EOF
 mantrachaind tendermint unsafe-reset-all --home $HOME/.mantrachain --keep-addr-book
 
 # Add snapshot here
-URL="https://snapshots-testnet.stake-town.com/mantra/mantrachain-testnet-1_latest.tar.lz4"
+URL="https://snapshots-testnet.stake-town.com/mantra/mantra-hongbai-1_latest.tar.lz4"
 curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.mantrachain
 [[ -f $HOME/.mantrachain/data/upgrade-info.json ]]  && cp $HOME/.mantrachain/data/upgrade-info.json $HOME/.mantrachain/cosmovisor/genesis/upgrade-info.json
 
