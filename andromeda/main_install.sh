@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="andromeda-1"
 CHAIN_DENOM="uandr"
 BINARY_NAME="andromedad"
-BINARY_VERSION_TAG="andromeda-1-v0.1.1"
+BINARY_VERSION_TAG="v0.1.1-fixgov"
 CHEAT_SHEET="https://nodes.stake-town.com/andromeda"
 
 printDelimiter
