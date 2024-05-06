@@ -9,10 +9,10 @@ export -f selectPortSet && selectPortSet
 
 read -r -p "Enter node moniker: " NODE_MONIKER
 
-CHAIN_ID="side-testnet-3"
+CHAIN_ID="S2-testnet-1"
 CHAIN_DENOM="uside"
 BINARY_NAME="sided"
-BINARY_VERSION_TAG="v0.7.0"
+BINARY_VERSION_TAG="v0.8.0"
 CHEAT_SHEET=""
 
 printDelimiter
@@ -44,7 +44,7 @@ curl -Ls https://snapshots-testnet.stake-town.com/side/addrbook.json > $HOME/.si
 CONFIG_TOML=$HOME/.side/config/config.toml
 PEERS=""
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
-SEEDS="693bdfec73a81abddf6f758aa49321de48456a96@13.231.67.192:26656"
+SEEDS="ade4d8bc8cbe014af6ebdf3cb7b1e9ad36f412c0@testnet-seeds.polkachu.com:26356"
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
 
 APP_TOML=$HOME/.side/config/app.toml
@@ -95,7 +95,7 @@ EOF
 sided tendermint unsafe-reset-all --home $HOME/.side --keep-addr-book
 
 # Add snapshot here
-URL="https://snapshots-testnet.stake-town.com/side/side-testnet-3_latest.tar.lz4"
+URL="https://snapshots-testnet.stake-town.com/side/S2-testnet-1_latest.tar.lz4"
 curl $URL | lz4 -dc - | tar -xf - -C $HOME/.side
 [[ -f $HOME/.side/data/upgrade-info.json ]] && cp $HOME/.side/data/upgrade-info.json $HOME/.side/cosmovisor/genesis/upgrade-info.json
 
