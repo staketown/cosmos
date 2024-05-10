@@ -75,7 +75,7 @@ printGreen "Starting service and synchronization..." && sleep 1
 
 sudo tee /etc/systemd/system/picad.service > /dev/null << EOF
 [Unit]
-Description=Composable Node
+Description=Picasso Node
 After=network-online.target
 [Service]
 User=$USER

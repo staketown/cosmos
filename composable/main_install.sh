@@ -11,7 +11,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 
 CHAIN_ID="centauri-1"
 CHAIN_DENOM="ppica"
-BINARY_NAME="centaurid"
+BINARY_NAME="picad"
 BINARY_VERSION_TAG="v6.6.41"
 CHEAT_SHEET=""
 
@@ -34,9 +34,9 @@ git checkout $BINARY_VERSION_TAG
 
 make install
 
-centaurid config keyring-backend file
-centaurid config chain-id $CHAIN_ID
-centaurid init "$NODE_MONIKER" --chain-id $CHAIN_ID
+picad config keyring-backend file
+picad config chain-id $CHAIN_ID
+picad init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://snapshots.stake-town.com/composable/genesis.json > $HOME/.banksy/config/genesis.json
 curl -s https://snapshots.stake-town.com/composable/addrbook.json > $HOME/.banksy/config/addrbook.json
@@ -69,13 +69,13 @@ printGreen "Install and configure cosmovisor..." && sleep 1
 go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.4.0
 mkdir -p ~/.banksy/cosmovisor/genesis/bin
 mkdir -p ~/.banksy/cosmovisor/upgrades
-cp ~/go/bin/centaurid $HOME/.banksy/cosmovisor/genesis/bin
+cp ~/go/bin/picad $HOME/.banksy/cosmovisor/genesis/bin
 
 printGreen "Starting service and synchronization..." && sleep 1
 
-sudo tee /etc/systemd/system/centaurid.service > /dev/null << EOF
+sudo tee /etc/systemd/system/picad.service > /dev/null << EOF
 [Unit]
-Description=Composable Node
+Description=Picasso Node
 After=network-online.target
 [Service]
 User=$USER
@@ -84,7 +84,7 @@ ExecStart=$(which cosmovisor) run start
 Restart=on-failure
 RestartSec=3
 LimitNOFILE=10000
-Environment="DAEMON_NAME=centaurid"
+Environment="DAEMON_NAME=picad"
 Environment="DAEMON_HOME=$HOME/.banksy"
 Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=false"
 Environment="DAEMON_RESTART_AFTER_UPGRADE=true"
@@ -93,7 +93,7 @@ Environment="UNSAFE_SKIP_BACKUP=true"
 WantedBy=multi-user.target
 EOF
 
-centaurid tendermint unsafe-reset-all --home $HOME/.banksy --keep-addr-book
+picad tendermint unsafe-reset-all --home $HOME/.banksy --keep-addr-book
 
 # Add snapshot here
 URL="https://snapshots.stake-town.com/composable/centauri-1_latest.tar.lz4"
@@ -101,8 +101,8 @@ curl $URL | lz4 -dc - | tar -xf - -C $HOME/.banksy
 [[ -f $HOME/.banksy/data/upgrade-info.json ]] && cp $HOME/.banksy/data/upgrade-info.json $HOME/.banksy/cosmovisor/genesis/upgrade-info.json
 
 sudo systemctl daemon-reload
-sudo systemctl enable centaurid
-sudo systemctl start centaurid
+sudo systemctl enable picad
+sudo systemctl start picad
 
 printDelimiter
 printGreen "Check logs:            sudo journalctl -u $BINARY_NAME -f -o cat"
