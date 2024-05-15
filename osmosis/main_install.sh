@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="osmosis-1"
 CHAIN_DENOM="uosmo"
 BINARY_NAME="osmosisd"
-BINARY_VERSION_TAG="v23.0.0"
+BINARY_VERSION_TAG="v25.0.0"
 CHEAT_SHEET=""
 
 printDelimiter
@@ -97,7 +97,6 @@ EOF
 osmosisd tendermint unsafe-reset-all --home $HOME/.osmosisd --keep-addr-book
 
 # Add snapshot here
-# URL="https://snapshots-testnet.stake-town.com/archway/constantine-3_latest.tar.lz4"
 curl -L https://snapshots.kjnodes.com/osmosis/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.osmosisd
 [[ -f $HOME/.osmosisd/data/upgrade-info.json ]] && cp $HOME/.osmosisd/data/upgrade-info.json $HOME/.osmosisd/cosmovisor/genesis/upgrade-info.json
 
