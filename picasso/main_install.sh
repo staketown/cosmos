@@ -38,8 +38,8 @@ picad config keyring-backend file
 picad config chain-id $CHAIN_ID
 picad init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -s https://snapshots.stake-town.com/composable/genesis.json > $HOME/.banksy/config/genesis.json
-curl -s https://snapshots.stake-town.com/composable/addrbook.json > $HOME/.banksy/config/addrbook.json
+curl -s https://snapshots.stake-town.com/picasso/genesis.json > $HOME/.banksy/config/genesis.json
+curl -s https://snapshots.stake-town.com/picasso/addrbook.json > $HOME/.banksy/config/addrbook.json
 
 CONFIG_TOML=$HOME/.banksy/config/config.toml
 PEERS="4cb008db9c8ae2eb5c751006b977d6910e990c5d@65.108.71.163:2630,63559b939442512ed82d2ded46d02ab1021ea29a@95.214.55.138:53656"
@@ -96,7 +96,7 @@ EOF
 picad tendermint unsafe-reset-all --home $HOME/.banksy --keep-addr-book
 
 # Add snapshot here
-URL="https://snapshots.stake-town.com/composable/centauri-1_latest.tar.lz4"
+URL="https://snapshots.stake-town.com/picasso/centauri-1_latest.tar.lz4"
 curl $URL | lz4 -dc - | tar -xf - -C $HOME/.banksy
 [[ -f $HOME/.banksy/data/upgrade-info.json ]] && cp $HOME/.banksy/data/upgrade-info.json $HOME/.banksy/cosmovisor/genesis/upgrade-info.json
 

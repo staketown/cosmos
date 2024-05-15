@@ -13,7 +13,7 @@ CHAIN_ID="banksy-testnet-5"
 CHAIN_DENOM="ppica"
 BINARY_NAME="picad"
 BINARY_VERSION_TAG="v6.6.3"
-CHEAT_SHEET="https://nodes.stake-town.com/composable"
+CHEAT_SHEET=""
 
 printDelimiter
 echo -e "Node moniker:       $NODE_MONIKER"
@@ -38,8 +38,8 @@ picad config keyring-backend test
 picad config chain-id $CHAIN_ID
 picad init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -s https://snapshots-testnet.stake-town.com/composable/genesis.json > $HOME/.banksy/config/genesis.json
-curl -s https://snapshots-testnet.stake-town.com/composable/addrbook.json > $HOME/.banksy/config/addrbook.json
+curl -s https://snapshots-testnet.stake-town.com/picasso/genesis.json > $HOME/.banksy/config/genesis.json
+curl -s https://snapshots-testnet.stake-town.com/picasso/addrbook.json > $HOME/.banksy/config/addrbook.json
 
 CONFIG_TOML=$HOME/.banksy/config/config.toml
 PEERS=""
@@ -96,7 +96,7 @@ EOF
 picad tendermint unsafe-reset-all --home $HOME/.banksy --keep-addr-book
 
 # Add snapshot here
-URL="https://snapshots-testnet.stake-town.com/composable/banksy-testnet-5_latest.tar.lz4"
+URL="https://snapshots-testnet.stake-town.com/picasso/banksy-testnet-5_latest.tar.lz4"
 curl $URL | lz4 -dc - | tar -xf - -C $HOME/.banksy
 [[ -f $HOME/.banksy/data/upgrade-info.json ]] && cp $HOME/.banksy/data/upgrade-info.json $HOME/.banksy/cosmovisor/genesis/upgrade-info.json
 
