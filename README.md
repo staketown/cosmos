@@ -44,3 +44,4 @@ bash <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/composa
 | Planq         |  26   |
 | CrossFi       |  27   |
 | Persistence   |  28   |
+| Neutron       |  29   |
