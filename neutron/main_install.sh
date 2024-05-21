@@ -93,7 +93,7 @@ Environment="UNSAFE_SKIP_BACKUP=true"
 WantedBy=multi-user.target
 EOF
 
-neutrond tendermint unsafe-reset-all --home $HOME/.source --keep-addr-book
+neutrond tendermint unsafe-reset-all --home $HOME/.neutrond --keep-addr-book
 
 # Add snapshot here
 URL="https://snapshots.polkachu.com/snapshots/neutron/neutron_10443706.tar.lz4"
