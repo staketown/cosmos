@@ -34,7 +34,7 @@ git checkout $BINARY_VERSION_TAG
 
 make install
 
-initiad config set client chain-id initiation-1
+initiad config set client chain-id $CHAIN_ID
 initiad config set client keyring-backend os
 initiad init $NODE_MONIKER --chain-id $CHAIN_ID
 
