@@ -27,9 +27,9 @@ source <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/utils
 echo "" && printGreen "Building binaries..." && sleep 1
 
 cd $HOME || return
-rm -rf elys
-git clone https://github.com/elys-network/elys.git
-cd elys || return
+rm -rf initia
+git clone https://github.com/initia-labs/initia.git
+cd initia || return
 git checkout $BINARY_VERSION_TAG
 
 make install
