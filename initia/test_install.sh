@@ -34,9 +34,9 @@ git checkout $BINARY_VERSION_TAG
 
 make install
 
-initiad config keyring-backend os
-initiad config chain-id $CHAIN_ID
-initiad init "$NODE_MONIKER" --chain-id $CHAIN_ID
+initiad config set client keyring-backend os
+initiad config set client chain-id $CHAIN_ID
+initiad init set client "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://snapshots.kjnodes.com/initia-testnet/genesis.json > $HOME/.initia/config/genesis.json
 curl -s https://snapshots.kjnodes.com/initia-testnet/addrbook.json > $HOME/.initia/config/addrbook.json
