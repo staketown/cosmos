@@ -96,7 +96,7 @@ EOF
 initiad tendermint unsafe-reset-all --home $HOME/.initia --keep-addr-book
 
 # Add snapshot here
-URL="https://snapshots.kjnodes.com/initia-testnet/snapshot_latest.tar.lz4"
+URL="https://snapshots.polkachu.com/testnet-snapshots/initia/initia_237655.tar.lz4"
 curl $URL | lz4 -dc - | tar -xf - -C $HOME/.initia
 [[ -f $HOME/.initia/data/upgrade-info.json ]] && cp $HOME/.initia/data/upgrade-info.json $HOME/.initia/cosmovisor/genesis/upgrade-info.json
 
