@@ -38,10 +38,8 @@ make install
 0gchaind config chain-id $CHAIN_ID
 0gchaind init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-#curl -L https://snapshots-testnet.nodejumper.io/0g-testnet/genesis.json > $HOME/.0gchain/config/genesis.json
-#curl -L https://snapshots-testnet.nodejumper.io/0g-testnet/addrbook.json > $HOME/.0gchain/config/addrbook.json
-curl -s https://snapshots-testnet.stake-town.com/elys/genesis.json >$HOME/.0gchain/config/genesis.json
-curl -s https://snapshots-testnet.stake-town.com/elys/addrbook.json >$HOME/.0gchain/config/addrbook.json
+curl -L https://snapshots-testnet.stake-town.com/og/genesis.json > $HOME/.0gchain/config/genesis.json
+curl -L https://snapshots-testnet.stake-town.com/og/addrbook.json > $HOME/.0gchain/config/addrbook.json
 
 CONFIG_TOML=$HOME/.0gchain/config/config.toml
 PEERS=""
@@ -63,8 +61,8 @@ sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0025ua0gi"|g' $APP_TO
 CLIENT_TOML=$HOME/.0gchain/config/client.toml
 sed -i.bak -e "s/^external_address *=.*/external_address = \"$(wget -qO- eth0.me):$PORT_PPROF_LADDR\"/" $CONFIG_TOML
 sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:$PORT_PROXY_APP\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:$PORT_RPC\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:$PORT_P2P\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:$PORT_PPROF_LADDR\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":$PORT_PROMETHEUS\"%" $CONFIG_TOML &&
-  sed -i.bak -e "s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:$PORT_GRPC\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:$PORT_GRPC_WEB\"%; s%^address = \"tcp://0.0.0.0:1317\"%address = \"tcp://0.0.0.0:$PORT_API\"%" $APP_TOML &&
-  sed -i.bak -e "s%^node = \"tcp://localhost:26657\"%node = \"tcp://localhost:$PORT_RPC\"%" $CLIENT_TOML
+sed -i.bak -e "s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:$PORT_GRPC\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:$PORT_GRPC_WEB\"%; s%^address = \"tcp://0.0.0.0:1317\"%address = \"tcp://0.0.0.0:$PORT_API\"%; s%^address = \"127.0.0.1:8545\"%address = \"0.0.0.0:$PORT_EVM_RPC\"%; s%^ws-address = \"127.0.0.1:8546\"%ws-address = \"0.0.0.0:$PORT_EVM_WS\"%; s%^metrics-address = \"127.0.0.1:6065\"%metrics-address = \"0.0.0.0:$PORT_EVM_METRICS\"%" $APP_TOML && \
+sed -i.bak -e "s%^node = \"tcp://localhost:26657\"%node = \"tcp://localhost:$PORT_RPC\"%" $CLIENT_TOML
 
 printGreen "Install and configure cosmovisor..." && sleep 1
 
@@ -97,7 +95,7 @@ EOF
 0gchaind tendermint unsafe-reset-all --home $HOME/.0gchain --keep-addr-book
 
 # Add snapshot here
-URL="https://snapshots-testnet.nodejumper.io/0g-testnet/0g-testnet_latest.tar.lz4"
+URL="https://snapshots-testnet.stake-town.com/og/zgtendermint_16600-1_latest.tar.lz4"
 curl $URL | lz4 -dc - | tar -xf - -C $HOME/.0gchain
 [[ -f $HOME/.0gchain/data/upgrade-info.json ]] && cp $HOME/.0gchain/data/upgrade-info.json $HOME/.0gchain/cosmovisor/genesis/upgrade-info.json
 
