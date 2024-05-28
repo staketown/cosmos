@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="elystestnet-1"
 CHAIN_DENOM="uelys"
 BINARY_NAME="elysd"
-BINARY_VERSION_TAG="fix/v0.31.0-restore-clock-gas-limit-value"
+BINARY_VERSION_TAG="v0.32.0"
 CHEAT_SHEET=""
 
 printDelimiter
