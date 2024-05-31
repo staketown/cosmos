@@ -9,10 +9,10 @@ export -f selectPortSet && selectPortSet
 
 read -r -p "Enter node moniker: " NODE_MONIKER
 
-CHAIN_ID="xstaxy-1"
+CHAIN_ID="aura_6322-2"
 CHAIN_DENOM="uaura"
 BINARY_NAME="aurad"
-BINARY_VERSION_TAG="v0.7.3"
+BINARY_VERSION_TAG="v0.8.2"
 CHEAT_SHEET=""
 
 printDelimiter
@@ -95,7 +95,7 @@ EOF
 aurad tendermint unsafe-reset-all --home $HOME/.aura --keep-addr-book
 
 # Add snapshot here
-URL="https://snapshots.stake-town.com/aura/xstaxy-1_latest.tar.lz4"
+URL="https://snapshots.stake-town.com/aura/aura_6322-2_latest.tar.lz4"
 curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.aura
 [[ -f $HOME/.aura/data/upgrade-info.json ]]  && cp $HOME/.aura/data/upgrade-info.json $HOME/.aura/cosmovisor/genesis/upgrade-info.json
 
