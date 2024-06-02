@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="aura_6322-2"
 CHAIN_DENOM="uaura"
 BINARY_NAME="aurad"
-BINARY_VERSION_TAG="v0.8.2"
+BINARY_VERSION_TAG="ibcupgrade"
 CHEAT_SHEET=""
 
 printDelimiter
