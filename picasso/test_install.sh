@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="banksy-testnet-5"
 CHAIN_DENOM="ppica"
 BINARY_NAME="picad"
-BINARY_VERSION_TAG="v7.0.2-devnet-rc2"
+BINARY_VERSION_TAG="v7.0.2"
 CHEAT_SHEET=""
 
 printDelimiter
