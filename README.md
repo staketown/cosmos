@@ -22,7 +22,7 @@ bash <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/composa
 | Umee          |   4   |
 | Lava          |   5   |
 | Archway       |   6   |
-| Babylon       |   7   |
+| CosmosHub     |   7   |
 | Juno          |   8   |
 | Celestia      |   9   |
 | C4E           |  10   |
