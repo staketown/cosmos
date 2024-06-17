@@ -43,7 +43,7 @@ curl -s https://snapshots.polkachu.com/genesis/cosmos/genesis.json > $HOME/.gaia
 CONFIG_TOML=$HOME/.gaia/config/config.toml
 PEERS=""
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
-SEEDS="ade4d8bc8cbe014af6ebdf3cb7b1e9ad36f412c0@seeds.polkachu.com:14956"
+SEEDS="ade4d8bc8cbe014af6ebdf3cb7b1e9ad36f412c0@seeds.polkachu.com:14956,d9bfa29e0cf9c4ce0cc9c26d98e5d97228f93b0b@cosmoshub.rpc.kjnodes.com:13456"
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
 
 APP_TOML=$HOME/.gaia/config/app.toml
