@@ -17,7 +17,7 @@ bash <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/composa
 | Network       | Index |
 |---------------|:-----:|
 | Gitopia       |   1   |
-| Nibiru        |   2   |
+| Akash         |   2   |
 | Source        |   3   |
 | Umee          |   4   |
 | Lava          |   5   |
