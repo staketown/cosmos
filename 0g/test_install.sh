@@ -9,10 +9,10 @@ export -f selectPortSet && selectPortSet
 
 read -r -p "Enter node moniker: " NODE_MONIKER
 
-CHAIN_ID="zgtendermint_16600-1"
+CHAIN_ID="zgtendermint_16600-2"
 CHAIN_DENOM="ua0gi"
 BINARY_NAME="0gchaind"
-BINARY_VERSION_TAG="v0.1.0"
+BINARY_VERSION_TAG="v0.2.3"
 CHEAT_SHEET=""
 
 printDelimiter
@@ -95,7 +95,7 @@ EOF
 0gchaind tendermint unsafe-reset-all --home $HOME/.0gchain --keep-addr-book
 
 # Add snapshot here
-URL="https://snapshots-testnet.stake-town.com/og/zgtendermint_16600-1_latest.tar.lz4"
+URL="https://snapshots-testnet.stake-town.com/og/zgtendermint_16600-2_latest.tar.lz4"
 curl $URL | lz4 -dc - | tar -xf - -C $HOME/.0gchain
 [[ -f $HOME/.0gchain/data/upgrade-info.json ]] && cp $HOME/.0gchain/data/upgrade-info.json $HOME/.0gchain/cosmovisor/genesis/upgrade-info.json
 
