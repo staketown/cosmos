@@ -9,10 +9,10 @@ export -f selectPortSet && selectPortSet
 
 read -r -p "Enter node moniker: " NODE_MONIKER
 
-CHAIN_ID="S2-testnet-2"
+CHAIN_ID="grimoria-testnet-1"
 CHAIN_DENOM="uside"
 BINARY_NAME="sided"
-BINARY_VERSION_TAG="v0.8.1"
+BINARY_VERSION_TAG="v0.9.0"
 CHEAT_SHEET=""
 
 printDelimiter
@@ -27,9 +27,9 @@ source <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/utils
 echo "" && printGreen "Building binaries..." && sleep 1
 
 cd $HOME || return
-rm -rf sidechain
-git clone https://github.com/sideprotocol/sidechain.git
-cd $HOME/sidechain || return
+rm -rf side
+git clone https://github.com/sideprotocol/side.git
+cd $HOME/side || return
 git checkout $BINARY_VERSION_TAG
 
 make install
@@ -42,9 +42,9 @@ curl -Ls https://snapshots-testnet.stake-town.com/side/genesis.json > $HOME/.sid
 curl -Ls https://snapshots-testnet.stake-town.com/side/addrbook.json > $HOME/.side/config/addrbook.json
 
 CONFIG_TOML=$HOME/.side/config/config.toml
-PEERS=""
+PEERS="6bef0693d7a31fed473b95123ad19b544b414093@202.182.119.24:26656,44f8009ed91fddd7ee51117482ede20fb4f33e78@149.28.156.79:26656"
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
-SEEDS="ade4d8bc8cbe014af6ebdf3cb7b1e9ad36f412c0@testnet-seeds.polkachu.com:26356"
+SEEDS=""
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
 
 APP_TOML=$HOME/.side/config/app.toml
@@ -95,7 +95,7 @@ EOF
 sided tendermint unsafe-reset-all --home $HOME/.side --keep-addr-book
 
 # Add snapshot here
-URL="https://snapshots-testnet.stake-town.com/side/S2-testnet-2_latest.tar.lz4"
+URL="https://snapshots-testnet.stake-town.com/side/grimoria-testnet-1_latest.tar.lz4"
 curl $URL | lz4 -dc - | tar -xf - -C $HOME/.side
 [[ -f $HOME/.side/data/upgrade-info.json ]] && cp $HOME/.side/data/upgrade-info.json $HOME/.side/cosmovisor/genesis/upgrade-info.json
 
