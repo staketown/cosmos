@@ -27,15 +27,12 @@ source <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/utils
 echo "" && printGreen "Building binaries..." && sleep 1
 
 cd $HOME || return
-#rm -rf persistenceCore
-#git clone https://github.com/persistenceOne/persistenceCore.git
-#cd persistenceCore || return
-#git checkout $BINARY_VERSION_TAG
-#
-#make install
+rm -rf persistenceCore
+git clone https://github.com/persistenceOne/persistenceCore.git
+cd persistenceCore || return
+git checkout $BINARY_VERSION_TAG
 
-wget -O $HOME/go/bin/persistenceCore https://s3.ap-south-1.amazonaws.com/patch-v11.8.2/binaries/persistenceCore-v11.8.2-linux-amd64
-chmod +x $HOME/go/bin/persistenceCore
+make install
 
 persistenceCore config keyring-backend os
 persistenceCore config chain-id $CHAIN_ID
