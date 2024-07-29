@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="quasar-1"
 CHAIN_DENOM="uqsr"
 BINARY_NAME="quasarnoded"
-BINARY_VERSION_TAG="v1.0.1"
+BINARY_VERSION_TAG="v2.0.1"
 CHEAT_SHEET=""
 
 printDelimiter
