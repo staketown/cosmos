@@ -46,6 +46,17 @@ PEERS=""
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
 SEEDS="ade4d8bc8cbe014af6ebdf3cb7b1e9ad36f412c0@seeds.polkachu.com:19956"
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
+sed -i 's|^timeout_propose =.*|timeout_propose = "10s"|g' $CONFIG_TOML
+sed -i 's|^timeout_propose_delta =.*|timeout_propose_delta = "500ms"|g' $CONFIG_TOML
+sed -i 's|^timeout_prevote =.*|timeout_prevote = "1s"|g' $CONFIG_TOML
+sed -i 's|^timeout_prevote_delta =.*|timeout_prevote_delta = "500ms"|g' $CONFIG_TOML
+sed -i 's|^timeout_precommit =.*|timeout_precommit = "500ms"|g' $CONFIG_TOML
+sed -i 's|^timeout_precommit_delta =.*|timeout_precommit_delta = "1s"|g' $CONFIG_TOML
+sed -i 's|^timeout_commit =.*|timeout_commit = "15s"|g' $CONFIG_TOML
+sed -i 's|^create_empty_blocks =.*|create_empty_blocks = true|g' $CONFIG_TOML
+sed -i 's|^create_empty_blocks_interval =.*|create_empty_blocks_interval = "15s"|g' $CONFIG_TOML
+sed -i 's|^timeout_broadcast_tx_commit =.*|timeout_broadcast_tx_commit = "151s"|g' $CONFIG_TOML
+sed -i 's|^skip_timeout_commit =.*|skip_timeout_commit = false|g' $CONFIG_TOML
 
 APP_TOML=$HOME/.lava/config/app.toml
 sed -i 's|^pruning *=.*|pruning = "custom"|g' $APP_TOML
@@ -63,8 +74,8 @@ sed -i -e 's/broadcast-mode = ".*"/broadcast-mode = "sync"/g' $CLIENT_TOML
 # Customize ports
 sed -i.bak -e "s/^external_address *=.*/external_address = \"$(wget -qO- eth0.me):$PORT_PPROF_LADDR\"/" $CONFIG_TOML
 sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:$PORT_PROXY_APP\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:$PORT_RPC\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:$PORT_P2P\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:$PORT_PPROF_LADDR\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":$PORT_PROMETHEUS\"%" $CONFIG_TOML &&
-  sed -i.bak -e "s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:$PORT_GRPC\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:$PORT_GRPC_WEB\"%; s%^address = \"tcp://0.0.0.0:1317\"%address = \"tcp://0.0.0.0:$PORT_API\"%" $APP_TOML &&
-  sed -i.bak -e "s%^node = \"tcp://localhost:26657\"%node = \"tcp://localhost:$PORT_RPC\"%" $CLIENT_TOML
+sed -i.bak -e "s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:$PORT_GRPC\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:$PORT_GRPC_WEB\"%; s%^address = \"tcp://0.0.0.0:1317\"%address = \"tcp://0.0.0.0:$PORT_API\"%" $APP_TOML &&
+sed -i.bak -e "s%^node = \"tcp://localhost:26657\"%node = \"tcp://localhost:$PORT_RPC\"%" $CLIENT_TOML
 
 printGreen "Install and configure cosmovisor..." && sleep 1
 
