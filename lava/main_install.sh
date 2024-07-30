@@ -32,7 +32,7 @@ git clone https://github.com/lavanet/lava.git
 cd $HOME/lava || return
 git checkout $BINARY_VERSION_TAG
 
-make install
+export LAVA_BINARY=lavad && make install
 
 lavad config keyring-backend os
 lavad config chain-id $CHAIN_ID
