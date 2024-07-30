@@ -38,8 +38,8 @@ lavad config keyring-backend os
 lavad config chain-id $CHAIN_ID
 lavad init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -Ls https://snapshots.polkachu.com/genesis/lava/genesis.json > $HOME/.lava/config/genesis.json
-curl -Ls https://snapshots.polkachu.com/addrbook/lava/addrbook.json > $HOME/.lava/config/addrbook.json
+curl -Ls https://snapshots.polkachu.com/genesis/lava/genesis.json >$HOME/.lava/config/genesis.json
+curl -Ls https://snapshots.polkachu.com/addrbook/lava/addrbook.json >$HOME/.lava/config/addrbook.json
 
 CONFIG_TOML=$HOME/.lava/config/config.toml
 PEERS=""
@@ -62,9 +62,9 @@ sed -i -e 's/broadcast-mode = ".*"/broadcast-mode = "sync"/g' $CLIENT_TOML
 
 # Customize ports
 sed -i.bak -e "s/^external_address *=.*/external_address = \"$(wget -qO- eth0.me):$PORT_PPROF_LADDR\"/" $CONFIG_TOML
-sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:$PORT_PROXY_APP\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:$PORT_RPC\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:$PORT_P2P\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:$PORT_PPROF_LADDR\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":$PORT_PROMETHEUS\"%" $CONFIG_TOML && \
-sed -i.bak -e "s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:$PORT_GRPC\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:$PORT_GRPC_WEB\"%; s%^address = \"tcp://0.0.0.0:1317\"%address = \"tcp://0.0.0.0:$PORT_API\"%" $APP_TOML && \
-sed -i.bak -e "s%^node = \"tcp://localhost:26657\"%node = \"tcp://localhost:$PORT_RPC\"%" $CLIENT_TOML
+sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:$PORT_PROXY_APP\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:$PORT_RPC\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:$PORT_P2P\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:$PORT_PPROF_LADDR\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":$PORT_PROMETHEUS\"%" $CONFIG_TOML &&
+  sed -i.bak -e "s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:$PORT_GRPC\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:$PORT_GRPC_WEB\"%; s%^address = \"tcp://0.0.0.0:1317\"%address = \"tcp://0.0.0.0:$PORT_API\"%" $APP_TOML &&
+  sed -i.bak -e "s%^node = \"tcp://localhost:26657\"%node = \"tcp://localhost:$PORT_RPC\"%" $CLIENT_TOML
 
 printGreen "Install and configure cosmovisor..." && sleep 1
 
@@ -75,7 +75,7 @@ cp ~/go/bin/lavad $HOME/.lava/cosmovisor/genesis/bin
 
 printGreen "Starting service and synchronization..." && sleep 1
 
-sudo tee /etc/systemd/system/lavad.service > /dev/null << EOF
+sudo tee /etc/systemd/system/lavad.service >/dev/null <<EOF
 [Unit]
 Description=Lava Node
 After=network-online.target
@@ -99,7 +99,7 @@ lavad tendermint unsafe-reset-all --home $HOME/.lava --keep-addr-book
 # Add snapshot here
 URL="https://snapshots.polkachu.com/snapshots/lava/lava_1073408.tar.lz4"
 curl -L $URL | tar -Ilz4 -xf - -C $HOME/.lava
-[[ -f $HOME/.lava/data/upgrade-info.json ]]  && cp $HOME/.lava/data/upgrade-info.json $HOME/.lava/cosmovisor/genesis/upgrade-info.json
+[[ -f $HOME/.lava/data/upgrade-info.json ]] && cp $HOME/.lava/data/upgrade-info.json $HOME/.lava/cosmovisor/genesis/upgrade-info.json
 
 sudo systemctl daemon-reload
 sudo systemctl enable lavad
