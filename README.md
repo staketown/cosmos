@@ -29,7 +29,7 @@ bash <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/composa
 | Ojo           |  11   |
 | Composable    |  12   |
 | Elys          |  13   |
-| Andromeda     |  14   |
+| Warden        |  14   |
 | Evmos         |  15   |
 | Osmosis       |  16   |
 | Arkeo Network |  17   |

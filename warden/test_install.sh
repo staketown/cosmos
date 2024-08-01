@@ -9,11 +9,11 @@ export -f selectPortSet && selectPortSet
 
 read -r -p "Enter node moniker: " NODE_MONIKER
 
-CHAIN_ID="andromeda-1"
-CHAIN_DENOM="uandr"
-BINARY_NAME="andromedad"
-BINARY_VERSION_TAG="v0.1.1-beta-patch"
-CHEAT_SHEET="https://nodes.stake-town.com/andromeda"
+CHAIN_ID="buenavista-1"
+CHAIN_DENOM="uward"
+BINARY_NAME="wardend"
+BINARY_VERSION_TAG="v0.4.0"
+CHEAT_SHEET=""
 
 printDelimiter
 echo -e "Node moniker:       $NODE_MONIKER"
@@ -27,27 +27,28 @@ source <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/utils
 echo "" && printGreen "Building binaries..." && sleep 1
 
 cd $HOME || return
-rm -rf andromedad
-git clone https://github.com/andromedaprotocol/andromedad.git
-cd andromedad || return
+rm -rf wardenprotocol
+git clone https://github.com/warden-protocol/wardenprotocol.git
+cd wardenprotocol || return
 git checkout $BINARY_VERSION_TAG
-
 make install
 
-andromedad config keyring-backend os
-andromedad config chain-id $CHAIN_ID
-andromedad init "$NODE_MONIKER" --chain-id $CHAIN_ID
+wardend version
 
-curl -s https://snapshots.stake-town.com/andromeda/genesis.json > $HOME/.andromeda/config/genesis.json
-curl -s https://snapshots.stake-town.com/andromeda/addrbook.json > $HOME/.andromeda/config/addrbook.json
+wardend config keyring-backend os
+wardend config chain-id $CHAIN_ID
+wardend init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-CONFIG_TOML=$HOME/.andromeda/config/config.toml
-PEERS="e4c2267b90c7cfbb45090ab7647dc01df97f58f9@andromeda-m.peer.stavr.tech:4376,26cdc42778d24c8b0b0b68ed07c97685bfd8682f@178.162.165.65:26656,17dda7b03ce866dbe36c048282fb742dd895a489@95.56.244.244:56659,0f310196e29d1f289966141e22caa72afaea8060@seeds.cros-nest.com:46656"
+curl -Ls https://snapshots.kjnodes.com/warden-testnet/genesis.json > $HOME/.warden/config/genesis.json
+curl -Ls https://snapshots.kjnodes.com/warden-testnet/addrbook.json > $HOME/.warden/config/addrbook.json
+
+CONFIG_TOML=$HOME/.warden/config/config.toml
+PEERS=""
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
-SEEDS=""
+SEEDS="3f472746f46493309650e5a033076689996c8881@andromeda-testnet.rpc.kjnodes.com:14759"
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
 
-APP_TOML=$HOME/.andromeda/config/app.toml
+APP_TOML=$HOME/.warden/config/app.toml
 sed -i 's|^pruning *=.*|pruning = "custom"|g' $APP_TOML
 sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|g' $APP_TOML
 sed -i 's|^pruning-keep-every *=.*|pruning-keep-every = "0"|g' $APP_TOML
@@ -55,10 +56,10 @@ sed -i 's|^pruning-interval *=.*|pruning-interval = "19"|g' $APP_TOML
 sed -i -e "s/^filter_peers *=.*/filter_peers = \"true\"/" $CONFIG_TOML
 indexer="null"
 sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $CONFIG_TOML
-sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001uandr"|g' $APP_TOML
+sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0025uward"|g' $APP_TOML
 
 # Customize ports
-CLIENT_TOML=$HOME/.andromeda/config/client.toml
+CLIENT_TOML=$HOME/.warden/config/client.toml
 sed -i.bak -e "s/^external_address *=.*/external_address = \"$(wget -qO- eth0.me):$PORT_PPROF_LADDR\"/" $CONFIG_TOML
 sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:$PORT_PROXY_APP\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:$PORT_RPC\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:$PORT_P2P\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:$PORT_PPROF_LADDR\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":$PORT_PROMETHEUS\"%" $CONFIG_TOML && \
 sed -i.bak -e "s%^address = \"localhost:9090\"%address = \"0.0.0.0:$PORT_GRPC\"%; s%^address = \"localhost:9091\"%address = \"0.0.0.0:$PORT_GRPC_WEB\"%; s%^address = \"tcp://localhost:1317\"%address = \"tcp://0.0.0.0:$PORT_API\"%" $APP_TOML && \
@@ -67,15 +68,15 @@ sed -i.bak -e "s%^node = \"tcp://localhost:26657\"%node = \"tcp://localhost:$POR
 printGreen "Install and configure cosmovisor..." && sleep 1
 
 go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.4.0
-mkdir -p ~/.andromeda/cosmovisor/genesis/bin
-mkdir -p ~/.andromeda/cosmovisor/upgrades
-cp ~/go/bin/andromedad ~/.andromeda/cosmovisor/genesis/bin
+mkdir -p ~/.warden/cosmovisor/genesis/bin
+mkdir -p ~/.warden/cosmovisor/upgrades
+cp ~/go/bin/wardend ~/.warden/cosmovisor/genesis/bin
 
 printGreen "Starting service and synchronization..." && sleep 1
 
-sudo tee /etc/systemd/system/andromedad.service > /dev/null << EOF
+sudo tee /etc/systemd/system/wardend.service > /dev/null << EOF
 [Unit]
-Description=Andromeda Node
+Description=Warden Node
 After=network-online.target
 [Service]
 User=$USER
@@ -83,8 +84,8 @@ ExecStart=$(which cosmovisor) run start
 Restart=on-failure
 RestartSec=3
 LimitNOFILE=10000
-Environment="DAEMON_NAME=andromedad"
-Environment="DAEMON_HOME=$HOME/.andromeda"
+Environment="DAEMON_NAME=wardend"
+Environment="DAEMON_HOME=$HOME/.warden"
 Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=false"
 Environment="DAEMON_RESTART_AFTER_UPGRADE=true"
 Environment="UNSAFE_SKIP_BACKUP=true"
@@ -92,16 +93,16 @@ Environment="UNSAFE_SKIP_BACKUP=true"
 WantedBy=multi-user.target
 EOF
 
-andromedad tendermint unsafe-reset-all --home $HOME/.andromeda --keep-addr-book
+wardend tendermint unsafe-reset-all --home $HOME/.warden --keep-addr-book
 
 # Add snapshot here
-URL="https://snapshots.stake-town.com/andromeda/andromeda-1_latest.tar.lz4"
-curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.andromeda
-[[ -f $HOME/.andromeda/data/upgrade-info.json ]] && cp $HOME/.andromeda/data/upgrade-info.json $HOME/.andromeda/cosmovisor/genesis/upgrade-info.json
+URL="https://snapshots.kjnodes.com/warden-testnet/snapshot_latest.tar.lz4"
+curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.warden
+[[ -f $HOME/.warden/data/upgrade-info.json ]]  && cp $HOME/.warden/data/upgrade-info.json $HOME/.warden/cosmovisor/genesis/upgrade-info.json
 
 sudo systemctl daemon-reload
-sudo systemctl enable andromedad
-sudo systemctl start andromedad
+sudo systemctl enable wardend
+sudo systemctl start wardend
 
 printDelimiter
 printGreen "Check logs:            sudo journalctl -u $BINARY_NAME -f -o cat"
