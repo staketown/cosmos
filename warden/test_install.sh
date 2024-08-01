@@ -44,13 +44,13 @@ wardend config keyring-backend os
 wardend config chain-id $CHAIN_ID
 wardend init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -Ls https://snapshots.kjnodes.com/warden-testnet/genesis.json > $HOME/.warden/config/genesis.json
-curl -Ls https://snapshots.kjnodes.com/warden-testnet/addrbook.json > $HOME/.warden/config/addrbook.json
+curl -Ls https://snapshots-testnet.stake-town.com/warden/genesis.json > $HOME/.warden/config/genesis.json
+curl -Ls https://snapshots-testnet.stake-town.com/warden/addrbook.json > $HOME/.warden/config/addrbook.json
 
 CONFIG_TOML=$HOME/.warden/config/config.toml
 PEERS=""
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
-SEEDS="3f472746f46493309650e5a033076689996c8881@andromeda-testnet.rpc.kjnodes.com:14759"
+SEEDS="ddb4d92ab6eba8363bab2f3a0d7fa7a970ae437f@sentry-1.buenavista.wardenprotocol.org:26656,c717995fd56dcf0056ed835e489788af4ffd8fe8@sentry-2.buenavista.wardenprotocol.org:26656,e1c61de5d437f35a715ac94b88ec62c482edc166@sentry-3.buenavista.wardenprotocol.org:26656"
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
 
 APP_TOML=$HOME/.warden/config/app.toml
@@ -101,7 +101,7 @@ EOF
 wardend tendermint unsafe-reset-all --home $HOME/.warden --keep-addr-book
 
 # Add snapshot here
-URL="https://snapshots.polkachu.com/testnet-snapshots/warden/warden_1518065.tar.lz4"
+URL="https://snapshots-testnet.stake-town.com/warden/buenavista-1_latest.tar.lz4"
 curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.warden
 [[ -f $HOME/.warden/data/upgrade-info.json ]]  && cp $HOME/.warden/data/upgrade-info.json $HOME/.warden/cosmovisor/genesis/upgrade-info.json
 
