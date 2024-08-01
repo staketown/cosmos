@@ -37,6 +37,7 @@ wget https://github.com/warden-protocol/wardenprotocol/releases/download/$BINARY
 unzip wardend_Linux_x86_64.zip -d ~/temp_warden
 mv ~/temp_warden/wardend ~/go/bin/
 rm -rf ~/temp_warden
+rm wardend_Linux_x86_64.zip
 
 wardend version
 
