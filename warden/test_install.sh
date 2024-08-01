@@ -35,7 +35,7 @@ echo "" && printGreen "Building binaries..." && sleep 1
 
 wget https://github.com/warden-protocol/wardenprotocol/releases/download/$BINARY_VERSION_TAG/wardend_Linux_x86_64.zip
 unzip wardend_Linux_x86_64.zip -d ~/temp_warden
-mv ~/temp_warden ~/go/bin/
+mv ~/temp_warden/wardend ~/go/bin/
 
 wardend version
 
