@@ -26,12 +26,16 @@ source <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/utils
 
 echo "" && printGreen "Building binaries..." && sleep 1
 
-cd $HOME || return
-rm -rf wardenprotocol
-git clone https://github.com/warden-protocol/wardenprotocol.git
-cd wardenprotocol || return
-git checkout $BINARY_VERSION_TAG
-make install
+#cd $HOME || return
+#rm -rf wardenprotocol
+#git clone https://github.com/warden-protocol/wardenprotocol.git
+#cd wardenprotocol || return
+#git checkout $BINARY_VERSION_TAG
+#make install
+
+wget https://github.com/warden-protocol/wardenprotocol/releases/download/$BINARY_VERSION_TAG/wardend_Linux_x86_64.zip
+unzip wardend_Linux_x86_64.zip -d ~/temp_warden
+mv ~/temp_warden ~/go/bin/
 
 wardend version
 
