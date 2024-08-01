@@ -96,7 +96,7 @@ EOF
 wardend tendermint unsafe-reset-all --home $HOME/.warden --keep-addr-book
 
 # Add snapshot here
-URL="https://snapshots.kjnodes.com/warden-testnet/snapshot_latest.tar.lz4"
+URL="https://snapshots.polkachu.com/testnet-snapshots/warden/warden_1518065.tar.lz4"
 curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.warden
 [[ -f $HOME/.warden/data/upgrade-info.json ]]  && cp $HOME/.warden/data/upgrade-info.json $HOME/.warden/cosmovisor/genesis/upgrade-info.json
 
