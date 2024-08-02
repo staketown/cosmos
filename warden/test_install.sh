@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="buenavista-1"
 CHAIN_DENOM="uward"
 BINARY_NAME="wardend"
-BINARY_VERSION_TAG="v0.4.0"
+BINARY_VERSION_TAG="v0.3.1"
 CHEAT_SHEET=""
 
 printDelimiter
