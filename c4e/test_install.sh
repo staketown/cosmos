@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="babajaga-1"
 CHAIN_DENOM="uc4e"
 BINARY_NAME="c4ed"
-BINARY_VERSION_TAG="v1.3.0"
+BINARY_VERSION_TAG="v1.4.0"
 CHEAT_SHEET="https://nodes.stake-town.com/c4e"
 
 printDelimiter
