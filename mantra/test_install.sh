@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="mantra-hongbai-1"
 CHAIN_DENOM="uom"
 BINARY_NAME="mantrachaind"
-BINARY_VERSION_TAG="3.0.0"
+BINARY_VERSION_TAG="2.0.0"
 CHEAT_SHEET=""
 
 printDelimiter
@@ -28,9 +28,9 @@ echo "" && printGreen "Building binaries..." && sleep 1
 
 cd $HOME || return
 sudo wget -O /usr/lib/libwasmvm.x86_64.so https://github.com/CosmWasm/wasmvm/releases/download/v1.3.1/libwasmvm.x86_64.so
-wget https://github.com/MANTRA-Finance/public/raw/main/mantrachain-hongbai/mantrachaind-linux-amd64.zip
-unzip mantrachaind-linux-amd64.zip
-rm mantrachaind-linux-amd64.zip
+wget https://github.com/MANTRA-Finance/public/releases/download/v2.0.0/mantrachaind-2.0.0-linux-amd64.tar.gz
+tar -xvf mantrachaind-2.0.0-linux-amd64.tar.gz
+rm mantrachaind-2.0.0-linux-amd64.tar.gz
 mv mantrachaind $HOME/go/bin
 
 mantrachaind config keyring-backend os
