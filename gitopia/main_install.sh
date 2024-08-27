@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="gitopia"
 CHAIN_DENOM="ulore"
 BINARY_NAME="gitopiad"
-BINARY_VERSION_TAG="v3.3.0"
+BINARY_VERSION_TAG="v4.0.0"
 
 printDelimiter
 echo -e "Node moniker:       $NODE_MONIKER"
@@ -31,8 +31,6 @@ git clone https://github.com/gitopia/gitopia
 cd gitopia || return
 git checkout $BINARY_VERSION_TAG
 make install
-
-gitopiad version # v2.1.1
 
 gitopiad config keyring-backend os
 gitopiad config chain-id $CHAIN_ID
