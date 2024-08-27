@@ -44,7 +44,7 @@ curl -s https://snapshots-testnet.stake-town.com/celestia/addrbook.json > $HOME/
 CONFIG_TOML=$HOME/.celestia-app/config/config.toml
 PEERS=""
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
-SEEDS="3f472746f46493309650e5a033076689996c8881@celestia-testnet.rpc.kjnodes.com:12059"
+SEEDS="3f472746f46493309650e5a033076689996c8881@celestia-testnet.rpc.kjnodes.com:12059,ade4d8bc8cbe014af6ebdf3cb7b1e9ad36f412c0@testnet-seeds.polkachu.com:11656"
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
 
 APP_TOML=$HOME/.celestia-app/config/app.toml
