@@ -11,8 +11,8 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 
 CHAIN_ID="quasar-1"
 CHAIN_DENOM="uqsr"
-BINARY_NAME="quasarnoded"
-BINARY_VERSION_TAG="v2.0.1"
+BINARY_NAME="quasard"
+BINARY_VERSION_TAG="v3.0.0"
 CHEAT_SHEET=""
 
 printDelimiter
@@ -34,9 +34,9 @@ git checkout $BINARY_VERSION_TAG
 
 make install
 
-quasarnoded config keyring-backend os
-quasarnoded config chain-id $CHAIN_ID
-quasarnoded init "$NODE_MONIKER" --chain-id $CHAIN_ID
+quasard config keyring-backend os
+quasard config chain-id $CHAIN_ID
+quasard init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -Ls https://snapshots.stake-town.com/quasar/genesis.json > $HOME/.quasarnode/config/genesis.json
 curl -Ls https://snapshots.stake-town.com/quasar/addrbook.json > $HOME/.quasarnode/config/addrbook.json
@@ -69,11 +69,11 @@ printGreen "Install and configure cosmovisor..." && sleep 1
 go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.4.0
 mkdir -p ~/.quasarnode/cosmovisor/genesis/bin
 mkdir -p ~/.quasarnode/cosmovisor/upgrades
-cp ~/go/bin/quasarnoded $HOME/.quasarnode/cosmovisor/genesis/bin
+cp ~/go/bin/quasard $HOME/.quasarnode/cosmovisor/genesis/bin
 
 printGreen "Starting service and synchronization..." && sleep 1
 
-sudo tee /etc/systemd/system/quasarnoded.service > /dev/null << EOF
+sudo tee /etc/systemd/system/quasard.service > /dev/null << EOF
 [Unit]
 Description=Quasar Node
 After=network-online.target
@@ -83,7 +83,7 @@ ExecStart=$(which cosmovisor) run start
 Restart=on-failure
 RestartSec=3
 LimitNOFILE=10000
-Environment="DAEMON_NAME=quasarnoded"
+Environment="DAEMON_NAME=quasard"
 Environment="DAEMON_HOME=$HOME/.quasarnode"
 Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=false"
 Environment="DAEMON_RESTART_AFTER_UPGRADE=true"
@@ -92,7 +92,7 @@ Environment="UNSAFE_SKIP_BACKUP=true"
 WantedBy=multi-user.target
 EOF
 
-quasarnoded tendermint unsafe-reset-all --home $HOME/.quasarnode --keep-addr-book
+quasard tendermint unsafe-reset-all --home $HOME/.quasarnode --keep-addr-book
 
 # Add snapshot here
 URL="https://snapshots.stake-town.com/quasar/quasar-1_latest.tar.lz4"
