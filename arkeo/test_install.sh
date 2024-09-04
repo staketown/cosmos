@@ -26,23 +26,23 @@ source <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/utils
 
 echo "" && printGreen "Building binaries..." && sleep 1
 
-wget https://snapshots-testnet.stake-town.com/arkeo/arkeod
-chmod +x arkeod
-mv arkeod $HOME/go/bin/
-
-arkeod version # 1
+cd $HOME || return
+git clone https://github.com/arkeonetwork/arkeo
+cd $HOME/arkeo || return
+git checkout master
+TAG=testnet make install
 
 arkeod config keyring-backend os
 arkeod config chain-id $CHAIN_ID
 arkeod init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -s http://seed.arkeo.network:26657/genesis | jq '.result.genesis' > $HOME/.arkeo/config/genesis.json
-curl -s https://snapshots-testnet.stake-town.com/arkeo/addrbook.json > $HOME/.arkeo/config/addrbook.json
+curl -s http://seed.innovationtheory.com:26657/genesis | jq '.result.genesis' > $HOME/.arkeo/config/genesis.json
+#curl -s https://snapshots-testnet.stake-town.com/arkeo/addrbook.json > $HOME/.arkeo/config/addrbook.json
 
 CONFIG_TOML=$HOME/.arkeo/config/config.toml
 PEERS=""
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
-SEEDS="20e1000e88125698264454a884812746c2eb4807@seeds.lavenderfive.com:22856"
+SEEDS="aab68f68841eb072d996cd1b45c2b9c9b612d95b@seed.innovationtheory.com:26656,85341b428cf5993fcc04a324d95d14590ae5172c@seed2.innovationtheory.com:26656"
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
 
 APP_TOML=$HOME/.arkeo/config/app.toml
@@ -93,9 +93,9 @@ EOF
 arkeod tendermint unsafe-reset-all --home $HOME/.arkeo --keep-addr-book
 
 # Add snapshot here
-URL="https://snapshots-testnet.stake-town.com/arkeo/arkeo_latest.tar.lz4"
-curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.arkeo
-[[ -f $HOME/.arkeo/data/upgrade-info.json ]]  && cp $HOME/.arkeo/data/upgrade-info.json $HOME/.arkeo/cosmovisor/genesis/upgrade-info.json
+#URL="https://snapshots-testnet.stake-town.com/arkeo/arkeo_latest.tar.lz4"
+#curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.arkeo
+#[[ -f $HOME/.arkeo/data/upgrade-info.json ]]  && cp $HOME/.arkeo/data/upgrade-info.json $HOME/.arkeo/cosmovisor/genesis/upgrade-info.json
 
 sudo systemctl daemon-reload
 sudo systemctl enable arkeod

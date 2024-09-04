@@ -26,14 +26,12 @@ source <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/utils
 
 echo "" && printGreen "Building binaries..." && sleep 1
 
-
 cd $HOME || return
 rm -rf c4e-chain
 git clone https://github.com/chain4energy/c4e-chain
 cd $HOME/c4e-chain || return
 git checkout $BINARY_VERSION_TAG
 make install
-c4ed version # v1.2.1
 
 c4ed config keyring-backend os
 c4ed config chain-id $CHAIN_ID
