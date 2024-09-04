@@ -36,8 +36,8 @@ arkeod config keyring-backend os
 arkeod config chain-id $CHAIN_ID
 arkeod init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -s http://seed.innovationtheory.com:26657/genesis | jq '.result.genesis' > $HOME/.arkeo/config/genesis.json
-#curl -s https://snapshots-testnet.stake-town.com/arkeo/addrbook.json > $HOME/.arkeo/config/addrbook.json
+curl -s https://snapshots-testnet.stake-town.com/arkeo/genesis.json > $HOME/.arkeo/config/genesis.json
+curl -s https://snapshots-testnet.stake-town.com/arkeo/addrbook.json > $HOME/.arkeo/config/addrbook.json
 
 CONFIG_TOML=$HOME/.arkeo/config/config.toml
 PEERS=""
@@ -94,9 +94,9 @@ EOF
 arkeod tendermint unsafe-reset-all --home $HOME/.arkeo --keep-addr-book
 
 # Add snapshot here
-#URL="https://snapshots-testnet.stake-town.com/arkeo/arkeo_latest.tar.lz4"
-#curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.arkeo
-#[[ -f $HOME/.arkeo/data/upgrade-info.json ]]  && cp $HOME/.arkeo/data/upgrade-info.json $HOME/.arkeo/cosmovisor/genesis/upgrade-info.json
+URL="https://snapshots-testnet.stake-town.com/arkeo/arkeo_latest.tar.lz4"
+curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.arkeo
+[[ -f $HOME/.arkeo/data/upgrade-info.json ]]  && cp $HOME/.arkeo/data/upgrade-info.json $HOME/.arkeo/cosmovisor/genesis/upgrade-info.json
 
 sudo systemctl daemon-reload
 sudo systemctl enable arkeod
