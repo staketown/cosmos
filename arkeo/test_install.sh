@@ -77,7 +77,8 @@ Description=Arkeo Node
 After=network-online.target
 [Service]
 User=$USER
-ExecStart=$(which cosmovisor) run start
+WorkingDirectory=$HOME/.arkeo
+ExecStart=$(which cosmovisor) run start --home $HOME/.arkeo
 Restart=on-failure
 RestartSec=3
 LimitNOFILE=10000
