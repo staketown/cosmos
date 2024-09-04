@@ -31,8 +31,8 @@ rm -rf lava
 git clone https://github.com/lavanet/lava
 cd $HOME/lava || return
 git checkout $BINARY_VERSION_TAG
-make install
-lavad version # v0.24.0
+
+export LAVA_BINARY=lavad && make install
 
 lavad config keyring-backend os
 lavad config chain-id $CHAIN_ID
