@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="lava-mainnet-1"
 CHAIN_DENOM="ulava"
 BINARY_NAME="lavad"
-BINARY_VERSION_TAG="v2.2.0"
+BINARY_VERSION_TAG="v3.1.0"
 CHEAT_SHEET=""
 
 printDelimiter
