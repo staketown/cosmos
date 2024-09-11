@@ -34,9 +34,9 @@ git checkout $BINARY_VERSION_TAG
 
 make install
 
-axoned config keyring-backend os
-axoned config chain-id $CHAIN_ID
-axoned init "$NODE_MONIKER" bn254 --chain-id $CHAIN_ID
+axoned config set client keyring-backend os
+axoned config set client chain-id $CHAIN_ID
+axoned init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 # Download genesis and addrbook
 curl -Ls https://snapshots.kjnodes.com/axone-testnet/genesis.json > $HOME/.axoned/config/genesis.json
@@ -93,7 +93,7 @@ Environment="UNSAFE_SKIP_BACKUP=true"
 WantedBy=multi-user.target
 EOF
 
-axoned tendermint unsafe-reset-all --home $HOME/.union --keep-addr-book
+axoned tendermint unsafe-reset-all --home $HOME/.axoned --keep-addr-book
 
 # Add snapshot here
 curl -L https://snapshots.kjnodes.com/axone-testnet/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.axoned
