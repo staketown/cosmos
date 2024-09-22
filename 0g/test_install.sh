@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="zgtendermint_16600-2"
 CHAIN_DENOM="ua0gi"
 BINARY_NAME="0gchaind"
-BINARY_VERSION_TAG="0.3.1.alpha.1"
+BINARY_VERSION_TAG="v0.3.1.alpha.1"
 CHEAT_SHEET=""
 
 printDelimiter
