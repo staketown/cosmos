@@ -37,8 +37,8 @@ c4ed config keyring-backend os
 c4ed config chain-id $CHAIN_ID
 c4ed init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -s https://snapshots.stake-town.com/c4e/genesis.json > $HOME/.c4e-chain/config/genesis.json
-curl -s https://snapshots.stake-town.com/c4e/addrbook.json > $HOME/.c4e-chain/config/addrbook.json
+curl -s https://snapshots-1.stake-town.com/c4e/genesis.json > $HOME/.c4e-chain/config/genesis.json
+curl -s https://snapshots-1.stake-town.com/c4e/addrbook.json > $HOME/.c4e-chain/config/addrbook.json
 
 CONFIG_TOML=$HOME/.c4e-chain/config/config.toml
 PEERS="084a5c788c9c61541152192d7dfe055c153af642@5.135.141.191:26656,81a3c179ee820d291adebc215d5d1af95b887ec8@65.109.30.185:26656,3c6553a3c45477c2a9902e54069bee7109318b9d@163.172.18.144:26656,68a611fc1d17612e4de6b1232d04568ea3c20a19@77.55.216.80:26656"
