@@ -38,8 +38,8 @@ persistenceCore config keyring-backend os
 persistenceCore config chain-id $CHAIN_ID
 persistenceCore init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -Ls https://snapshots.stake-town.com/persistence/genesis.json >$HOME/.persistenceCore/config/genesis.json
-curl -Ls https://snapshots.stake-town.com/persistence/addrbook.json >$HOME/.persistenceCore/config/addrbook.json
+curl -Ls https://snapshots-2.stake-town.com/persistence/genesis.json >$HOME/.persistenceCore/config/genesis.json
+curl -Ls https://snapshots-2.stake-town.com/persistence/addrbook.json >$HOME/.persistenceCore/config/addrbook.json
 
 CONFIG_TOML=$HOME/.persistenceCore/config/config.toml
 SEEDS="ade4d8bc8cbe014af6ebdf3cb7b1e9ad36f412c0@seeds.polkachu.com:15456"
@@ -95,7 +95,7 @@ EOF
 persistenceCore tendermint unsafe-reset-all --home $HOME/.persistenceCore --keep-addr-book
 
 # Add snapshot here
-URL=https://snapshots.stake-town.com/persistence/core-1_latest.tar.lz4
+URL=https://snapshots-2.stake-town.com/persistence/core-1_latest.tar.lz4
 curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.persistenceCore
 [[ -f $HOME/.persistenceCore/data/upgrade-info.json ]] && cp $HOME/.persistenceCore/data/upgrade-info.json $HOME/.persistenceCore/cosmovisor/genesis/upgrade-info.json
 
