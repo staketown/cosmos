@@ -9,10 +9,10 @@ export -f selectPortSet && selectPortSet
 
 read -r -p "Enter node moniker: " NODE_MONIKER
 
-CHAIN_ID="grimoria-testnet-1"
+CHAIN_ID="sidechain-testnet-4"
 CHAIN_DENOM="uside"
 BINARY_NAME="sided"
-BINARY_VERSION_TAG="v0.9.0"
+BINARY_VERSION_TAG="v0.9.1"
 CHEAT_SHEET=""
 
 printDelimiter
@@ -42,7 +42,7 @@ curl -Ls https://snapshots-testnet.stake-town.com/side/genesis.json > $HOME/.sid
 curl -Ls https://snapshots-testnet.stake-town.com/side/addrbook.json > $HOME/.side/config/addrbook.json
 
 CONFIG_TOML=$HOME/.side/config/config.toml
-PEERS="6bef0693d7a31fed473b95123ad19b544b414093@202.182.119.24:26656,44f8009ed91fddd7ee51117482ede20fb4f33e78@149.28.156.79:26656"
+PEERS="93aedf483b7ac375b18030f2a2c5788f5acbc545@192.248.180.245:26656"
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
 SEEDS=""
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
