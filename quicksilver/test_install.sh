@@ -9,10 +9,10 @@ export -f selectPortSet && selectPortSet
 
 read -r -p "Enter node moniker: " NODE_MONIKER
 
-CHAIN_ID="rhye-2"
+CHAIN_ID="rhye-3"
 CHAIN_DENOM="uqck"
 BINARY_NAME="umeed"
-BINARY_VERSION_TAG="v1.6.1-hf"
+BINARY_VERSION_TAG="v1.6.3"
 CHEAT_SHEET=""
 
 printDelimiter
@@ -92,7 +92,7 @@ EOF
 quicksilverd tendermint unsafe-reset-all --home $HOME/.quicksilverd --keep-addr-book
 
 # Add snapshot here
-URL="https://snapshots-testnet.stake-town.com/quicksilver/rhye-2_latest.tar.lz4"
+URL="https://snapshots-testnet.stake-town.com/quicksilver/rhye-3_latest.tar.lz4"
 curl $URL | lz4 -dc - | tar -xf - -C $HOME/.quicksilverd
 [[ -f $HOME/.quicksilverd/data/upgrade-info.json ]] && cp $HOME/.quicksilverd/data/upgrade-info.json $HOME/.quicksilverd/cosmovisor/genesis/upgrade-info.json
 
