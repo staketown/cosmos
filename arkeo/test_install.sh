@@ -9,7 +9,7 @@ export -f selectPortSet && selectPortSet
 
 read -r -p "Enter node moniker: " NODE_MONIKER
 
-CHAIN_ID="arkeo"
+CHAIN_ID="arkeo-testnet-3"
 CHAIN_DENOM="uarkeo"
 BINARY_NAME="arkeod"
 BINARY_VERSION_TAG="1"
@@ -40,9 +40,9 @@ curl -s https://snapshots-testnet.stake-town.com/arkeo/genesis.json > $HOME/.ark
 curl -s https://snapshots-testnet.stake-town.com/arkeo/addrbook.json > $HOME/.arkeo/config/addrbook.json
 
 CONFIG_TOML=$HOME/.arkeo/config/config.toml
-PEERS=""
+PEERS="bb761c984bd990f3055f412917396754cd22af7a@validator31.innovationtheory.com:26656,81e36f94351d47803b8e1e0d0ad2d2e8e14ed36b@validator32.innovationtheory.com:26656"
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
-SEEDS="aab68f68841eb072d996cd1b45c2b9c9b612d95b@seed.innovationtheory.com:26656,85341b428cf5993fcc04a324d95d14590ae5172c@seed2.innovationtheory.com:26656"
+SEEDS="9dfa5f2d19c1174baf5e597965394269e654f9b7@seed31.innovationtheory.com:26656"
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
 
 APP_TOML=$HOME/.arkeo/config/app.toml
@@ -94,7 +94,7 @@ EOF
 arkeod tendermint unsafe-reset-all --home $HOME/.arkeo --keep-addr-book
 
 # Add snapshot here
-URL="https://snapshots-testnet.stake-town.com/arkeo/arkeo_latest.tar.lz4"
+URL="https://snapshots-testnet.stake-town.com/arkeo/arkeo-testnet-3_latest.tar.lz4"
 curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.arkeo
 [[ -f $HOME/.arkeo/data/upgrade-info.json ]]  && cp $HOME/.arkeo/data/upgrade-info.json $HOME/.arkeo/cosmovisor/genesis/upgrade-info.json
 
