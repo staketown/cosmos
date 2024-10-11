@@ -32,8 +32,8 @@ cd $HOME/arkeo || return
 git checkout master
 TAG=testnet make install
 
-arkeod config keyring-backend os
-arkeod config chain-id $CHAIN_ID
+arkeod config set client keyring-backend os
+arkeod config set client chain-id $CHAIN_ID
 arkeod init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://snapshots-testnet.stake-town.com/arkeo/genesis.json > $HOME/.arkeo/config/genesis.json
