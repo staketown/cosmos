@@ -39,8 +39,8 @@ prysmd config chain-id $CHAIN_ID
 prysmd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 # Download genesis and addrbook
-curl -Ls https://support.synergynodes.com/genesis/prysm_testnet/genesis.json > $HOME/.prysm/config/genesis.json
-curl -Ls https://support.synergynodes.com/addrbook/prysm_testnet/addrbook.json > $HOME/.prysm/config/addrbook.json
+curl -s https://snapshots-testnet.stake-town.com/prysm/genesis.json > $HOME/.prysm/config/genesis.json
+curl -s https://snapshots-testnet.stake-town.com/prysm/addrbook.json > $HOME/.prysm/config/addrbook.json
 
 CONFIG_TOML=$HOME/.prysm/config/config.toml
 PEERS="69509925a520c5c7c5f505ec4cedab95073388e5@136.243.13.36:29856,bc1a37c7656e6f869a01bb8dabaf9ca58fe61b0c@5.9.73.170:29856,b377fd0b14816eef8e12644340845c127d1e7d93@79.13.87.34:26656,c80143f844fd8da4f76a0a43de86936f72372168@184.107.57.137:18656,afc7a20c15bde738e68781238307f4481938109d@94.130.35.120:18656"
@@ -56,7 +56,7 @@ sed -i 's|^pruning-interval *=.*|pruning-interval = "19"|g' $APP_TOML
 sed -i -e "s/^filter_peers *=.*/filter_peers = \"true\"/" $CONFIG_TOML
 indexer="null"
 sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $CONFIG_TOML
-#sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0uprysm"|g' $APP_TOML
+sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0uprysm"|g' $APP_TOML
 
 # Customize ports
 CLIENT_TOML=$HOME/.prysm/config/client.toml
@@ -96,7 +96,8 @@ EOF
 prysmd tendermint unsafe-reset-all --home $HOME/.prysm --keep-addr-book
 
 # Add snapshot here
-curl -L https://server-5.itrocket.net/testnet/prysm/prysm_2024-10-15_427127_snap.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.prysm
+URL="https://snapshots-testnet.stake-town.com/prysm/prysm-devnet-1_latest.tar.lz4"
+curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.prysm
 [[ -f $HOME/.prysm/data/upgrade-info.json ]] && cp $HOME/.prysm/data/upgrade-info.json $HOME/.prysm/cosmovisor/genesis/upgrade-info.json
 
 sudo systemctl daemon-reload
