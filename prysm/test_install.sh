@@ -9,10 +9,10 @@ export -f selectPortSet && selectPortSet
 
 read -r -p "Enter node moniker: " NODE_MONIKER
 
-CHAIN_ID="axone-dentrite-1"
-CHAIN_DENOM="uaxone"
-BINARY_NAME="axoned"
-BINARY_VERSION_TAG="v10.0.0"
+CHAIN_ID="prysm-devnet-1"
+CHAIN_DENOM="uprysm"
+BINARY_NAME="prysmd"
+BINARY_VERSION_TAG="v0.1.0-devnet"
 CHEAT_SHEET=""
 
 printDelimiter
@@ -27,28 +27,28 @@ source <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/utils
 echo "" && printGreen "Building binaries..." && sleep 1
 
 cd $HOME || return
-rm -rf axoned
-git clone https://github.com/axone-protocol/axoned.git
-cd axoned || return
+rm -rf prysm
+git clone https://github.com/kleomedes/prysm.git
+cd prysm || return
 git checkout $BINARY_VERSION_TAG
 
 make install
 
-axoned config set client keyring-backend os
-axoned config set client chain-id $CHAIN_ID
-axoned init "$NODE_MONIKER" --chain-id $CHAIN_ID
+prysmd config keyring-backend os
+prysmd config chain-id $CHAIN_ID
+prysmd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 # Download genesis and addrbook
-curl -Ls https://snapshots.kjnodes.com/axone-testnet/genesis.json > $HOME/.axoned/config/genesis.json
-curl -Ls https://snapshots.kjnodes.com/axone-testnet/addrbook.json > $HOME/.axoned/config/addrbook.json
+curl -Ls https://support.synergynodes.com/genesis/prysm_testnet/genesis.json > $HOME/.prysm/config/genesis.json
+curl -Ls https://support.synergynodes.com/addrbook/prysm_testnet/addrbook.json > $HOME/.prysm/config/addrbook.json
 
-CONFIG_TOML=$HOME/.axoned/config/config.toml
-PEERS=""
+CONFIG_TOML=$HOME/.prysm/config/config.toml
+PEERS="69509925a520c5c7c5f505ec4cedab95073388e5@136.243.13.36:29856,bc1a37c7656e6f869a01bb8dabaf9ca58fe61b0c@5.9.73.170:29856,b377fd0b14816eef8e12644340845c127d1e7d93@79.13.87.34:26656,c80143f844fd8da4f76a0a43de86936f72372168@184.107.57.137:18656,afc7a20c15bde738e68781238307f4481938109d@94.130.35.120:18656"
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
-SEEDS="3f472746f46493309650e5a033076689996c8881@axone-testnet.rpc.kjnodes.com:13659"
+SEEDS=""
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
 
-APP_TOML=$HOME/.axoned/config/app.toml
+APP_TOML=$HOME/.prysm/config/app.toml
 sed -i 's|^pruning *=.*|pruning = "custom"|g' $APP_TOML
 sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|g' $APP_TOML
 sed -i 's|^pruning-keep-every *=.*|pruning-keep-every = "0"|g' $APP_TOML
@@ -56,10 +56,10 @@ sed -i 's|^pruning-interval *=.*|pruning-interval = "19"|g' $APP_TOML
 sed -i -e "s/^filter_peers *=.*/filter_peers = \"true\"/" $CONFIG_TOML
 indexer="null"
 sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $CONFIG_TOML
-sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0uaxone"|g' $APP_TOML
+#sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0uprysm"|g' $APP_TOML
 
 # Customize ports
-CLIENT_TOML=$HOME/.axoned/config/client.toml
+CLIENT_TOML=$HOME/.prysm/config/client.toml
 sed -i.bak -e "s/^external_address *=.*/external_address = \"$(wget -qO- eth0.me):$PORT_PPROF_LADDR\"/" $CONFIG_TOML
 sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:$PORT_PROXY_APP\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:$PORT_RPC\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:$PORT_P2P\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:$PORT_PPROF_LADDR\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":$PORT_PROMETHEUS\"%" $CONFIG_TOML && \
 sed -i.bak -e "s%^address = \"localhost:9090\"%address = \"0.0.0.0:$PORT_GRPC\"%; s%^address = \"localhost:9091\"%address = \"0.0.0.0:$PORT_GRPC_WEB\"%; s%^address = \"tcp://localhost:1317\"%address = \"tcp://0.0.0.0:$PORT_API\"%" $APP_TOML && \
@@ -68,15 +68,15 @@ sed -i.bak -e "s%^node = \"tcp://localhost:26657\"%node = \"tcp://localhost:$POR
 printGreen "Install and configure cosmovisor..." && sleep 1
 
 go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.4.0
-mkdir -p ~/.axoned/cosmovisor/genesis/bin
-mkdir -p ~/.axoned/cosmovisor/upgrades
-cp ~/go/bin/axoned $HOME/.axoned/cosmovisor/genesis/bin
+mkdir -p ~/.prysm/cosmovisor/genesis/bin
+mkdir -p ~/.prysm/cosmovisor/upgrades
+cp ~/go/bin/prysmd $HOME/.prysm/cosmovisor/genesis/bin
 
 printGreen "Starting service and synchronization..." && sleep 1
 
-sudo tee /etc/systemd/system/axoned.service > /dev/null << EOF
+sudo tee /etc/systemd/system/prysmd.service > /dev/null << EOF
 [Unit]
-Description=Axone Node
+Description=Prysm Node
 After=network-online.target
 [Service]
 User=$USER
@@ -84,8 +84,8 @@ ExecStart=$(which cosmovisor) run start
 Restart=on-failure
 RestartSec=3
 LimitNOFILE=10000
-Environment="DAEMON_NAME=axoned"
-Environment="DAEMON_HOME=$HOME/.axoned"
+Environment="DAEMON_NAME=prysmd"
+Environment="DAEMON_HOME=$HOME/.prysm"
 Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=false"
 Environment="DAEMON_RESTART_AFTER_UPGRADE=true"
 Environment="UNSAFE_SKIP_BACKUP=true"
@@ -93,15 +93,15 @@ Environment="UNSAFE_SKIP_BACKUP=true"
 WantedBy=multi-user.target
 EOF
 
-axoned tendermint unsafe-reset-all --home $HOME/.axoned --keep-addr-book
+prysmd tendermint unsafe-reset-all --home $HOME/.prysm --keep-addr-book
 
 # Add snapshot here
-curl -L https://snapshots.kjnodes.com/axone-testnet/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.axoned
-[[ -f $HOME/.axoned/data/upgrade-info.json ]] && cp $HOME/.axoned/data/upgrade-info.json $HOME/.axoned/cosmovisor/genesis/upgrade-info.json
+curl -L https://server-5.itrocket.net/testnet/prysm/prysm_2024-10-15_427127_snap.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.prysm
+[[ -f $HOME/.prysm/data/upgrade-info.json ]] && cp $HOME/.prysm/data/upgrade-info.json $HOME/.prysm/cosmovisor/genesis/upgrade-info.json
 
 sudo systemctl daemon-reload
-sudo systemctl enable axoned
-sudo systemctl start axoned
+sudo systemctl enable prysmd
+sudo systemctl start prysmd
 
 printDelimiter
 printGreen "Check logs:            sudo journalctl -u $BINARY_NAME -f -o cat"

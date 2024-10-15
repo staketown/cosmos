@@ -34,7 +34,7 @@ bash <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/composa
 | Osmosis       |  16   |
 | Arkeo Network |  17   |
 | Axelar        |  18   |
-| Axone         |  19   |
+| Prysm         |  19   |
 | Quasar        |  20   |
 | Aura          |  21   |
 | Mantra        |  22   |
