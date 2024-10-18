@@ -41,8 +41,8 @@ rm ~/wardend_Linux_x86_64.zip
 
 wardend version
 
-wardend config keyring-backend os
-wardend config chain-id $CHAIN_ID
+wardend config set client keyring-backend os
+wardend config set client chain-id $CHAIN_ID
 wardend init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -Ls https://snapshots-testnet.stake-town.com/warden/genesis.json > $HOME/.warden/config/genesis.json
