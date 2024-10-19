@@ -95,8 +95,9 @@ EOF
 exocored tendermint unsafe-reset-all --home $HOME/.exocored --keep-addr-book
 
 # Add snapshot here
-#curl -L https://snapshots.polkachu.com/snapshots/evmos/evmos_16703407.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.evmosd
-#[[ -f $HOME/.evmosd/data/upgrade-info.json ]]  && cp $HOME/.evmosd/data/upgrade-info.json $HOME/.evmosd/cosmovisor/genesis/upgrade-info.json
+URL="https://snapshots-testnet.stake-town.com/exocore/exocoretestnet_233-6_latest.tar.lz4"
+curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.exocored
+[[ -f $HOME/.exocored/data/upgrade-info.json ]]  && cp $HOME/.exocored/data/upgrade-info.json $HOME/.exocored/cosmovisor/genesis/upgrade-info.json
 
 sudo systemctl daemon-reload
 sudo systemctl enable exocored
