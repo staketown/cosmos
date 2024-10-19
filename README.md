@@ -45,3 +45,4 @@ bash <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/composa
 | CrossFi       |  27   |
 | Persistence   |  28   |
 | Neutron       |  29   |
+| Exocore       |  30   |

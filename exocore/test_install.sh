@@ -9,11 +9,11 @@ export -f selectPortSet && selectPortSet
 
 read -r -p "Enter node moniker: " NODE_MONIKER
 
-CHAIN_ID="athens_7001-1"
-CHAIN_DENOM="azeta"
-BINARY_NAME="zetacored"
-BINARY_VERSION_TAG="galileo-3-v1.1.0-beta1"
-# CHEAT_SHEET="https://nodes.stake-town.com/zetachain"
+CHAIN_ID="exocoretestnet_233-6"
+CHAIN_DENOM="hua"
+BINARY_NAME="exocored"
+BINARY_VERSION_TAG="v1.0.6"
+CHEAT_SHEET=""
 
 printDelimiter
 echo -e "Node moniker:       $NODE_MONIKER"
@@ -26,26 +26,28 @@ source <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/utils
 
 echo "" && printGreen "Building binaries..." && sleep 1
 
-mkdir -p $HOME/go/bin
-curl -L https://zetachain-external-files.s3.amazonaws.com/binaries/athens3/v6.0.0/zetacored-ubuntu-20-amd64 > $HOME/go/bin/zetacored
-chmod +x $HOME/go/bin/zetacored
+cd $HOME || return
+rm -rf exocore
+git clone https://github.com/ExocoreNetwork/exocore.git
+cd exocore || return
+git checkout $BINARY_VERSION_TAG
 
-zetacored version # v6.0.0
+make install
 
-zetacored config keyring-backend test
-zetacored config chain-id $CHAIN_ID
-zetacored init "$NODE_MONIKER" --chain-id $CHAIN_ID
+exocored config keyring-backend os
+exocored config chain-id $CHAIN_ID
+exocored init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -L https://raw.githubusercontent.com/zeta-chain/network-athens3/main/network_files/config/genesis.json > $HOME/.zetacored/config/genesis.json
-curl -L https://snapshots1-testnet.nodejumper.io/zetachain-testnet/addrbook.json > $HOME/.zetacored/config/addrbook.json
+curl -s https://raw.githubusercontent.com/ExocoreNetwork/testnets/refs/heads/main/genesis/exocoretestnet_233-6.json > $HOME/.exocored/config/genesis.json
+#curl -s https://snapshots.polkachu.com/addrbook/evmos/addrbook.json > $HOME/.evmosd/config/addrbook.json
 
-CONFIG_TOML=$HOME/.zetacored/config/config.toml
+CONFIG_TOML=$HOME/.exocored/config/config.toml
 PEERS=""
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
-SEEDS="3f472746f46493309650e5a033076689996c8881@zetachain-testnet.rpc.kjnodes.com:16059"
+SEEDS="5dfa2ddc4ce3535ef98470ffe108e6e12edd1955@seed2t.exocore-restaking.com:26656,4cc9c970fe52be4568942693ecfc2ee2cdb63d44@seed1t.exocore-restaking.com:26656"
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
 
-APP_TOML=$HOME/.zetacored/config/app.toml
+APP_TOML=$HOME/.exocored/config/app.toml
 sed -i 's|^pruning *=.*|pruning = "custom"|g' $APP_TOML
 sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|g' $APP_TOML
 sed -i 's|^pruning-keep-every *=.*|pruning-keep-every = "0"|g' $APP_TOML
@@ -53,10 +55,10 @@ sed -i 's|^pruning-interval *=.*|pruning-interval = "19"|g' $APP_TOML
 sed -i -e "s/^filter_peers *=.*/filter_peers = \"true\"/" $CONFIG_TOML
 indexer="null"
 sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $CONFIG_TOML
-sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001azeta"|g' $APP_TOML
+sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0001hua"|g' $APP_TOML
 
 # Customize ports
-CLIENT_TOML=$HOME/.zetacored/config/client.toml
+CLIENT_TOML=$HOME/.exocored/config/client.toml
 sed -i.bak -e "s/^external_address *=.*/external_address = \"$(wget -qO- eth0.me):$PORT_PPROF_LADDR\"/" $CONFIG_TOML
 sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:$PORT_PROXY_APP\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:$PORT_RPC\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:$PORT_P2P\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:$PORT_PPROF_LADDR\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":$PORT_PROMETHEUS\"%" $CONFIG_TOML && \
 sed -i.bak -e "s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:$PORT_GRPC\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:$PORT_GRPC_WEB\"%; s%^address = \"tcp://0.0.0.0:1317\"%address = \"tcp://0.0.0.0:$PORT_API\"%" $APP_TOML && \
@@ -65,15 +67,15 @@ sed -i.bak -e "s%^node = \"tcp://localhost:26657\"%node = \"tcp://localhost:$POR
 printGreen "Install and configure cosmovisor..." && sleep 1
 
 go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.4.0
-mkdir -p ~/.zetacored/cosmovisor/genesis/bin
-mkdir -p ~/.zetacored/cosmovisor/upgrades
-cp ~/go/bin/zetacored ~/.zetacored/cosmovisor/genesis/bin
+mkdir -p ~/.exocored/cosmovisor/genesis/bin
+mkdir -p ~/.exocored/cosmovisor/upgrades
+cp ~/go/bin/exocored ~/.exocored/cosmovisor/genesis/bin
 
 printGreen "Starting service and synchronization..." && sleep 1
 
-sudo tee /etc/systemd/system/zetacored.service > /dev/null << EOF
+sudo tee /etc/systemd/system/exocored.service > /dev/null << EOF
 [Unit]
-Description=ZetaChain Node
+Description=Exocore Node
 After=network-online.target
 [Service]
 User=$USER
@@ -81,8 +83,8 @@ ExecStart=$(which cosmovisor) run start
 Restart=on-failure
 RestartSec=3
 LimitNOFILE=10000
-Environment="DAEMON_NAME=zetacored"
-Environment="DAEMON_HOME=$HOME/.zetacored"
+Environment="DAEMON_NAME=exocored"
+Environment="DAEMON_HOME=$HOME/.exocored"
 Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=false"
 Environment="DAEMON_RESTART_AFTER_UPGRADE=true"
 Environment="UNSAFE_SKIP_BACKUP=true"
@@ -90,15 +92,15 @@ Environment="UNSAFE_SKIP_BACKUP=true"
 WantedBy=multi-user.target
 EOF
 
-zetacored tendermint unsafe-reset-all --home $HOME/.zetacored --keep-addr-book
+exocored tendermint unsafe-reset-all --home $HOME/.exocored --keep-addr-book
 
 # Add snapshot here
-SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/zetachain-testnet/info.json | jq -r .fileName)
-curl "https://snapshots1-testnet.nodejumper.io/zetachain-testnet/${SNAP_NAME}" | lz4 -dc - | tar -xf - -C "$HOME/.zetacored"
+#curl -L https://snapshots.polkachu.com/snapshots/evmos/evmos_16703407.tar.lz4 | lz4 -dc - | tar -xf - -C $HOME/.evmosd
+#[[ -f $HOME/.evmosd/data/upgrade-info.json ]]  && cp $HOME/.evmosd/data/upgrade-info.json $HOME/.evmosd/cosmovisor/genesis/upgrade-info.json
 
 sudo systemctl daemon-reload
-sudo systemctl enable zetacored
-sudo systemctl start zetacored
+sudo systemctl enable exocored
+sudo systemctl start exocored
 
 printDelimiter
 printGreen "Check logs:            sudo journalctl -u $BINARY_NAME -f -o cat"
