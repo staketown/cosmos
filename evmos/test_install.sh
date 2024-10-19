@@ -10,7 +10,7 @@ export -f selectPortSet && selectPortSet
 read -r -p "Enter node moniker: " NODE_MONIKER
 
 CHAIN_ID="evmos_9000-4"
-CHAIN_DENOM="evmosd"
+CHAIN_DENOM="atevmos"
 BINARY_NAME="evmosd"
 BINARY_VERSION_TAG="v20.0.0-rc3"
 CHEAT_SHEET=""
