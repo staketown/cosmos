@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="sidechain-testnet-4"
 CHAIN_DENOM="uside"
 BINARY_NAME="sided"
-BINARY_VERSION_TAG="v0.9.2"
+BINARY_VERSION_TAG="v0.9.3"
 CHEAT_SHEET=""
 
 printDelimiter
