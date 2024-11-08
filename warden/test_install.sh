@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="chiado_10010-1"
 CHAIN_DENOM="award"
 BINARY_NAME="wardend"
-BINARY_VERSION_TAG="v0.5.2"
+BINARY_VERSION_TAG="v0.5.4"
 CHEAT_SHEET=""
 
 printDelimiter
