@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="osmosis-1"
 CHAIN_DENOM="uosmo"
 BINARY_NAME="osmosisd"
-BINARY_VERSION_TAG="v26.0.0"
+BINARY_VERSION_TAG="v27.0.0"
 CHEAT_SHEET=""
 
 printDelimiter
