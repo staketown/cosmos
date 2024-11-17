@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="rhye-3"
 CHAIN_DENOM="uqck"
 BINARY_NAME="umeed"
-BINARY_VERSION_TAG="v1.7.0"
+BINARY_VERSION_TAG="v1.7.1"
 CHEAT_SHEET=""
 
 printDelimiter
