@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="celestia"
 CHAIN_DENOM="utia"
 BINARY_NAME="celestia-appd"
-BINARY_VERSION_TAG="v2.3.1"
+BINARY_VERSION_TAG="v3.0.2"
 CHEAT_SHEET=""
 
 printDelimiter
@@ -32,7 +32,7 @@ git clone https://github.com/celestiaorg/celestia-app.git
 cd $HOME/celestia-app || return
 git checkout $BINARY_VERSION_TAG
 
-make install
+make install && make enable-bbr
 
 celestia-appd config keyring-backend os
 celestia-appd config chain-id $CHAIN_ID
