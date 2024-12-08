@@ -9,10 +9,10 @@ export -f selectPortSet && selectPortSet
 
 read -r -p "Enter node moniker: " NODE_MONIKER
 
-CHAIN_ID="elystestnet-1"
+CHAIN_ID="elysicstestnet-1"
 CHAIN_DENOM="uelys"
 BINARY_NAME="elysd"
-BINARY_VERSION_TAG="v0.53.0"
+BINARY_VERSION_TAG="v0.54.0"
 CHEAT_SHEET=""
 
 printDelimiter
@@ -42,7 +42,7 @@ curl -s https://snapshots-testnet.stake-town.com/elys/genesis.json > $HOME/.elys
 curl -s https://snapshots-testnet.stake-town.com/elys/addrbook.json > $HOME/.elys/config/addrbook.json
 
 CONFIG_TOML=$HOME/.elys/config/config.toml
-PEERS="ae22b82b1dc34fa0b1a64854168692310f562136@147.135.104.10:26656,cdf9ae8529aa00e6e6703b28f3dcfdd37e07b27c@147.135.9.107:26656"
+PEERS="4771b02434d797b9728a072b2373e7146fc7bb01@136.243.17.170:33656,5e1d194bdc4be80988ded0e24b34f9f3c0519052@5.79.98.1:57656"
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
 SEEDS=""
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
@@ -57,7 +57,7 @@ sed -i 's|^pruning-interval *=.*|pruning-interval = "19"|g' $APP_TOML
 sed -i -e "s/^filter_peers *=.*/filter_peers = \"true\"/" $CONFIG_TOML
 indexer="null"
 sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $CONFIG_TOML
-sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0018ibc/2180E84E20F5679FCC760D8C165B60F42065DEF7F46A72B447CFF1B7DC6C0A65,0.00025ibc/E2D2F6ADCC68AA3384B2F5DFACCA437923D137C14E86FB8A10207CF3BED0C8D4,0.00025uelys"|g' $APP_TOML
+sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0003uelys,0.001ibc/F082B65C88E4B6D5EF1DB243CDA1D331D002759E938A0F5CD3FFDC5D53B3E349,0.001ibc/C4CFF46FD6DE35CA4CF4CE031E643C8FDC9BA4B99AE598E9B0ED98FE3A2319F9"|g' $APP_TOML
 
 
 # Customize ports
@@ -98,7 +98,7 @@ EOF
 elysd tendermint unsafe-reset-all --home $HOME/.elys --keep-addr-book
 
 # Add snapshot here
-URL="https://snapshots-testnet.stake-town.com/elys/elystestnet-1_latest.tar.lz4"
+URL="https://snapshots-testnet.stake-town.com/elys/elysicstestnet-1_latest.tar.lz4"
 curl $URL | lz4 -dc - | tar -xf - -C $HOME/.elys
 [[ -f $HOME/.elys/data/upgrade-info.json ]] && cp $HOME/.elys/data/upgrade-info.json $HOME/.elys/cosmovisor/genesis/upgrade-info.json
 
