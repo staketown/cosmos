@@ -38,9 +38,8 @@ elysd config keyring-backend os
 elysd config chain-id $CHAIN_ID
 elysd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -o $HOME/.elys/config/genesis.json https://raw.githubusercontent.com/elys-network/networks/refs/heads/main/mainnet/genesis.json
-#curl -s https://snapshots-testnet.stake-town.com/elys/genesis.json > $HOME/.elys/config/genesis.json
-#curl -s https://snapshots-testnet.stake-town.com/elys/addrbook.json > $HOME/.elys/config/addrbook.json
+curl -s https://snapshots-1.stake-town.com/elys/genesis.json > $HOME/.elys/config/genesis.json
+curl -s https://snapshots-1.stake-town.com/elys/addrbook.json > $HOME/.elys/config/addrbook.json
 
 CONFIG_TOML=$HOME/.elys/config/config.toml
 PEERS="ca1597da9e6864f2b3bab6ead76ee6093fac24ed@207.121.63.124:41656,d95bdf717eb751667586b5e31083770630742038@65.109.58.158:22156"
@@ -49,7 +48,7 @@ SEEDS=""
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
 
 APP_TOML=$HOME/.elys/config/app.toml
-sed -i "s/^db_backend *=.*/db_backend = \"pebbledb\"/" $HOME/.elys/config/config.toml
+sed -i "s/^db_backend *=.*/db_backend = \"pebbledb\"/" $CONFIG_TOML
 sed -i "s/^app-db-backend *=.*/app-db-backend = \"pebbledb\"/" $APP_TOML
 sed -i 's|^pruning *=.*|pruning = "custom"|g' $APP_TOML
 sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|g' $APP_TOML
@@ -98,9 +97,9 @@ EOF
 elysd tendermint unsafe-reset-all --home $HOME/.elys --keep-addr-book
 
 # Add snapshot here
-#URL="https://snapshots-testnet.stake-town.com/elys/elysicstestnet-1_latest.tar.lz4"
-#curl $URL | lz4 -dc - | tar -xf - -C $HOME/.elys
-#[[ -f $HOME/.elys/data/upgrade-info.json ]] && cp $HOME/.elys/data/upgrade-info.json $HOME/.elys/cosmovisor/genesis/upgrade-info.json
+URL="https://snapshots-1.stake-town.com/elys/elys-1_latest.tar.lz4"
+curl $URL | lz4 -dc - | tar -xf - -C $HOME/.elys
+[[ -f $HOME/.elys/data/upgrade-info.json ]] && cp $HOME/.elys/data/upgrade-info.json $HOME/.elys/cosmovisor/genesis/upgrade-info.json
 
 sudo systemctl daemon-reload
 sudo systemctl enable elysd
