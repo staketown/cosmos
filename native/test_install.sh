@@ -35,8 +35,8 @@ git checkout $BINARY_VERSION_TAG
 make build
 mv $HOME/gonative/out/gonative $HOME/go/bin
 
-gonative config keyring-backend os
-gonative config chain-id $CHAIN_ID
+gonative config set client keyring-backend os
+gonative config set client chain-id $CHAIN_ID
 gonative init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://snapshots-testnet.stake-town.com/native/genesis.json > $HOME/.gonative/config/genesis.json
