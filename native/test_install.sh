@@ -49,6 +49,9 @@ SEEDS="ade4d8bc8cbe014af6ebdf3cb7b1e9ad36f412c0@testnet-seeds.polkachu.com:30656
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
 
 APP_TOML=$HOME/.gonative/config/app.toml
+sed -i "s/^db_backend *=.*/db_backend = \"pebbledb\"/" $CONFIG_TOML
+# TODO: switch to pebble once it's fixed. https://github.com/cosmos/cosmos-sdk/issues/23133
+sed -i "s/^app-db-backend *=.*/app-db-backend = \"goleveldb\"/" $APP_TOML
 sed -i 's|^pruning *=.*|pruning = "custom"|g' $APP_TOML
 sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|g' $APP_TOML
 sed -i 's|^pruning-keep-every *=.*|pruning-keep-every = "0"|g' $APP_TOML
@@ -56,7 +59,7 @@ sed -i 's|^pruning-interval *=.*|pruning-interval = "19"|g' $APP_TOML
 sed -i -e "s/^filter_peers *=.*/filter_peers = \"true\"/" $CONFIG_TOML
 indexer="null"
 sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $CONFIG_TOML
-#sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.005untiv"|g' $APP_TOML
+sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.1untiv"|g' $APP_TOML
 
 # Customize ports
 CLIENT_TOML=$HOME/.gonative/config/client.toml
@@ -93,7 +96,7 @@ Environment="UNSAFE_SKIP_BACKUP=true"
 WantedBy=multi-user.target
 EOF
 
-gonative tendermint unsafe-reset-all --home $HOME/.gonative --keep-addr-book
+gonative comet unsafe-reset-all --home $HOME/.gonative --keep-addr-book
 
 # Add snapshot here
 #URL="https://snapshots-testnet.stake-town.com/crossfi/crossfi-evm-testnet-1_latest.tar.lz4"
