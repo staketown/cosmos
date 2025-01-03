@@ -39,8 +39,8 @@ gonative config keyring-backend os
 gonative config chain-id $CHAIN_ID
 gonative init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -s https://snapshots.polkachu.com/testnet-genesis/native/genesis.json > $HOME/.gonative/config/genesis.json
-#curl -s https://snapshots-testnet.stake-town.com/crossfi/addrbook.json > $HOME/.gonative/config/addrbook.json
+curl -s https://snapshots-testnet.stake-town.com/native/genesis.json > $HOME/.gonative/config/genesis.json
+curl -s https://snapshots-testnet.stake-town.com/native/addrbook.json > $HOME/.gonative/config/addrbook.json
 
 CONFIG_TOML=$HOME/.gonative/config/config.toml
 PEERS=""
@@ -99,9 +99,9 @@ EOF
 gonative comet unsafe-reset-all --home $HOME/.gonative --keep-addr-book
 
 # Add snapshot here
-#URL="https://snapshots-testnet.stake-town.com/crossfi/crossfi-evm-testnet-1_latest.tar.lz4"
-#curl $URL | lz4 -dc - | tar -xf - -C $HOME/.gonative
-#[[ -f $HOME/.gonative/data/upgrade-info.json ]] && cp $HOME/.gonative/data/upgrade-info.json $HOME/.gonative/cosmovisor/genesis/upgrade-info.json
+URL="https://snapshots-testnet.stake-town.com/native/native-t1_latest.tar.lz4"
+curl $URL | lz4 -dc - | tar -xf - -C $HOME/.gonative
+[[ -f $HOME/.gonative/data/upgrade-info.json ]] && cp $HOME/.gonative/data/upgrade-info.json $HOME/.gonative/cosmovisor/genesis/upgrade-info.json
 
 sudo systemctl daemon-reload
 sudo systemctl enable gonatived
