@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="native-t1"
 CHAIN_DENOM="untiv"
 BINARY_NAME="gonative"
-BINARY_VERSION_TAG="v0.1.0"
+BINARY_VERSION_TAG="v0.1.1"
 CHEAT_SHEET=""
 
 printDelimiter
