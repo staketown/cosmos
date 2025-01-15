@@ -49,8 +49,8 @@ SEEDS="ade4d8bc8cbe014af6ebdf3cb7b1e9ad36f412c0@testnet-seeds.polkachu.com:30656
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
 
 APP_TOML=$HOME/.gonative/config/app.toml
-sed -i "s/^db_backend *=.*/db_backend = \"pebbledb\"/" $CONFIG_TOML
 # TODO: switch to pebble once it's fixed. https://github.com/cosmos/cosmos-sdk/issues/23133
+sed -i "s/^db_backend *=.*/db_backend = \"goleveldb\"/" $CONFIG_TOML
 sed -i "s/^app-db-backend *=.*/app-db-backend = \"goleveldb\"/" $APP_TOML
 sed -i 's|^pruning *=.*|pruning = "custom"|g' $APP_TOML
 sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|g' $APP_TOML
