@@ -34,8 +34,8 @@ git checkout $BINARY_VERSION_TAG
 
 make install
 
-babylond config keyring-backend os
-babylond config chain-id $CHAIN_ID
+babylond config set client keyring-backend os
+babylond config set client chain-id $CHAIN_ID
 babylond init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -L https://snapshots.polkachu.com/testnet-genesis/babylon/genesis.json > $HOME/.babylond/config/genesis.json
