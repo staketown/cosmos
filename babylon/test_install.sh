@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="bbn-test-5"
 CHAIN_DENOM="ubbn"
 BINARY_NAME="babylond"
-BINARY_VERSION_TAG="v1.0.0-rc.1"
+BINARY_VERSION_TAG="v1.0.0-rc.3"
 CHEAT_SHEET=""
 
 printDelimiter
