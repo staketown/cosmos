@@ -58,7 +58,7 @@ sed -i 's|^pruning-keep-every *=.*|pruning-keep-every = "0"|g' $APP_TOML
 sed -i 's|^pruning-interval *=.*|pruning-interval = "19"|g' $APP_TOML
 indexer="null"
 sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $CONFIG_TOML
-sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.1untiv"|g' $APP_TOML
+sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.08untiv"|g' $APP_TOML
 
 # Customize ports
 CLIENT_TOML=$HOME/.gonative/config/client.toml
