@@ -38,7 +38,7 @@ bash <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/composa
 | Quasar         |  20   |
 | Aura           |  21   |
 | Mantra         |  22   |
-| OG             |  23   |
+| Babylon        |  23   |
 | Side Protocol  |  24   |
 | QuickSilver    |  25   |
 | Planq          |  26   |
