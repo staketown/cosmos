@@ -11,7 +11,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 
 CHAIN_ID="quicksilver-2"
 CHAIN_DENOM="uqck"
-BINARY_NAME="umeed"
+BINARY_NAME="quicksilverd"
 BINARY_VERSION_TAG="v1.7.5"
 CHEAT_SHEET=""
 
@@ -75,7 +75,7 @@ printGreen "Starting service and synchronization..." && sleep 1
 
 sudo tee /etc/systemd/system/quicksilverd.service > /dev/null << EOF
 [Unit]
-Description=Quick Silver Node
+Description=QuickSilver Node
 After=network-online.target
 [Service]
 User=$USER
