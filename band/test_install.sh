@@ -10,7 +10,7 @@ export -f selectPortSet && selectPortSet
 read -r -p "Enter node moniker: " NODE_MONIKER
 
 CHAIN_ID="band-v3-testnet-1"
-CHAIN_DENOM="uprysm"
+CHAIN_DENOM="uband"
 BINARY_NAME="bandd"
 BINARY_VERSION_TAG="v3.0.0-rc2"
 CHEAT_SHEET=""
@@ -34,8 +34,8 @@ git checkout $BINARY_VERSION_TAG
 
 make install
 
-bandd config keyring-backend os
-bandd config chain-id $CHAIN_ID
+bandd config set client keyring-backend os
+bandd config set client chain-id $CHAIN_ID
 bandd init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 # Download genesis and addrbook
@@ -54,8 +54,7 @@ sed -i 's|^pruning-keep-recent  *=.*|pruning-keep-recent = "100"|g' $APP_TOML
 sed -i 's|^pruning-keep-every *=.*|pruning-keep-every = "0"|g' $APP_TOML
 sed -i 's|^pruning-interval *=.*|pruning-interval = "19"|g' $APP_TOML
 sed -i -e "s/^filter_peers *=.*/filter_peers = \"true\"/" $CONFIG_TOML
-sed -i 's/timeout_commit =.*/timeout_commit = "700ms"/g' $CONFIG_TOML
-sed -i -e "s/^filter_peers *=.*/filter_peers = \"true\"/" $CONFIG_TOML
+sed -E -i "s/timeout_commit = \".*\"/timeout_commit = \"700ms\"/" $CONFIG_TOML
 indexer="null"
 sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $CONFIG_TOML
 sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0025uband"|g' $APP_TOML
