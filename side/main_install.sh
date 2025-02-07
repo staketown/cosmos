@@ -38,10 +38,9 @@ sided config set client keyring-backend os
 sided config set client chain-id $CHAIN_ID
 sided init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -Ls https://snapshots.kjnodes.com/side/genesis.json >$HOME/.side/config/genesis.json
-curl -Ls https://snapshots.kjnodes.com/side/addrbook.json >$HOME/.side/config/addrbook.json
-#curl -Ls https://snapshots-testnet.stake-town.com/side/genesis.json > $HOME/.side/config/genesis.json
-#curl -Ls https://snapshots-testnet.stake-town.com/side/addrbook.json > $HOME/.side/config/addrbook.json
+
+curl -Ls https://snapshots-1.stake-town.com/side/genesis.json > $HOME/.side/config/genesis.json
+curl -Ls https://snapshots-1.stake-town.com/side/addrbook.json > $HOME/.side/config/addrbook.json
 
 CONFIG_TOML=$HOME/.side/config/config.toml
 PEERS=""
@@ -97,7 +96,7 @@ EOF
 sided tendermint unsafe-reset-all --home $HOME/.side --keep-addr-book
 
 # Add snapshot here
-URL="https://snapshots.kjnodes.com/side/snapshot_latest.tar.lz4"
+URL="https://snapshots-1.stake-town.com/side/sidechain-1_latest.tar.lz4"
 curl $URL | lz4 -dc - | tar -xf - -C $HOME/.side
 [[ -f $HOME/.side/data/upgrade-info.json ]] && cp $HOME/.side/data/upgrade-info.json $HOME/.side/cosmovisor/genesis/upgrade-info.json
 
