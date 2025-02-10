@@ -34,8 +34,8 @@ git checkout $BINARY_VERSION_TAG
 
 make install
 
-quasard config keyring-backend os
-quasard config chain-id $CHAIN_ID
+quasard config set client keyring-backend os
+quasard config set client chain-id $CHAIN_ID
 quasard init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -Ls https://snapshots.stake-town.com/quasar/genesis.json > $HOME/.quasarnode/config/genesis.json
