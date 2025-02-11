@@ -79,7 +79,7 @@ Description=Celestia Node
 After=network-online.target
 [Service]
 User=$USER
-ExecStart=$(which cosmovisor) run start --v2-upgrade-height 2371495
+ExecStart=$(which cosmovisor) run start
 Restart=on-failure
 RestartSec=3
 LimitNOFILE=10000
