@@ -47,3 +47,4 @@ bash <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/composa
 | Neutron        |  29   |
 | Exocore        |  30   |
 | Band           |  31   |
+| Kyve           |  32   |
