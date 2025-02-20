@@ -38,9 +38,8 @@ kyved config set client keyring-backend os
 kyved config set client chain-id $CHAIN_ID
 kyved init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -s https://snapshots.polkachu.com/genesis/kyve/genesis.json >$HOME/.kyve/config/genesis.json
-#curl -s https://snapshots.stake-town.com/kyve/genesis.json > $HOME/.kyve/config/genesis.json
-#curl -s https://snapshots.stake-town.com/kyve/addrbook.json > $HOME/.kyve/config/addrbook.json
+curl -s https://snapshots.stake-town.com/kyve/genesis.json > $HOME/.kyve/config/genesis.json
+curl -s https://snapshots.stake-town.com/kyve/addrbook.json > $HOME/.kyve/config/addrbook.json
 
 CONFIG_TOML=$HOME/.kyve/config/config.toml
 PEERS=""
@@ -56,14 +55,14 @@ sed -i 's|^pruning-interval *=.*|pruning-interval = "19"|g' $APP_TOML
 sed -i -e "s/^filter_peers *=.*/filter_peers = \"true\"/" $CONFIG_TOML
 indexer="null"
 sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $CONFIG_TOML
-#sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0ukyve"|g' $APP_TOML
+sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.001ukyve"|g' $APP_TOML
 
 # Customize ports
 CLIENT_TOML=$HOME/.kyve/config/client.toml
 sed -i.bak -e "s/^external_address *=.*/external_address = \"$(wget -qO- eth0.me):$PORT_PPROF_LADDR\"/" $CONFIG_TOML
 sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:$PORT_PROXY_APP\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:$PORT_RPC\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:$PORT_P2P\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:$PORT_PPROF_LADDR\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":$PORT_PROMETHEUS\"%" $CONFIG_TOML &&
-  sed -i.bak -e "s%^address = \"localhost:9090\"%address = \"localhost:$PORT_GRPC\"%; s%^address = \"localhost:9091\"%address = \"localhost:$PORT_GRPC_WEB\"%; s%^address = \"tcp://localhost:1317\"%address = \"tcp://localhost:$PORT_API\"%" $APP_TOML &&
-  sed -i.bak -e "s%^node = \"tcp://localhost:26657\"%node = \"tcp://localhost:$PORT_RPC\"%" $CLIENT_TOML
+sed -i.bak -e "s%^address = \"localhost:9090\"%address = \"0.0.0.0:$PORT_GRPC\"%; s%^address = \"localhost:9091\"%address = \"0.0.0.0:$PORT_GRPC_WEB\"%; s%^address = \"tcp://localhost:1317\"%address = \"tcp://0.0.0.0:$PORT_API\"%" $APP_TOML &&
+sed -i.bak -e "s%^node = \"tcp://localhost:26657\"%node = \"tcp://localhost:$PORT_RPC\"%" $CLIENT_TOML
 
 printGreen "Install and configure cosmovisor..." && sleep 1
 
@@ -96,8 +95,7 @@ EOF
 kyved tendermint unsafe-reset-all --home $HOME/.kyve --keep-addr-book
 
 # Add snapshot here
-#URL="https://snapshots.stake-town.com/kyve/kyve-1_latest.tar.lz4"
-URL="https://snapshots.polkachu.com/snapshots/kyve/kyve_10384640.tar.lz4"
+URL="https://snapshots.stake-town.com/kyve/kyve-1_latest.tar.lz4"
 curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.kyve
 [[ -f $HOME/.kyve/data/upgrade-info.json ]] && cp $HOME/.kyve/data/upgrade-info.json $HOME/.kyve/cosmovisor/genesis/upgrade-info.json
 
