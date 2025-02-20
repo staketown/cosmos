@@ -31,9 +31,8 @@ rm -rf kyve
 git clone https://github.com/KYVENetwork/chain.git kyve
 cd kyve || return
 git checkout $BINARY_VERSION_TAG
-make install
 
-kyved version # v17.0.0
+make install ENV=mainnet
 
 kyved config keyring-backend os
 kyved config chain-id $CHAIN_ID
