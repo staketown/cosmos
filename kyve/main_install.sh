@@ -38,8 +38,8 @@ kyved config set client keyring-backend os
 kyved config set client chain-id $CHAIN_ID
 kyved init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -s https://snapshots.stake-town.com/kyve/genesis.json > $HOME/.kyve/config/genesis.json
-curl -s https://snapshots.stake-town.com/kyve/addrbook.json > $HOME/.kyve/config/addrbook.json
+curl -s https://snapshots-1.stake-town.com/kyve/genesis.json > $HOME/.kyve/config/genesis.json
+curl -s https://snapshots-1.stake-town.com/kyve/addrbook.json > $HOME/.kyve/config/addrbook.json
 
 CONFIG_TOML=$HOME/.kyve/config/config.toml
 PEERS=""
@@ -95,7 +95,7 @@ EOF
 kyved tendermint unsafe-reset-all --home $HOME/.kyve --keep-addr-book
 
 # Add snapshot here
-URL="https://snapshots.stake-town.com/kyve/kyve-1_latest.tar.lz4"
+URL="https://snapshots-1.stake-town.com/kyve/kyve-1_latest.tar.lz4"
 curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.kyve
 [[ -f $HOME/.kyve/data/upgrade-info.json ]] && cp $HOME/.kyve/data/upgrade-info.json $HOME/.kyve/cosmovisor/genesis/upgrade-info.json
 
