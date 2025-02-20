@@ -34,8 +34,8 @@ git checkout $BINARY_VERSION_TAG
 
 make install ENV=mainnet
 
-kyved config keyring-backend os
-kyved config chain-id $CHAIN_ID
+kyved config set client keyring-backend os
+kyved config set client chain-id $CHAIN_ID
 kyved init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
 curl -s https://snapshots.polkachu.com/genesis/kyve/genesis.json >$HOME/.kyve/config/genesis.json
