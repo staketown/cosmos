@@ -45,6 +45,6 @@ bash <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/composa
 | Native Network |  27   |
 | Persistence    |  28   |
 | Neutron        |  29   |
-| Exocore        |  30   |
+| Imua           |  30   |
 | Band           |  31   |
 | Kyve           |  32   |
