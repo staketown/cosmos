@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="test-core-2"
 CHAIN_DENOM="uxprt"
 BINARY_NAME="persistenceCore"
-BINARY_VERSION_TAG="v11.18.0-rc0"
+BINARY_VERSION_TAG="v11.19.0-rc0"
 CHEAT_SHEET=""
 
 printDelimiter
