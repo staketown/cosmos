@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="planq_7070-2"
 CHAIN_DENOM="aplanq"
 BINARY_NAME="planqd"
-BINARY_VERSION_TAG="v2.0.5"
+BINARY_VERSION_TAG="v2.1.0"
 CHEAT_SHEET=""
 
 printDelimiter
