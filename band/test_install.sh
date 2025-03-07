@@ -45,7 +45,7 @@ curl -s https://raw.githubusercontent.com/bandprotocol/launch/master/band-v3-tes
 CONFIG_TOML=$HOME/.band/config/config.toml
 PEERS=""
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
-SEEDS="cf91ef30a9877d7cf0e654d5f75f8d68ff6ee4e7@34.2.133.3:26656,cbe055146a4607c3db5909bfa20e9e0c5ea95f90@35.212.1.35:26656"
+SEEDS="07a67c74ffeaf68a3e64b85865d4b457d59242bc@65.108.1.220:26656,fda81adfb9dce7cf74179a8caf1e116cf9284318@65.108.45.110:26656"
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
 
 APP_TOML=$HOME/.band/config/app.toml
