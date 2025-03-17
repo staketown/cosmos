@@ -30,7 +30,7 @@ bash <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/composa
 | Composable     |  12   |
 | Elys           |  13   |
 | Warden         |  14   |
-| Evmos          |  15   |
+| Evmos          |  15   | // free
 | Osmosis        |  16   |
 | Arkeo Network  |  17   |
 | Axelar         |  18   |
