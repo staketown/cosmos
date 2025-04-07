@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="rhye-3"
 CHAIN_DENOM="uqck"
 BINARY_NAME="quicksilverd"
-BINARY_VERSION_TAG="v1.7.6-testne2"
+BINARY_VERSION_TAG="v1.8.0-rc.0"
 CHEAT_SHEET=""
 
 printDelimiter
@@ -27,9 +27,12 @@ source <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/utils
 echo "" && printGreen "Building binaries..." && sleep 1
 
 cd $HOME || return
-wget -O quicksilverd https://github.com/quicksilver-zone/quicksilver/releases/download/$BINARY_BINARY_VERSION_TAG/quicksilverd-$BINARY_BINARY_VERSION_TAG-amd64
-chmod +x quicksilverd
-mv quicksilverd $HOME/go/bin
+rm -rf quicksilver
+git clone https://github.com/ingenuity-build/quicksilver.git
+cd $HOME/quicksilver || return
+git checkout $BINARY_VERSION_TAG
+
+make install
 
 quicksilverd config keyring-backend os
 quicksilverd config chain-id $CHAIN_ID
