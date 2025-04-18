@@ -37,10 +37,8 @@ junod config keyring-backend os
 junod config chain-id $CHAIN_ID
 junod init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-#curl -s https://snapshots-testnet.stake-town.com/juno/genesis.json > $HOME/.juno/config/genesis.json
-#curl -s https://snapshots-testnet.stake-town.com/juno/addrbook.json > $HOME/.juno/config/addrbook.json
-curl -s https://snapshots.polkachu.com/testnet-addrbook/juno/addrbook.json > $HOME/.juno/config/addrbook.json
-curl -s https://snapshots.polkachu.com/testnet-addrbook/juno/genesis.json > $HOME/.juno/config/genesis.json
+curl -s https://snapshots-testnet.stake-town.com/juno/genesis.json > $HOME/.juno/config/genesis.json
+curl -s https://snapshots-testnet.stake-town.com/juno/addrbook.json > $HOME/.juno/config/addrbook.json
 
 CONFIG_TOML=$HOME/.juno/config/config.toml
 PEERS=""
@@ -96,8 +94,7 @@ EOF
 junod tendermint unsafe-reset-all --home $HOME/.juno --keep-addr-book
 
 # Add snapshot here
-#URL="https://snapshots-testnet.stake-town.com/juno/uni-6_latest.tar.lz4"
-URL="https://snapshots.polkachu.com/testnet-snapshots/juno/juno_778468.tar.lz4"
+URL="https://snapshots-testnet.stake-town.com/juno/uni-7_latest.tar.lz4"
 curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.juno
 [[ -f $HOME/.juno/data/upgrade-info.json ]]  && cp $HOME/.juno/data/upgrade-info.json $HOME/.juno/cosmovisor/genesis/upgrade-info.json
 
