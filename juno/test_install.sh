@@ -9,10 +9,10 @@ export -f selectPortSet && selectPortSet
 
 read -r -p "Enter node moniker: " NODE_MONIKER
 
-CHAIN_ID="uni-6"
+CHAIN_ID="uni-7"
 CHAIN_DENOM="ujunox"
 BINARY_NAME="junod"
-BINARY_VERSION_TAG="v27.0.0"
+BINARY_VERSION_TAG="v28.0.2"
 CHEAT_SHEET=""
 
 printDelimiter
@@ -37,8 +37,10 @@ junod config keyring-backend os
 junod config chain-id $CHAIN_ID
 junod init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -s https://snapshots-testnet.stake-town.com/juno/genesis.json > $HOME/.juno/config/genesis.json
-curl -s https://snapshots-testnet.stake-town.com/juno/addrbook.json > $HOME/.juno/config/addrbook.json
+#curl -s https://snapshots-testnet.stake-town.com/juno/genesis.json > $HOME/.juno/config/genesis.json
+#curl -s https://snapshots-testnet.stake-town.com/juno/addrbook.json > $HOME/.juno/config/addrbook.json
+curl -s https://snapshots.polkachu.com/testnet-addrbook/juno/addrbook.json > $HOME/.juno/config/addrbook.json
+curl -s https://snapshots.polkachu.com/testnet-addrbook/juno/genesis.json > $HOME/.juno/config/genesis.json
 
 CONFIG_TOML=$HOME/.juno/config/config.toml
 PEERS=""
@@ -54,7 +56,7 @@ sed -i 's|^pruning-interval *=.*|pruning-interval = "19"|g' $APP_TOML
 sed -i -e "s/^filter_peers *=.*/filter_peers = \"true\"/" $CONFIG_TOML
 indexer="null"
 sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $CONFIG_TOML
-sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0ujunox"|g' $APP_TOML
+sed -i 's|^minimum-gas-prices *=.*|minimum-gas-prices = "0.0025ujunox"|g' $APP_TOML
 
 # Customize ports
 CLIENT_TOML=$HOME/.juno/config/client.toml
@@ -94,7 +96,8 @@ EOF
 junod tendermint unsafe-reset-all --home $HOME/.juno --keep-addr-book
 
 # Add snapshot here
-URL="https://snapshots-testnet.stake-town.com/juno/uni-6_latest.tar.lz4"
+#URL="https://snapshots-testnet.stake-town.com/juno/uni-6_latest.tar.lz4"
+URL="https://snapshots.polkachu.com/testnet-snapshots/juno/juno_778468.tar.lz4"
 curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.juno
 [[ -f $HOME/.juno/data/upgrade-info.json ]]  && cp $HOME/.juno/data/upgrade-info.json $HOME/.juno/cosmovisor/genesis/upgrade-info.json
 
