@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="quicksilver-2"
 CHAIN_DENOM="uqck"
 BINARY_NAME="quicksilverd"
-BINARY_VERSION_TAG="v1.7.7"
+BINARY_VERSION_TAG="v1.8.1"
 CHEAT_SHEET=""
 
 printDelimiter
