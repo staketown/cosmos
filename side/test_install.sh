@@ -9,10 +9,10 @@ export -f selectPortSet && selectPortSet
 
 read -r -p "Enter node moniker: " NODE_MONIKER
 
-CHAIN_ID="sidechain-testnet-4"
+CHAIN_ID="sidechain-testnet-5"
 CHAIN_DENOM="uside"
 BINARY_NAME="sided"
-BINARY_VERSION_TAG="v0.9.5"
+BINARY_VERSION_TAG="v2.0.0-rc.1"
 CHEAT_SHEET=""
 
 printDelimiter
@@ -42,7 +42,7 @@ curl -Ls https://snapshots-testnet.stake-town.com/side/genesis.json > $HOME/.sid
 curl -Ls https://snapshots-testnet.stake-town.com/side/addrbook.json > $HOME/.side/config/addrbook.json
 
 CONFIG_TOML=$HOME/.side/config/config.toml
-PEERS="93aedf483b7ac375b18030f2a2c5788f5acbc545@192.248.180.245:26656"
+PEERS="e1534b92058cf04e83ee9b2226272d2587510025@78.46.156.187:26656,e5b1682f3783f73ecc5e2bf50ef2104804108fde@88.198.70.23:26356,430ffeebf52328322ec5f8470b260ea9a5469c25@205.209.125.118:60656,e953d5ac69f7ef9ca8608b7ef8c600a8b4663d44@195.201.241.107:56146,fc350bf644f03278df11b8735727cc2ead4134c9@65.109.93.152:26786,c02ea49a61e386c2442771c795faa1847d631661@141.94.143.203:56146,ac943e8a90d12ee061f2f0109b9e1849c0be90e5@213.239.198.181:36656,8fe46ca180a5c6989e83de31755e6e21f6de67f3@80.240.21.182:26656"
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $CONFIG_TOML
 SEEDS=""
 sed -i.bak -e "s/^seeds =.*/seeds = \"$SEEDS\"/" $CONFIG_TOML
@@ -95,7 +95,7 @@ EOF
 sided tendermint unsafe-reset-all --home $HOME/.side --keep-addr-book
 
 # Add snapshot here
-URL="https://snapshots-testnet.stake-town.com/side/sidechain-testnet-4_latest.tar.lz4"
+URL="https://snapshots-testnet.stake-town.com/side/sidechain-testnet-5_latest.tar.lz4"
 curl $URL | lz4 -dc - | tar -xf - -C $HOME/.side
 [[ -f $HOME/.side/data/upgrade-info.json ]] && cp $HOME/.side/data/upgrade-info.json $HOME/.side/cosmovisor/genesis/upgrade-info.json
 
