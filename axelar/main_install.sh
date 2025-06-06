@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="axelar-dojo-1"
 CHAIN_DENOM="uaxl"
 BINARY_NAME="axelard"
-BINARY_VERSION_TAG="v0.35.5"
+BINARY_VERSION_TAG="v1.2.1"
 CHEAT_SHEET=""
 
 printDelimiter
@@ -38,10 +38,8 @@ axelard config keyring-backend os
 axelard config chain-id $CHAIN_ID
 axelard init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -Ls https://snapshots.kjnodes.com/axelar/genesis.json > $HOME/.axelar/config/genesis.json
-curl -Ls https://snapshots.kjnodes.com/axelar/addrbook.json > $HOME/.axelar/config/addrbook.json
-#curl -s https://snapshots-testnet.stake-town.com/andromeda/genesis.json > $HOME/.andromedad/config/genesis.json
-#curl -s https://snapshots-testnet.stake-town.com/andromeda/addrbook.json > $HOME/.andromedad/config/addrbook.json
+curl -Ls https://snapshots.polkachu.com/genesis/axelar/genesis.json > $HOME/.axelar/config/genesis.json
+curl -Ls https://snapshots.polkachu.com/addrbook/axelar/addrbook.json > $HOME/.axelar/config/addrbook.json
 
 CONFIG_TOML=$HOME/.axelar/config/config.toml
 PEERS=""
@@ -97,7 +95,7 @@ EOF
 axelard tendermint unsafe-reset-all --home $HOME/.axelar --keep-addr-book
 
 # Add snapshot here
-curl -L https://snapshots.kjnodes.com/axelar/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.axelar
+curl -L https://snapshots.polkachu.com/snapshots/axelar/axelar_18404385.tar.lz4| tar -Ilz4 -xf - -C $HOME/.axelar
 [[ -f $HOME/.axelar/data/upgrade-info.json ]] && cp $HOME/.axelar/data/upgrade-info.json $HOME/.axelar/cosmovisor/genesis/upgrade-info.json
 
 sudo systemctl daemon-reload
