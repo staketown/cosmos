@@ -32,7 +32,8 @@ git clone https://github.com/axelarnetwork/axelar-core.git
 cd axelar-core || return
 git checkout $BINARY_VERSION_TAG
 
-make install
+make build
+cp $HOME/axelar-core/bin/axelard $HOME/go/bin
 
 axelard config keyring-backend os
 axelard config chain-id $CHAIN_ID
