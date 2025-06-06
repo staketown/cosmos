@@ -9,10 +9,10 @@ export -f selectPortSet && selectPortSet
 
 read -r -p "Enter node moniker: " NODE_MONIKER
 
-CHAIN_ID="sidechain-testnet-5"
+CHAIN_ID="sidechain-testnet-6"
 CHAIN_DENOM="uside"
 BINARY_NAME="sided"
-BINARY_VERSION_TAG="v2.0.0-rc.1"
+BINARY_VERSION_TAG="v2.0.0-rc.4"
 CHEAT_SHEET=""
 
 printDelimiter
@@ -95,7 +95,7 @@ EOF
 sided tendermint unsafe-reset-all --home $HOME/.side --keep-addr-book
 
 # Add snapshot here
-URL="https://snapshots-testnet.stake-town.com/side/sidechain-testnet-5_latest.tar.lz4"
+URL="https://snapshots-testnet.stake-town.com/side/sidechain-testnet-6_latest.tar.lz4"
 curl $URL | lz4 -dc - | tar -xf - -C $HOME/.side
 [[ -f $HOME/.side/data/upgrade-info.json ]] && cp $HOME/.side/data/upgrade-info.json $HOME/.side/cosmovisor/genesis/upgrade-info.json
 
