@@ -95,7 +95,7 @@ EOF
 axelard tendermint unsafe-reset-all --home $HOME/.axelar --keep-addr-book
 
 # Add snapshot here
-curl -L https://snapshots.polkachu.com/snapshots/axelar/axelar_18404385.tar.lz4| tar -Ilz4 -xf - -C $HOME/.axelar
+curl -L https://snapshot.ibs.team/Axelar/goleveldb/Axelar_goleveldb_block-18395138.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.axelar
 [[ -f $HOME/.axelar/data/upgrade-info.json ]] && cp $HOME/.axelar/data/upgrade-info.json $HOME/.axelar/cosmovisor/genesis/upgrade-info.json
 
 sudo systemctl daemon-reload
