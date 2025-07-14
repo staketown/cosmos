@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="arkeo-main-v1"
 CHAIN_DENOM="uarkeo"
 BINARY_NAME="arkeod"
-BINARY_VERSION_TAG="v1.0.11"
+BINARY_VERSION_TAG="v1.0.14"
 CHEAT_SHEET="https://nodes.stake-town.com/arkeo"
 
 printDelimiter
