@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="celestia"
 CHAIN_DENOM="utia"
 BINARY_NAME="celestia-appd"
-BINARY_VERSION_TAG="v4.0.10"
+BINARY_VERSION_TAG="v5.0.1"
 CHEAT_SHEET=""
 
 printDelimiter
