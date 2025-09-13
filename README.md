@@ -39,7 +39,7 @@ bash <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/composa
 | Aura           |  21   |
 | Mantra         |  22   |
 | Babylon        |  23   |
-| Side Protocol  |  24   |
+| Bitway         |  24   |
 | QuickSilver    |  25   |
 | Planq          |  26   |
 | Native Network |  27   |
