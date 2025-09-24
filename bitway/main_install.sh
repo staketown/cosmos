@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="bitway-1"
 CHAIN_DENOM="ubtw"
 BINARY_NAME="bitwayd"
-BINARY_VERSION_TAG="v2.0.0"
+BINARY_VERSION_TAG="v2.0.1"
 CHEAT_SHEET=""
 
 printDelimiter
