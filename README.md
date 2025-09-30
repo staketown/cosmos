@@ -21,7 +21,7 @@ bash <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/composa
 | Source         |   3   |
 | Umee           |   4   |
 | Lava           |   5   |
-| Archway        |   6   |
+| Archway        |   6   | // free
 | CosmosHub      |   7   |
 | Juno           |   8   |
 | Celestia       |   9   |
