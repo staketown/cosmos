@@ -35,10 +35,10 @@ bash <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/composa
 | Arkeo Network  |  17   |
 | Axelar         |  18   |
 | Prysm          |  19   |
-| Quasar         |  20   |
+| Quasar         |  20   | // free
 | Aura           |  21   |
-| Mantra         |  22   |
-| Babylon        |  23   |
+| Mantra         |  22   | // free
+| Babylon        |  23   | // free
 | Bitway         |  24   |
 | QuickSilver    |  25   |
 | Planq          |  26   |

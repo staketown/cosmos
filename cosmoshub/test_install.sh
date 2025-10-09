@@ -38,7 +38,7 @@ gaiad config keyring-backend os
 gaiad config chain-id $CHAIN_ID
 gaiad init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -s https://github.com/cosmos/testnets/raw/master/interchain-security/provider/provider-genesis.json > $HOME/.gaia/config/genesis.json
+curl -s https://raw.githubusercontent.com/cosmos/testnets/master/interchain-security/provider/provider-genesis.json > $HOME/.gaia/config/genesis.json
 
 CONFIG_TOML=$HOME/.gaia/config/config.toml
 PEERS=""
