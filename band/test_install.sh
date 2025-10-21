@@ -102,7 +102,7 @@ URL="https://snapshots.polkachu.com/testnet-snapshots/band/band_24551160.tar.lz4
 curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.band
 [[ -f $HOME/.band/data/upgrade-info.json ]] && cp $HOME/.band/data/upgrade-info.json $HOME/.band/cosmovisor/genesis/upgrade-info.json
 
-sudo systemctl daemon-bandd
+sudo systemctl daemon-reload
 sudo systemctl enable bandd
 sudo systemctl start bandd
 
