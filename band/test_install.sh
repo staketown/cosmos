@@ -12,7 +12,7 @@ read -r -p "Enter node moniker: " NODE_MONIKER
 CHAIN_ID="band-v3-testnet-1"
 CHAIN_DENOM="uband"
 BINARY_NAME="bandd"
-BINARY_VERSION_TAG="v3.0.0-rc2"
+BINARY_VERSION_TAG="v3.1.1"
 CHEAT_SHEET=""
 
 printDelimiter
@@ -98,7 +98,7 @@ EOF
 bandd tendermint unsafe-reset-all --home $HOME/.band --keep-addr-book
 
 # Add snapshot here
-URL="https://snapshots-testnet.stake-town.com/prysm/prysm-devnet-1_latest.tar.lz4"
+URL="https://snapshots.polkachu.com/testnet-snapshots/band/band_24551160.tar.lz4"
 curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.band
 [[ -f $HOME/.band/data/upgrade-info.json ]] && cp $HOME/.band/data/upgrade-info.json $HOME/.band/cosmovisor/genesis/upgrade-info.json
 
