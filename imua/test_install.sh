@@ -9,10 +9,10 @@ export -f selectPortSet && selectPortSet
 
 read -r -p "Enter node moniker: " NODE_MONIKER
 
-CHAIN_ID="imuachaintestnet_233-8"
+CHAIN_ID="imuachaintestnet_233-9"
 CHAIN_DENOM="hua"
 BINARY_NAME="imuad"
-BINARY_VERSION_TAG="v1.1.0"
+BINARY_VERSION_TAG="v1.1.3"
 CHEAT_SHEET=""
 
 printDelimiter
@@ -38,8 +38,8 @@ imuad config keyring-backend os
 imuad config chain-id $CHAIN_ID
 imuad init "$NODE_MONIKER" --chain-id $CHAIN_ID
 
-curl -s https://raw.githubusercontent.com/ExocoreNetwork/testnets/refs/heads/main/genesis/exocoretestnet_233-6.json > $HOME/.imuad/config/genesis.json
-#curl -s https://snapshots.polkachu.com/addrbook/evmos/addrbook.json > $HOME/.evmosd/config/addrbook.json
+curl -s https://snapshots-testnet.stake-town.com/imua/genesis.json > $HOME/.imuad/config/genesis.json
+curl -s https://snapshots-testnet.stake-town.com/imua/addrbook.json > $HOME/.imuad/config/addrbook.json
 
 CONFIG_TOML=$HOME/.imuad/config/config.toml
 PEERS=""
@@ -95,7 +95,7 @@ EOF
 imuad tendermint unsafe-reset-all --home $HOME/.imuad --keep-addr-book
 
 # Add snapshot here
-URL="https://snapshots-testnet.stake-town.com/imua/imuachaintestnet_233-8_latest.tar.lz4"
+URL="https://snapshots-testnet.stake-town.com/imua/imuachaintestnet_233-9_latest.tar.lz4"
 curl -L $URL | lz4 -dc - | tar -xf - -C $HOME/.imuad
 [[ -f $HOME/.imuad/data/upgrade-info.json ]]  && cp $HOME/.imuad/data/upgrade-info.json $HOME/.imuad/cosmovisor/genesis/upgrade-info.json
 
