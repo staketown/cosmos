@@ -22,14 +22,14 @@ bash <(curl -s https://raw.githubusercontent.com/staketown/cosmos/master/composa
 | Umee           |   4   |
 | Lava           |   5   |
 | Archway        |   6   | // free
-| CosmosHub      |   7   |
+| CosmosHub      |   7   | 
 | Juno           |   8   |
 | Celestia       |   9   |
-| C4E            |  10   |
-| Ojo            |  11   |
+| C4E            |  10   | // free
+| Ojo            |  11   | // free
 | Picasso        |  12   |
 | Elys           |  13   |
-| Warden         |  14   |
+| Warden         |  14   | // free
 | Evmos          |  15   | // free
 | Osmosis        |  16   |
 | Arkeo Network  |  17   |
